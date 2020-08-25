@@ -1,0 +1,25 @@
+@import '../../../responsive-mixin.scss';
+.product-infor {
+	display: flex;
+	img {
+        margin-right: 1.5rem;
+        width: 10rem;
+        height: 10rem;
+	}
+	.product-title {
+		display: flex;
+		flex-direction: column;
+        justify-content: space-around;
+        p{
+            font-size: 2.4rem;
+            @include respone(tab-port) {
+                font-size: 1.6rem;
+            }
+        }
+        h2 {
+            @include respone(tab-port) {
+                font-size: 1.8rem;
+            }
+        }
+	}
+}

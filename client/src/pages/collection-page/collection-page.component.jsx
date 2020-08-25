@@ -1,0 +1,69 @@
+import React  , {useState } from 'react';
+import { connect } from 'react-redux';
+import { selectCollections, selectCurrentPage } from '../../redux/shop/shop.selector';
+import './collection-page.styles.scss';
+import {
+  Layout, Input, Row, Col,Pagination
+} from 'antd';
+import {getCollectionStart} from '../../redux/shop/shop.action'
+import CardItem from '../../components/card-item/card-item.component';
+import { createStructuredSelector } from 'reselect';
+const { Content } = Layout;
+
+
+
+const CollectionPage = ({currentPage,match,collections,history,getCollectionStart,...props}) => {
+  const [filedSearch , setFieldSearch] = useState("");
+  const filterSearch = collections.filter(el => el.nameEN.toLowerCase().includes(filedSearch.toLowerCase()));  
+  return( 
+  <Layout style={{ padding: '0 2.4rem 2.4rem' }}>
+        <Input.Search
+          placeholder="Search By Category ... "
+          onSearch = {(value) => {
+            getCollectionStart({nameEN: value})
+          }}
+          enterButton="Search"
+          onChange= {(e) => setFieldSearch(e.target.value) }
+          size="large"
+          style={{ marginBottom: '2rem' }}
+        />
+        <h2>Product  Pages</h2>
+        <Content
+          className="site-layout-background"
+          style={{
+            padding: 24,
+            margin: 0,
+            minHeight: 600,
+          }}
+        >
+          <Row gutter={[48, 24]}>
+            {
+              filterSearch.map((cartItem, idx) => (
+                <Col key={idx} xs={24} sm={12} md={8} lg={6} className="gutter-row">
+                  <CardItem key={idx} cartItem={cartItem} match= {match} history={history} {...props} />
+                </Col>
+              ))
+            }
+          </Row>
+          <Pagination style={{textAlign:'center'}} current={currentPage}  onChange ={(page,pageSize) => {
+          
+            getCollectionStart({page, limit : pageSize})
+            
+          }} total={100} />
+        </Content>
+    </Layout>
+)}
+
+
+
+const mapStateToProps = createStructuredSelector({
+  collections: selectCollections,
+  currentPage : selectCurrentPage
+});
+
+const mapDispatchToProps = dispatch => ({
+  getCollectionStart: (pageAndLimit) => dispatch(getCollectionStart(pageAndLimit)),
+
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(CollectionPage);

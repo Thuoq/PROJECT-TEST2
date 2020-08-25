@@ -1,0 +1,25 @@
+@import './responsive-mixin.scss';
+
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu  {
+  margin: 0px 40px;
+}
+
+.ant-layout-sider-trigger {
+  position: static;
+}
+
+
+html {
+    font-size: 62.5%; //1rem = 16px , 1rem = 10px
+    
+    @include respone (tab-land) {
+        font-size:56.25% ;
+    }
+    @include respone (tab-port) {
+        font-size: 50%; 
+    }
+    
+    @include respone (big-desktop) {
+        font-size:75%;
+    }
+}

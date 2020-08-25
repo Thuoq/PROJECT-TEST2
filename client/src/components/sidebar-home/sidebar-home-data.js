@@ -1,0 +1,31 @@
+const dataSideBar = [
+    'T shirt',
+    'Shirt',
+    'Crop top shirt',
+    'Short sleeved shirt without neck',
+    'Short sleeved shirt with collars',
+    'Two wire shirt Three hole shirt',
+    'Long sleeved shirt',
+    'Raincoat',
+    'Couple shirts',
+    'Blazers vest',
+    'Long skirt legs',
+    'Sports Shirt',
+    'Pregnant underwear',
+    'Bra',
+    'Three holes shirt',
+    'Long sleeve',
+    'Jacket',
+    'Sunscreen shirt',
+    'Short Sleeve',
+    'Light jacket',
+    'Modern wear',
+    'Set of costumes',
+    'Sunscreen Sportswear',
+    'Cardigan jacket',
+    'Shaped underwear',
+    'Ship neck',
+    'Sweatshirt jacket'
+  ]
+
+export default dataSideBar;

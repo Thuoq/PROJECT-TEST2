@@ -1,0 +1,17 @@
+@import '../../responsive-mixin.scss';
+.ant-row {
+    .gutter-row {
+        @include respone(tab-port) {
+            margin-bottom: 5rem !important;
+        }
+        .card-container {
+            width: 30rem;
+            @include respone(tab-port) {
+                width: 26rem !important ;
+            }
+            
+        }
+    }
+}
+
+

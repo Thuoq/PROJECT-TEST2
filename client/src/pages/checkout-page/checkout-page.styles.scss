@@ -1,0 +1,22 @@
+@import '../../responsive-mixin.scss';
+.container-checkout {
+  height: 100vh;
+  display: flex;
+  overflow-y: scroll;
+  justify-content: space-between;
+  padding: 8rem;
+  position: relative;
+  & .product-checkout-page  {
+    flex: 0 0 60%;
+   
+  }
+  @include respone(tab-port) {
+    flex-direction: column;
+    margin : 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+  @include respone(phone) {
+    padding: 0;
+  }
+} 

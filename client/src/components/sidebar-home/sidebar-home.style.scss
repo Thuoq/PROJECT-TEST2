@@ -1,0 +1,28 @@
+@import "../../responsive-mixin.scss";
+
+.icon-sidebar-home {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1.5rem;
+    @include respone (tab-port) {
+        width: 2.25rem;
+        height: 2.25rem;
+        margin-right: 0;
+    }
+    
+}
+.ant-menu-submenu  {
+    &.ant-menu-submenu-title {
+        @include respone (tab-port) {
+            padding: 1rem;
+        }
+    }
+}
+
+.ant-menu-submenu-title{
+    .title-category {
+        @include respone (tab-port) {
+            display: none ;
+        }
+    }
+}
