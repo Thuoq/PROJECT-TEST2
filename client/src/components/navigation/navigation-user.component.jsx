@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
@@ -25,5 +27,13 @@ const NavigationUser = ({currentUser,signOutStart,windowHeight,hidden,...props})
 const mapDispatchToProps = dispatch => ({
   signOutStart : () => dispatch(signOutStart())
 })
+NavigationUser.propTypes = {
+  currentUser: PropTypes.shape({
+    name : PropTypes.string
+  }),
+  signOutStart: PropTypes.func,
+  hidden: PropTypes.bool
+
+}
 
 export default connect(null,mapDispatchToProps)(NavigationUser) ;

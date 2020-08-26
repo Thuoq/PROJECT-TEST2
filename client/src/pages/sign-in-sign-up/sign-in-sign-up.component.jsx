@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import {withRouter} from 'react-router-dom';
 import {
   Layout, Modal, Tabs,
 } from 'antd';
@@ -15,7 +18,7 @@ const { TabPane } = Tabs;
 
 class SignInSignUpPage extends React.Component {
   render() {
-    const {windowWidth} = this.props;
+    const {windowWidth,history} = this.props;
     return(
       <>
         <Content
@@ -24,9 +27,8 @@ class SignInSignUpPage extends React.Component {
         >
           <Modal
             visible
-            
+            onCancel= {() => history.push("/productQuery")}
             footer={null}
-            
           >
             <Tabs
               defaultActiveKey="1"
@@ -72,5 +74,9 @@ class SignInSignUpPage extends React.Component {
   }
 }
 
-
-export default windowSize(SignInSignUpPage);
+SignInSignUpPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
+}
+export default withRouter(windowSize(SignInSignUpPage));

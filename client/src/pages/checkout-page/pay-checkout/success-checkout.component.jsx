@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {setCheckOuToFalse} from '../../../redux/check-out/check-out.action';
 import {connect} from 'react-redux'
 import { Result, Button , Modal} from 'antd';
@@ -29,5 +31,9 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = createStructuredSelector({
   success: selectSuccess
 })
+SuccessCheckout.propTypes = {
+  setCheckOuToFalse: PropTypes.func,
+  success: PropTypes.bool
+}
 
 export default connect(mapStateToProps,mapDispatchToProps)(SuccessCheckout) ;

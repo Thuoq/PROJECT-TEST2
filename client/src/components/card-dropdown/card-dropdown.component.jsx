@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
@@ -38,5 +39,16 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItem,
   currentUser : selectCurrentUser
 });
+
+CartDropDown.propTypes = {
+  toggleCartHidden : PropTypes.func,
+  deleteItemToCart: PropTypes.func,
+  cartItems: PropTypes.array,
+  currentUser: PropTypes.object,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
+}
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartDropDown));

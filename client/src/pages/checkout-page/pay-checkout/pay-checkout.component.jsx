@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button } from 'antd';
@@ -31,5 +33,13 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   toggleModelCheckOut: () => dispatch(toggleModelCheckOut())
 });
+PayCheckOut.propTypes = {
+  totalItem: PropTypes.number,
+  currentUser: PropTypes.object,
+  history: PropTypes.shape({
+    push : PropTypes.func
+  }),
+  toggleModelCheckOut: PropTypes.func
+}
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PayCheckOut));

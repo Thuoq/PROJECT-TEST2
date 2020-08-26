@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { Card, Button } from 'antd';
 import { MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons';
@@ -54,5 +56,21 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = createStructuredSelector({
   isLoading : selectIsCollectionLoading
 })
+
+CardItem.propTypes = {
+  addItemToCart: PropTypes.func,
+  isLoading: PropTypes.bool,
+  cartItem: PropTypes.shape({
+    nameEN : PropTypes.string,
+    idProduct: PropTypes.number,
+    photoURL: PropTypes.string,
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
+  match: PropTypes.shape({
+    url: PropTypes.string
+  })
+}
 
 export default (connect(mapStateToProps, mapDispatchToProps)(CardItem));

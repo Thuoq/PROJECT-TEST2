@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import './checkout-page.styles.scss';
 import { createStructuredSelector } from 'reselect';
@@ -32,5 +34,9 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItem,
   success: selectSuccess
 });
+CheckoutPage.propTypes = {
+  cartItems: PropTypes.array,
+  success: PropTypes.bool
+}
 
 export default connect(mapStateToProps)(CheckoutPage);

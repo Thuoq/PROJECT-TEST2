@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { decreaseItemToCart, addItemToCart, deleteItemToCart } from '../../../redux/cart/cart.action';
 import './product-checkout.styles.scss';
@@ -29,7 +31,14 @@ const mapDispatchToProps = (dispatch) => ({
   decreaseItemToCart: (cartItem) => dispatch(decreaseItemToCart(cartItem)),
   addItemToCart: (cartItem) => dispatch(addItemToCart(cartItem)),
   deleteItemToCart: (cartItem) => dispatch(deleteItemToCart(cartItem)),
-
 });
+ProductCheckOut.propTypes = {
+  decreaseItemToCart: PropTypes.func,
+  addItemToCart: PropTypes.func,
+  deleteItemToCart: PropTypes.func,
+  cartCheckout: PropTypes.shape({
+    quantity: PropTypes.number
+  })
+}
 
 export default connect(null, mapDispatchToProps)(ProductCheckOut);

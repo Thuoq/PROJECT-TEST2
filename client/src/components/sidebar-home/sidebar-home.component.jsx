@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {connect} from 'react-redux';
 import {
   Layout, Menu,
@@ -42,5 +44,9 @@ class SideBarHome extends React.Component {
 const mapDispatchToProps = dispatch => ({
   getCollectionStart : inforQuery => dispatch(getCollectionStart(inforQuery))
 })
+
+SideBarHome.propTypes = {
+  getCollectionStart: PropTypes.func,
+}
 
 export default connect(null,mapDispatchToProps)(windowSize(SideBarHome)) ;

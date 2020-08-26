@@ -8,6 +8,7 @@ exports.createBooking = catchAsync(async (req,res,next) => {
     })
 })
 
+
 exports.getBooking = catchAsync(async (req,res,next) => {
     let booking;
     if( !req.user.roles.includes("admin") ) {
@@ -46,6 +47,4 @@ exports.updateComplete = catchAsync(async (req,res,next) => {
             booking,
         }
     })
-
-    console.log(findId);
 })

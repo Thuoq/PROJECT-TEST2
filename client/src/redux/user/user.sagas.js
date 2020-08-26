@@ -1,8 +1,7 @@
-import {takeLatest, all, call,put ,select} from 'redux-saga/effects';
+import {takeLatest, all, call,put } from 'redux-saga/effects';
 import axios from 'axios';
 import USER_ACTIONS_TYPES from '../user/user.types';
 import {setCurrentUser,signOutSuccess} from '../user/user.action';
-import { selectCurrentUser } from './user.selector';
 
 
 export function fetchUserToServer (data,type) {
@@ -12,7 +11,7 @@ export function fetchUserToServer (data,type) {
     })
 }
 
-export function fetchUpdateAddressToServer(idUser,data) {
+export function fetchUpdateAddressToServer(data) {
     let token = "Bearer " + JSON.parse(localStorage.getItem("login"));
     return axios(`http://localhost:2222/user/address`, {
         method : "POST",
@@ -23,7 +22,16 @@ export function fetchUpdateAddressToServer(idUser,data) {
     })
 }
 
-
+export function fetchUpdatePhoneToServer(data) {
+    let token = "Bearer " + JSON.parse(localStorage.getItem("login"));
+    return axios(`http://localhost:2222/user/phone`, {
+        method : "PATCH",
+        headers : {
+            'Authorization': token
+        }, 
+        data : data
+    })
+}
 
 
 export function * signUp({payload}) {
@@ -44,11 +52,17 @@ export function* signOut() {
 }
 
 export function* updateAddressCheckOut({payload}) {
-    const currentUser =  yield select(selectCurrentUser);
-   
-    const {data : {data : {user}}} = yield call(fetchUpdateAddressToServer,currentUser._id, payload);
+
+    const {data : {data : {user}}} = yield call(fetchUpdateAddressToServer, payload);
     yield put(setCurrentUser(user));
 }
+
+export function* updatePhoneNumber({payload}) {
+    
+    const {data : {data : {user}}} = yield call(fetchUpdatePhoneToServer,payload);
+    yield put(setCurrentUser(user));
+}
+
 
 export function* onSignOutStart() {
     yield takeLatest(USER_ACTIONS_TYPES.SIGN_OUT_START, signOut)
@@ -66,12 +80,17 @@ export function* onUpdateAddress() {
     yield takeLatest(USER_ACTIONS_TYPES.UPDATE_ADDRESS_START, updateAddressCheckOut)
 }
 
+export function* onUpdatePhone() {
+    yield takeLatest(USER_ACTIONS_TYPES.UPDATE_PHONE_START,updatePhoneNumber )
+}
+
 
 export function* userSagas() {
     yield all([
         call(onSignUpStart),
         call(onSignInStart),
         call(onSignOutStart),
-        call(onUpdateAddress)
+        call(onUpdateAddress),
+        call(onUpdatePhone)
     ])
 }

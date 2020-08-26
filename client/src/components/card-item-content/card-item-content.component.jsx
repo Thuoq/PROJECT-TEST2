@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './card-item-content.styles.scss';
 
 const CardItemContent = ({ cartItem }) => (
@@ -27,5 +29,13 @@ const CardItemContent = ({ cartItem }) => (
 
   </ul>
 );
+
+CardItemContent.propTypes = {
+  cartItem: PropTypes.shape({
+    priceUSD: PropTypes.string.isRequired,
+    weight: PropTypes.string.isRequired,
+    origin: PropTypes.string.isRequired
+  })
+}
 
 export default CardItemContent;

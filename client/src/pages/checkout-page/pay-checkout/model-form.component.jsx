@@ -1,4 +1,6 @@
 import React , {useState} from 'react';
+import PropTypes from 'prop-types';
+
 import {connect} from 'react-redux';
 import {updateAddressStart} from '../../../redux/user/user.action';
 import {  Modal , Button , Form ,Input} from 'antd';
@@ -31,4 +33,7 @@ const ModelForm = ({updateAddressStart}) => {
 const mapDispatchToProps = dispatch => ({
     updateAddressStart: address => dispatch(updateAddressStart(address))
 })
+ModelForm.propTypes = {
+    updateAddressStart: PropTypes.func
+}
 export default connect(null,mapDispatchToProps)(ModelForm)

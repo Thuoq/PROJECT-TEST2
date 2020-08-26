@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Switch, Route, withRouter } from 'react-router-dom';
 import CollectionPageContainer from '../collection-page/collection-page.container';
 import SideBarHome from '../../components/sidebar-home/sidebar-home.component';
@@ -29,6 +31,8 @@ class CollectionOverView extends React.Component {
 const mapDispatchToProps = dispatch => ({
   getCollectionStart : () => dispatch(getCollectionStart())
 })
-
+CollectionOverView.propTypes = {
+  getCollectionStart: PropTypes.func
+}
 
 export default withRouter(connect(null,mapDispatchToProps)(CollectionOverView)) ;

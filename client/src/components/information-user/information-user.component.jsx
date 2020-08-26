@@ -25,7 +25,7 @@ const InformationUser = () => (
       </Divider>
       <div className="informationUser-container">
         <FormUser />
-        <AddAddressUser />
+         <AddAddressUser /> 
       </div>
     </Content>
   </Layout>

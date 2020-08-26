@@ -30,7 +30,9 @@ export const updateAddressStart = address => ({
     payload: address
 })
 
-export const updateAddressSuccess = (newUser) => ({
-    type: USER_ACTIONS_TYPES.UPDATE_ADDRESS_SUCCESS,
-    payload : newUser
+
+
+export const updatePhoneNumberStart = phoneNumber => ({
+    type: USER_ACTIONS_TYPES.UPDATE_PHONE_START,
+    payload: phoneNumber
 })

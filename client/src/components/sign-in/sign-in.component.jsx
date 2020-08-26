@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { signInStart } from '../../redux/user/user.action';
@@ -67,5 +69,8 @@ const mapDispatchToProps = dispatch => ({
   signInStart : emailAndPassword => dispatch(signInStart(emailAndPassword))
 })
 
+SignIn.propTypes = {
+  signInStart: PropTypes.func
+}
 
 export default connect(null,mapDispatchToProps)(SignIn);

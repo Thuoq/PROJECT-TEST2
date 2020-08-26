@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
@@ -23,4 +25,14 @@ const ItemDropdown = ({ cartItem, deleteItemToCart }) => (
     </div>
   </div>
 );
+
+ItemDropdown.propTypes = {
+  cartItem: PropTypes.shape({
+    priceUSD: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    photoURL: PropTypes.string.isRequired
+  }),
+  deleteItemToCart: PropTypes.func
+}
+
 export default ItemDropdown;

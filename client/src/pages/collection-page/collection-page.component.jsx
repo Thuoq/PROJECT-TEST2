@@ -1,4 +1,6 @@
 import React  , {useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { selectCollections, selectCurrentPage } from '../../redux/shop/shop.selector';
 import './collection-page.styles.scss';
@@ -65,5 +67,10 @@ const mapDispatchToProps = dispatch => ({
   getCollectionStart: (pageAndLimit) => dispatch(getCollectionStart(pageAndLimit)),
 
 })
+CollectionPage.propTypes = {
+  currentPage: PropTypes.number,
+  collections: PropTypes.array,
+  getCollectionStart: PropTypes.func
+}
 
 export default connect(mapStateToProps,mapDispatchToProps)(CollectionPage);

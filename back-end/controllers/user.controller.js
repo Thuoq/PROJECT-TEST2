@@ -21,3 +21,19 @@ exports.updateAddressUser = catchAsync( async (req,res,next) => {
         }
     })
 })
+
+exports.updatePhoneUser = catchAsync(async (req, res , next) => {
+   
+    const user = await User.findByIdAndUpdate(req.user._id, {
+        $set : {phoneNumber : req.body.phoneNumber}
+    } , {
+        new: true
+    })
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            user,
+        }
+    })
+})

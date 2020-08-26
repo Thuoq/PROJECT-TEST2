@@ -1,4 +1,6 @@
 import React , {useState} from 'react';
+import PropTypes from 'prop-types';
+
 import SuccessCheckout from './success-checkout.component';
 import { Modal , Table } from 'antd';
 import { createStructuredSelector } from 'reselect';
@@ -19,7 +21,6 @@ const ModelCheckout = ({openModelAddress,toggleModelCheckOut,success,currentUser
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       setAddressShip(selectedRows[0].name)
-      
     }
   };
   return (
@@ -58,12 +59,21 @@ const ModelCheckout = ({openModelAddress,toggleModelCheckOut,success,currentUser
 const mapStateProps = createStructuredSelector({
   currentUser : selectCurrentUser,
   success: selectSuccess,
-
   openModelAddress : selectOpenModelAddress
 });
 const mapDispatchToProps = dispatch => ({
   checkOutStart : address => dispatch(checkOutStart(address)),
   toggleModelCheckOut : () => dispatch(toggleModelCheckOut())
 })
+
+ModelCheckout.propTypes = {
+  openModelAddress: PropTypes.bool,
+  toggleModelCheckOut: PropTypes.func,
+  currentUser: PropTypes.shape({
+    name : PropTypes.string
+  }),
+  success: PropTypes.bool,
+  checkOutStart: PropTypes.func,
+}
 
 export default connect(mapStateProps,mapDispatchToProps)(ModelCheckout);

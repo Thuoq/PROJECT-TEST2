@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { withRouter } from 'react-router-dom';
 import { Result, Button } from 'antd';
 import './result-empty.styles.scss'
@@ -12,4 +14,9 @@ const ResultEmpty = ({ history }) => (
     extra={<Button type="primary" onClick={() => history.push('/')}>Go Shopping NOW</Button>}
   />
 );
+ResultEmpty.propTypes = {
+  history: PropTypes.shape({
+    push : PropTypes.func
+  })
+}
 export default withRouter(ResultEmpty);

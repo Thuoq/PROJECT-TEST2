@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import './product-detail-page.styles.scss';
 import { Button, Layout } from 'antd';
@@ -9,8 +11,6 @@ import { addItemToCart } from '../../redux/cart/cart.action';
 const { Content } = Layout;
 
 const ProductDetailPage = ({ productDetail, addItemToCart }) => {
-  console.log(productDetail);
-  debugger;
   return(
 
   <Content style={{
@@ -79,5 +79,18 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   addItemToCart: (cartItem) => dispatch(addItemToCart(cartItem)),
 });
+
+ProductDetailPage.propTypes = {
+  productDetail: PropTypes.shape({
+    photoURL: PropTypes.string,
+    nameEN: PropTypes.string,
+    nameVN: PropTypes.string,
+    weight: PropTypes.string,
+    totalWeight: PropTypes.string,
+    origin: PropTypes.string,
+    priceUSD: PropTypes.string
+  }),
+  addItemToCart: PropTypes.func
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailPage);

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import {
   Form, Input, Tooltip, Button,
@@ -60,6 +62,7 @@ const SignUp = ({signUpStart}) => {
         },
         ({ getFieldValue }) => ({
           validator(rule, value) {
+         
             if (!value || getFieldValue('password') === value) {
               return Promise.resolve();
             }
@@ -116,6 +119,19 @@ const SignUp = ({signUpStart}) => {
           required: true,
           message: 'Please input your phone number!',
         },
+        () => ({
+            validator(rule,value) {
+              var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+              if(vnf_regex.test(value) === false) {
+                return Promise.reject(
+                  'Phone Number is valid !',
+                );
+              } else {
+                return Promise.resolve()
+              }
+              
+            }
+        })
       ]}
     >
       <Input
@@ -139,5 +155,8 @@ const mapDispatchToProps = dispatch => ({
   signUpStart : userCredentials => dispatch(signUpStart(userCredentials))
   
 })
+SignUp.propTypes = {
+  signUpStart: PropTypes.func
+}
 
 export default connect(null,mapDispatchToProps)(SignUp) ;

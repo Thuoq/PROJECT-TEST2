@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {connect} from 'react-redux';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
 import {
@@ -65,5 +67,9 @@ const mapStateToProps = createStructuredSelector({
   hidden : selectCartHidden
 })
 
+Navigation.propTypes = {
+  hidden: PropTypes.bool,
+  
+}
 
 export default connect(mapStateToProps)(Navigation);

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './product-item.styles.scss';
 
 const ProductItem = ({cartItem}) => (
@@ -13,5 +15,12 @@ const ProductItem = ({cartItem}) => (
     </div>
   </div>
 );
+ProductItem.propTypes = {
+  cartItem: PropTypes.shape({
+    photoURL: PropTypes.string,
+    nameEN: PropTypes.string,
+    priceUSD: PropTypes.number
+  })
+}
 
 export default ProductItem;

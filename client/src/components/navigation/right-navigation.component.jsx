@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import windowSize from 'react-window-size';
@@ -95,6 +97,12 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden,
   totalQuantity: selectTotalQuantity,
 });
+
+RightNavigation.propTypes = {
+  currentUser: PropTypes.object,
+  toggleCartHidden: PropTypes.func,
+  totalQuantity: PropTypes.number
+}
 
 const mapDispatchToProps = (dispatch) => ({
   toggleCartHidden: () => dispatch(toggleCartHidden()),
