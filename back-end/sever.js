@@ -25,12 +25,13 @@ app.use("/product",RouterProduct)
 app.use("/booking",RouterBooking)
 app.use("/user",RouterUser)
 
+app.use(globalErrorHandler);
 
 app.all('*', (req, res, next) => {
 
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
-  app.use(globalErrorHandler);
+  
 
 app.listen(PORT, () => {
     console.log("Server running at PORT: ",PORT)

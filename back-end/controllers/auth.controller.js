@@ -17,7 +17,7 @@ const createSendToken = (user, statusCode, res) => {
         expires: new Date(
           Date.now() + process.env.JWT_COOKIE_IN * 24 * 60 * 60 * 1000
         ),
-        //httpOnly: true
+        httpOnly: true
     };
     if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
     user.password = undefined;
@@ -32,15 +32,14 @@ const createSendToken = (user, statusCode, res) => {
 }
 
 
-exports.register  = catchAsync (async (req,res,next) => {
-
+exports.register  = catchAsync(async (req,res,next) => {
     const arrAddress = [
         {
             name : req.body.address
         }
     ]
     req.body.address = arrAddress;
-   
+
     const newUser = await User.create(req.body);
     createSendToken(newUser,201,res); 
 })
@@ -55,7 +54,10 @@ exports.signIn =  catchAsync(async (req,res,next) => {
     const correct = await user.correctPassword (password, user.password);
     
     if(!user || !correct) {
-        next(new AppError("Incorrect email or password",401))
+        return  next( 
+                new AppError('Incorrect email or password',401
+           )
+        )
     }
     
     createSendToken(user,200,res);
@@ -83,8 +85,6 @@ exports.protect = catchAsync(async (req,res,next) => {
             new AppError('Your are not logged in! Please log in to get access. ', 401)
         );
     }
-    
-    
     // Verify token 
     const decode = await promisify(jwt.verify)(token,process.env.JWT_SECRET)
     // check user 
@@ -101,11 +101,10 @@ exports.protect = catchAsync(async (req,res,next) => {
     // Check user changed password after token issued
     if(currentUser.changedPasswordAfter(decode.iat)) {
         return next(
-            new AppError('User recently changed password ! please login again')
+            new AppError('User recently changed password ! please login again',404)
         );
     }
-
     req.user = currentUser;
     
     next();
-}) 
+})  

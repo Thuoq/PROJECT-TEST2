@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {updatePhoneNumberStart} from '../../redux/user/user.action'
 import PropTypes from 'prop-types';
 
@@ -8,7 +7,7 @@ import {
   Form, Input, Button,
 } from 'antd';
 
-const FormUpdatePhone = ({updatePhoneNumberStart,history,handleCancel}) => {
+const FormUpdatePhone = ({updatePhoneNumberStart,handleCancel}) => {
     const onFinish = values => {
         updatePhoneNumberStart(values);
         
@@ -59,4 +58,8 @@ const mapDispatchToProps = dispatch => ({
     updatePhoneNumberStart: addressObj => dispatch(updatePhoneNumberStart(addressObj))
 })
 
-export default withRouter(connect(null,mapDispatchToProps)(FormUpdatePhone));
+FormUpdatePhone.propsType = {
+    updatePhoneNumberStart: PropTypes.func
+}
+
+export default connect(null,mapDispatchToProps)(FormUpdatePhone);

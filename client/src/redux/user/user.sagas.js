@@ -1,7 +1,7 @@
 import {takeLatest, all, call,put } from 'redux-saga/effects';
 import axios from 'axios';
 import USER_ACTIONS_TYPES from '../user/user.types';
-import {setCurrentUser,signOutSuccess} from '../user/user.action';
+import {setCurrentUser,signOutSuccess,signUpFailure,signInFailure} from '../user/user.action';
 
 
 export function fetchUserToServer (data,type) {
@@ -32,18 +32,26 @@ export function fetchUpdatePhoneToServer(data) {
         data : data
     })
 }
+ 
 
-
-export function * signUp({payload}) {
-   const {data : {data : {user},token}} = yield call(fetchUserToServer,payload,"register");
-   yield put(setCurrentUser(user));
-   localStorage.setItem("login",JSON.stringify(token))
+export function * signUp({payload}) {   
+    try {
+        const {data : {data : {user},token}} = yield call(fetchUserToServer,payload,"register");
+        yield put(setCurrentUser(user));
+        localStorage.setItem("login",JSON.stringify(token));
+    } catch(err) {
+        yield put(signUpFailure(err.response.data.message));
+    }
 }
 
 export function* signIn({payload}) {
-    const {data : {data : {user},token}} = yield call(fetchUserToServer,payload, "signIn");
-    yield put(setCurrentUser(user));
-    localStorage.setItem("login",JSON.stringify(token))
+    try {
+        const {data : {data : {user},token}} = yield call(fetchUserToServer,payload, "signIn");
+        yield put(setCurrentUser(user));
+        localStorage.setItem("login",JSON.stringify(token))
+    }catch(err) {
+        yield put(signInFailure(err.response.data.message));
+    }
 }
 
 export function* signOut() {
@@ -52,7 +60,6 @@ export function* signOut() {
 }
 
 export function* updateAddressCheckOut({payload}) {
-
     const {data : {data : {user}}} = yield call(fetchUpdateAddressToServer, payload);
     yield put(setCurrentUser(user));
 }

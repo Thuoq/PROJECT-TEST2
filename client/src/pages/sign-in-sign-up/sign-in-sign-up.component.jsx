@@ -23,7 +23,6 @@ class SignInSignUpPage extends React.Component {
       <>
         <Content
           className="containerSignInSignUp"
-
         >
           <Modal
             visible
