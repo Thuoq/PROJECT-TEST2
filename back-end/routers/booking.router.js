@@ -14,6 +14,6 @@ router
     .get(BookingController.getBooking)
     .post(BookingController.createBooking);
     
- 
+
 
 module.exports = router;

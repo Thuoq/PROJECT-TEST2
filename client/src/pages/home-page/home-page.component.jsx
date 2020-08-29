@@ -1,17 +1,31 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
-import ContentHomePage from '../../components/content-homepage/content-homepage.component';
+import ContentHomePageContainer from '../../components/content-homepage/content-homepage.container';
 import CollectionOverView from '../collection-overview-page/collection-overview-page.component';
+import { getBestSaleStart } from '../../redux/shop/shop.action';
+import { connect } from 'react-redux';
 
-const HomePage = () => (
+class HomePage extends React.Component {
+  componentDidMount() {
+    const {getBestSaleStart} = this.props;
+    getBestSaleStart()
+  }
+  render() {
+    return(
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={ContentHomePageContainer} />
+          <Route path="/productQuery" component={CollectionOverView} />
+        </Switch>
+      </Layout>
+    )
+  }
+}
 
-  <Layout>
-    <Switch>
-      <Route exact path="/" component={ContentHomePage} />
-      <Route path="/productQuery" component={CollectionOverView} />
-    </Switch>
-  </Layout>
 
-);
-export default HomePage;
+
+const mapDispatchToProps = dispatch => ({
+  getBestSaleStart : () => dispatch(getBestSaleStart()) 
+})
+export default connect(null,mapDispatchToProps)(HomePage);

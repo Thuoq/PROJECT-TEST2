@@ -21,27 +21,24 @@ class RightNavigation extends React.Component {
     const {windowWidth, currentUser, toggleCartHidden, totalQuantity, ...props} = this.props;
     return(
       <Menu
-    theme="dark" 
-    
-    mode={windowWidth <= 900 ? 'inline' : 'horizontal'}
-    defaultSelectedKeys={['1']}
-  >
+        theme="dark" 
+        mode={windowWidth <= 900 ? 'inline' : 'horizontal'}
+      >
     <Menu.Item
       style={{ height: '100%' }}
-      
       key="1"
       icon={(
-        <Link to="/">
+        // FIXED ROUTER 
+        <a href="/">
           <HomeOutlined style={{ fontSize: '2.5rem', paddingTop: '1rem' }} />
           Home
-        </Link>
+        </a>
       )}
     >
       {' '}
 
     </Menu.Item>
     <Menu.Item
-     
       style={{ height: '100%' }}
       icon={(
         <Link to="/productQuery">
@@ -54,8 +51,6 @@ class RightNavigation extends React.Component {
       key="2"
     />
     <Menu.Item
-     
-      
       style={{ height: '100%' }}
       icon={(
         <span onClick={() => toggleCartHidden()} style={{ position: 'relative' }}>

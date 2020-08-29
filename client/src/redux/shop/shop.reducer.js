@@ -16,10 +16,16 @@ const shopReducer = (state = INITIAL_STATE, action) => {
           currentQuery: storeQueryUser(state.currentQuery,action.payload),
         }
     case SHOP_ACTION_TYPES.GET_COLLECTIONS_SUCCESS:
+    case SHOP_ACTION_TYPES.GET_BEST_SALE_SUCCESS:
       return {
           ...state,
           collections: action.payload,
           isLoading : false 
+        }
+    case SHOP_ACTION_TYPES.GET_BEST_SALE_START:
+        return {
+          ...state,
+          isLoading : true
         }
     case SHOP_ACTION_TYPES.CHANGE_CURRENT_PAGE:
         return {

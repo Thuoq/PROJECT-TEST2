@@ -7,6 +7,15 @@ export const getCollectionStart = (pageAndLimit) => ({
     payload : pageAndLimit
 })
 
+export const getBestSaleStart = () => ({
+    type: SHOP_ACTION_TYPES.GET_BEST_SALE_START
+})
+
+export const getBestSaleSuccess = collections => ({
+    type: SHOP_ACTION_TYPES.GET_BEST_SALE_SUCCESS,
+    payload: collections
+})
+
 export const getCollectionSuccess = data => ({
     type: SHOP_ACTION_TYPES.GET_COLLECTIONS_SUCCESS,
     payload : data

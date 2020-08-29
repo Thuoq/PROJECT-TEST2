@@ -34,7 +34,13 @@ const CardItem = ({
           Add To Card
           <ShoppingCartOutlined />
         </Button>,
-        <Button type="link" onClick ={() => history.push(`${match.url}/${cartItem.idProduct}`)}>
+        <Button type="link" onClick ={() => {
+          if(match.url === '/') {
+            history.push(`${match.url}productQuery/${cartItem.idProduct}`)
+          }else {
+            history.push(`${match.url}/${cartItem.idProduct}`)
+          }
+        }}>
 
           More Detail
           <MoreOutlined />
