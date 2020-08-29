@@ -17,7 +17,6 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
   
   const onFinish = values => {
     signUpStart(values);
-   
   }
  
   useEffect(() => {
@@ -174,10 +173,11 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   signUpStart : userCredentials => dispatch(signUpStart(userCredentials))
 })
+
 SignUp.propTypes = {
   signUpStart: PropTypes.func,
   errorMessage: PropTypes.string,
   isLoading: PropTypes.bool
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp) ;
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

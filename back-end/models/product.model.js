@@ -14,7 +14,11 @@ const productSchema = new mongoose.Schema({
     totalWeight: String,
     totalPriceUSD: String,
     productURL: String,
-    photoURL: String
+    photoURL: String,
+    isSale : {
+        type: Number,
+        default: 0
+    }
 })
 
 

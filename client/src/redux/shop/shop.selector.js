@@ -26,3 +26,7 @@ export const selectCurrentPage = createSelector(
   shop => shop.currentPage
 )
 
+export const selectCurrentQuery = createSelector(
+  [selectShop],
+  shop => shop.currentQuery
+)

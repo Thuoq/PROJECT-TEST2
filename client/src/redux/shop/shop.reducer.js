@@ -1,8 +1,10 @@
 import SHOP_ACTION_TYPES from './shop.types';
+import {storeQueryUser} from './shop.utils';
 const INITIAL_STATE = {
       collections: null,
       isLoading : false,
-      currentPage : 1
+      currentPage : 1,
+      currentQuery: null
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {
@@ -10,18 +12,19 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case SHOP_ACTION_TYPES.GET_COLLECTIONS_START:
         return {
           ...state,
-          isLoading : true
+          isLoading : true,
+          currentQuery: storeQueryUser(state.currentQuery,action.payload),
         }
     case SHOP_ACTION_TYPES.GET_COLLECTIONS_SUCCESS:
       return {
-        ...state,
-        collections: action.payload,
-        isLoading : false 
-      }
+          ...state,
+          collections: action.payload,
+          isLoading : false 
+        }
     case SHOP_ACTION_TYPES.CHANGE_CURRENT_PAGE:
         return {
           ...state,
-          currentPage: action.payload
+          currentPage: action.payload,
         }
     default:
       return state;

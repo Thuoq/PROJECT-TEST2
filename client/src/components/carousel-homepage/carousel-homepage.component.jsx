@@ -30,7 +30,6 @@ const CarouselHomePage = () => (
     <div>
       <img
         style={{ width: '60vw', height: '40rem' }}
-
         src="https://i.postimg.cc/qR07DyVS/gwendal-cottin-3-IDSZXfc-Qbg-unsplash.jpg"
         alt="2"
       />

@@ -1,18 +1,12 @@
 import React  , {useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { selectCollections, selectCurrentPage } from '../../redux/shop/shop.selector';
 import './collection-page.styles.scss';
 import {
   Layout, Input, Row, Col,Pagination
 } from 'antd';
-import {getCollectionStart} from '../../redux/shop/shop.action'
 import CardItem from '../../components/card-item/card-item.component';
-import { createStructuredSelector } from 'reselect';
 const { Content } = Layout;
-
-
 
 const CollectionPage = ({currentPage,match,collections,history,getCollectionStart,...props}) => {
   const [filedSearch , setFieldSearch] = useState("");
@@ -51,26 +45,17 @@ const CollectionPage = ({currentPage,match,collections,history,getCollectionStar
           
             getCollectionStart({page, limit : pageSize})
             
-          }} total={100} />
+          }}defaultPageSize={12} total={100} />
         </Content>
     </Layout>
 )}
 
 
-
-const mapStateToProps = createStructuredSelector({
-  collections: selectCollections,
-  currentPage : selectCurrentPage
-});
-
-const mapDispatchToProps = dispatch => ({
-  getCollectionStart: (pageAndLimit) => dispatch(getCollectionStart(pageAndLimit)),
-
-})
 CollectionPage.propTypes = {
   currentPage: PropTypes.number,
   collections: PropTypes.array,
   getCollectionStart: PropTypes.func
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CollectionPage);
+
+export default (CollectionPage);
