@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Result, Button } from 'antd';
 
 class ErrorBoundary extends React.Component {
   constructor() {
@@ -22,7 +22,12 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasErrored) {
       return (
-        <p>Sorry this page is broken</p>
+        <Result
+            status="500"
+            title="500"
+            subTitle="Sorry, something went wrong."
+            extra={<Button type="link" href="/" >Back Home</Button>}
+        />
       );
     }
 
