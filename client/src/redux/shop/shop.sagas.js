@@ -5,18 +5,15 @@ import {selectCurrentQuery} from '../shop/shop.selector';
 import {getCollectionSuccess ,changeCurrentPage, getBestSaleSuccess} from './shop.action';
 
 export function fetchCollectionToServer(limit,page,nameEN) {
-    console.log(limit,page,nameEN)
     return axios(`http://localhost:2222/product?limit=${limit}&page=${page}&nameEN=${nameEN}`,{
         method: "get",
     })
 }
-
 export function fetchBestSaleToServer() {
     return axios(`http://localhost:2222/product/get-Top-4-Sales`,{
         method: 'get'
     })
 }
-
 function handleConvertDataBestSale(arr) {
     var mark = {}
     var result = []
@@ -28,7 +25,6 @@ function handleConvertDataBestSale(arr) {
     }
     return result;
 }
-
 export function* fetchCollectionAsync({payload}) { 
     let page = 1;
     let limit = 12;
@@ -45,23 +41,17 @@ export function* fetchCollectionAsync({payload}) {
     yield put(getCollectionSuccess(products))
     
 }
-
 export function* getBestSale() {
     const {data: {data: {products}}} = yield call(fetchBestSaleToServer)
     const bestSaleConvert = handleConvertDataBestSale(products)
-    
     yield put(getBestSaleSuccess(bestSaleConvert))
 }
-
-
 export function* fetchCollectionsStart() {
     yield takeLatest(SHOP_ACTION_TYPES.GET_COLLECTIONS_START,fetchCollectionAsync)
 }
-
 export function* onGetBestSaleStart() {
     yield takeLatest(SHOP_ACTION_TYPES.GET_BEST_SALE_START,getBestSale)
 }
-
 export function* shopSagas () {
     yield all([
         call(fetchCollectionsStart),

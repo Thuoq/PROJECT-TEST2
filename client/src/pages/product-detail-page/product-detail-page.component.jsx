@@ -6,7 +6,6 @@ import './product-detail-page.styles.scss';
 import { Button, Layout } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { selectProductDetail } from '../../redux/shop/shop.selector';
-import { addItemToCart } from '../../redux/cart/cart.action';
 
 const { Content } = Layout;
 
@@ -76,9 +75,6 @@ const ProductDetailPage = ({ productDetail, addItemToCart }) => {
 const mapStateToProps = (state, ownProps) => ({
   productDetail: selectProductDetail(ownProps.match.params.id)(state),
 });
-const mapDispatchToProps = (dispatch) => ({
-  addItemToCart: (cartItem) => dispatch(addItemToCart(cartItem)),
-});
 
 ProductDetailPage.propTypes = {
   productDetail: PropTypes.shape({
@@ -93,4 +89,4 @@ ProductDetailPage.propTypes = {
   addItemToCart: PropTypes.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailPage);
+export default connect(mapStateToProps)(ProductDetailPage);

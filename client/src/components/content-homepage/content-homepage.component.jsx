@@ -10,10 +10,7 @@ import CarouselHomePage from '../carousel-homepage/carousel-homepage.component';
 
 const { Content } = Layout;
 
-
-
 const ContentHomePage = ({collections,match,history}) => {
- console.log(match)
   return(
   <Layout style={{ padding: '0 24px 24px' }}>
     <Content
@@ -38,8 +35,6 @@ const ContentHomePage = ({collections,match,history}) => {
            </Col>
           ))
         }
-        
-
       </Row>
     </Content>
   </Layout>

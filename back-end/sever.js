@@ -13,7 +13,7 @@ const globalErrorHandler = require('./controllers/error.controller');
 const RouterUser = require("./routers/user.router");
 const RouterBooking = require('./routers/booking.router');
 const RouterProduct = require('./routers/product.router');
-const data = require('./data');
+//const data = require('./data');
 
 
 // data.map(el => {
@@ -22,6 +22,7 @@ const data = require('./data');
 //         console.log("SUCCESS")
 //     })
 // })
+//console.log(process.env.NODE_ENV)
 
 const PORT = process.env.PORT || 2222;
 
@@ -35,7 +36,7 @@ app.use("/product",RouterProduct)
 app.use("/booking",RouterBooking)
 app.use("/user",RouterUser)
 
-app.use(globalErrorHandler);
+app.use(globalErrorHandler); 
 
 app.all('*', (req, res, next) => {
 

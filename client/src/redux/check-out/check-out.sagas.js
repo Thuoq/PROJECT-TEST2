@@ -4,6 +4,7 @@ import {takeLatest, all, call,put , select} from 'redux-saga/effects';
 import CHECKOUT_ACTIONS_TYPE from './check-out.types';
 import {selectCartItem , selectTotalPrice} from '../cart/cart.selector';
 import {checkOutSuccess} from './check-out.action'
+import { message } from 'antd';
 
 
 
@@ -21,16 +22,20 @@ export function fetchBookingToServer (data) {
 
 
 export function *checkOut({payload}) {
-    const cartItem = yield select(selectCartItem);
-    const totalMoney = yield select(selectTotalPrice);
-    const data = Object.assign({} , {
-        cart:cartItem,
-        totalMoney,
-        address: payload,
-        createAt: `${moment(new Date()).format('MMMM Do YYYY, h:mm:ss a')}`
-    })
-    yield call(fetchBookingToServer,data);
-    yield put(checkOutSuccess());
+    try {
+        const cartItem = yield select(selectCartItem);
+        const totalMoney = yield select(selectTotalPrice);
+        const data = Object.assign({} , {
+            cart:cartItem,
+            totalMoney,
+            address: payload,
+            createAt: `${moment(new Date()).format('MMMM Do YYYY, h:mm:ss a')}`
+        })
+        yield call(fetchBookingToServer,data);
+        yield put(checkOutSuccess());
+    }catch(err) {
+        message.error(`${err.response.data.message}`);
+    }
 }
 
 export function *onCheckOutStart () {
