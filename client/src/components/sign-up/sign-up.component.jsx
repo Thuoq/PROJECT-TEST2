@@ -1,15 +1,15 @@
-import React , {useEffect} from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import {
-  Form, Input, Tooltip, Button, message,Spin
+  Form, Input, Tooltip, Button,Spin
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { formItemLayout, tailFormItemLayout } from './prefixLayout';
 import { signUpStart } from '../../redux/user/user.action';
 import { createStructuredSelector } from 'reselect';
-import { selectErrorMessage, selectIsLoadingUser } from '../../redux/user/user.selector';
+import { selectIsLoadingUser } from '../../redux/user/user.selector';
 
 
 const SignUp = ({signUpStart,errorMessage,isLoading}) => {
@@ -17,13 +17,9 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
   
   const onFinish = values => {
     signUpStart(values);
+    form.resetFields();
   }
  
-  useEffect(() => {
-    if(!errorMessage) return;
-    message.error(errorMessage);
-    form.resetFields()
-  },[form,errorMessage])
   return( 
     <Spin spinning ={isLoading}>
         <Form
@@ -166,7 +162,7 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-  errorMessage: selectErrorMessage,
+ 
   isLoading : selectIsLoadingUser
 })
 
@@ -176,7 +172,6 @@ const mapDispatchToProps = dispatch => ({
 
 SignUp.propTypes = {
   signUpStart: PropTypes.func,
-  errorMessage: PropTypes.string,
   isLoading: PropTypes.bool
 }
 

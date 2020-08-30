@@ -11,11 +11,13 @@ import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component'
 import UserPage from './pages/user-page/user-page.component';
 import CheckoutPage from './pages/checkout-page/checkout-page.component';
 
-const App = ({currentUser}) => (
+const App = ({currentUser}) => ( 
   <div className="App">
         <Layout>
           <Navigation />
+
           <Switch>
+            
             <Route exact path="/checkout" component={CheckoutPage} />
             <Route exact 
                 path="/signInSignUp" 
@@ -27,6 +29,7 @@ const App = ({currentUser}) => (
             />
             <Route path="/" component={HomePage} />
           </Switch>
+          
         </Layout> 
   </div>
 )

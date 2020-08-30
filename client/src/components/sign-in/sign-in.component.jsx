@@ -1,29 +1,21 @@
-import React , {useEffect} from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { selectErrorMessage, selectIsLoadingUser } from '../../redux/user/user.selector';
+import { selectIsLoadingUser } from '../../redux/user/user.selector';
 
-import { Form, Input, Button ,message,Spin} from 'antd';
+import { Form, Input, Button ,Spin} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { signInStart } from '../../redux/user/user.action';
 import { connect } from 'react-redux';
 
-const SignIn  =  ({signInStart,isLoading,errorMessage}) => {
+const SignIn  =  ({signInStart,isLoading}) => {
   const [form]  = Form.useForm()
   
   const onFinish = values => { 
     signInStart(values);
-    
+    form.resetFields(); 
   };
 
-  useEffect(() => {
-  
-    if(!errorMessage) return;
-    message.error(errorMessage);
-    
-    form.resetFields();
-    
-  },[form,errorMessage])
   return (
     <Spin
     spinning ={isLoading}
@@ -86,13 +78,11 @@ const mapDispatchToProps = dispatch => ({
   signInStart : emailAndPassword => dispatch(signInStart(emailAndPassword)),
 })
 const mapStateToProps = createStructuredSelector({
-  errorMessage: selectErrorMessage,
   isLoading : selectIsLoadingUser,
 })
 
 SignIn.propTypes = {
   signInStart: PropTypes.func,
-  errorMessage: PropTypes.string,
   isLoading: PropTypes.bool
 }
 

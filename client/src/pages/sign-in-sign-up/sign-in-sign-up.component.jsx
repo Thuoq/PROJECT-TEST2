@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {withRouter} from 'react-router-dom';
 import {
   Layout, Modal, Tabs,
@@ -21,6 +20,7 @@ class SignInSignUpPage extends React.Component {
     const {windowWidth,history} = this.props;
     return(
       <>
+    
         <Content
           className="containerSignInSignUp"
         >
@@ -28,12 +28,12 @@ class SignInSignUpPage extends React.Component {
             visible
             onCancel= {() => history.push("/productQuery")}
             footer={null}
-          >
+          > 
+  
+           
             <Tabs
               defaultActiveKey="1"
-              
               size={windowWidth <= 900 ? 'small' : 'large'}
-
               centered="true"
               tabBarGutter={50}
             >
@@ -65,7 +65,7 @@ class SignInSignUpPage extends React.Component {
               </TabPane>
             </Tabs>
           </Modal>
-
+          
         </Content>
 
       </>

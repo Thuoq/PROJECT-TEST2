@@ -2,6 +2,7 @@ import {takeLatest, all, call,put } from 'redux-saga/effects';
 import axios from 'axios';
 import USER_ACTIONS_TYPES from '../user/user.types';
 import {setCurrentUser,signOutSuccess,signUpFailure,signInFailure} from '../user/user.action';
+import { message } from 'antd';
 
 
 export function fetchUserToServer (data,type) {
@@ -40,7 +41,8 @@ export function * signUp({payload}) {
         yield put(setCurrentUser(user));
         localStorage.setItem("login",JSON.stringify(token));
     } catch(err) {
-        yield put(signUpFailure(err.response.data.message));
+        message.error(`${err.response.data.message}`)
+        yield put(signUpFailure())
     }
 }
 
@@ -50,7 +52,8 @@ export function* signIn({payload}) {
         yield put(setCurrentUser(user));
         localStorage.setItem("login",JSON.stringify(token))
     }catch(err) {
-        yield put(signInFailure(err.response.data.message));
+        message.error(`${err.response.data.message}`)
+        yield put(signInFailure())
     }
 }
 

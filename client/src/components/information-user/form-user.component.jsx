@@ -45,7 +45,7 @@ class FormUser extends React.Component {
             }}
             layout="horizontal"
             initialValues = {{
-              phoneNumber : [currentUser.phoneNumber]
+              phoneNumber : ['0'+ currentUser.phoneNumber]
             }}
             style={{ flex: ' 0 0 50%' }}
         >
@@ -56,7 +56,12 @@ class FormUser extends React.Component {
             label="Phone Number" 
             name="phoneNumber"
           >
-            <InputNumber    style={{ width: '70%' }} />
+            <InputNumber formatter={value => {
+                if (value) {
+                  return `0${value}`.replace(/0*/, "0");
+                }
+                return value;
+              }}   style={{ width: '70%' }} />
           </Form.Item>
 
           <Form.Item>
