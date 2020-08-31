@@ -56,47 +56,44 @@ class BookingContent extends React.Component {
 
   render() {
     const {columnsPrefix} = this.state;
-    const {historyBooking,isLoading} = this.props;
-    if(!isLoading)  {
+    const {historyBooking,isLoading} = this.props; 
+
       return (
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Content style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 600,
-          }}
-          >
-            <div>
-              <Table
-                pagination={false}
-                tableLayout="fixed"
-                rowSelection={{
-                  type:'radio',
-                  getCheckboxProps: record => ({
-                    disabled: record.isCompleted === true,
-                    // Column configuration not to be checked
-                    name: record.name,
-                  }),
-                }}
-                
-                scroll={{ x: 2000 }}
-                title={() => 'Booking Pages'}
-                dataSource={this.createNewArr(historyBooking)}
-                columns={columnsPrefix}
-                rowKey='key'
-              /> 
-            </div>
-          </Content>
-        </Layout>
+          <Layout style={{ padding: '0 24px 24px' }}>
+            <Content style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 600,
+            }}
+            >
+              <div>
+                <Skeleton loading={isLoading} paragraph={{ rows: 6 }} active={true}>
+                  <Table
+                    pagination={false}
+                    tableLayout="fixed"
+                    rowSelection={{
+                      type:'radio',
+                      getCheckboxProps: record => ({
+                        disabled: record.isCompleted === true,
+                        // Column configuration not to be checked
+                        name: record.name,
+                      }),
+                    }}
+                    
+                    scroll={{ x: 2000 }}
+                    title={() => 'Booking Pages'}
+                    dataSource={this.createNewArr(historyBooking)}
+                    columns={columnsPrefix}
+                    rowKey='key'
+                  /> 
+                </Skeleton>
+              </div>
+            </Content>
+          </Layout>
       )
-    }
-    else {
-      return (
-        <Skeleton paragraph={{ rows: 6 }}/>
-      )
-    }
   }
 }
+
 
 const mapStateToProps = createStructuredSelector({
   currentUser : selectCurrentUser,

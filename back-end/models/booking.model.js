@@ -32,7 +32,8 @@ const bookingSchema = new mongoose.Schema({
     createAt: {
         type: String,
        
-    }
+    },
+    
 })
 // bookingSchema.pre(/^find/, function(next) {
 //     this.populate('users').populate({

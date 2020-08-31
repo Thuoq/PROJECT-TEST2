@@ -18,3 +18,8 @@ export const selectIsLoadingUser = createSelector(
   [selectUser],
   user => user.isLoading
 )
+
+export const selectIsUpdatingUser = createSelector(
+  [selectUser],
+  user => user.isUpdating
+)

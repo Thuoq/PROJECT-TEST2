@@ -7,11 +7,12 @@ import './product-checkout.styles.scss';
 import { DeleteOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import ProductItem from '../product-item/product-item.component';
-import ModelCheckout from '../pay-checkout/model-checkout.component';
 const ProductCheckOut = ({
   cartCheckout, decreaseItemToCart, addItemToCart, deleteItemToCart,
-}) => (
-  <div className="product-container">
+}) => {
+
+  return (
+    <div className="product-container">
     <ProductItem cartItem={cartCheckout} />
 
     <div className="product-quantity">
@@ -21,11 +22,10 @@ const ProductCheckOut = ({
     </div>
     <div className="product-delete">
       <Button onClick={() => deleteItemToCart(cartCheckout)} type="text" icon={<DeleteOutlined />} />
-
     </div>
-    <ModelCheckout/>
   </div>
-);
+  )
+};
 
 const mapDispatchToProps = (dispatch) => ({
   decreaseItemToCart: (cartItem) => dispatch(decreaseItemToCart(cartItem)),

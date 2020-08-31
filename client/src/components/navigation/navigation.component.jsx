@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
 import {
   Layout, Button, Drawer,
@@ -35,7 +36,7 @@ class Navigation extends React.Component {
     return(
       <Header className="menuBar" style={{ marginBottom: '2rem' }}>
         <div className="logo">
-          <a href="/">LOGO</a>
+          <Link to="/">LOGO</Link>
         </div>
         <div className="menuCon">
           <div className="rightMenu">

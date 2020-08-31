@@ -10,7 +10,9 @@ export const selectSuccess = createSelector(
     checkout => checkout.success
 )
 
-export const selectOpenModelAddress = createSelector(
-    [selectCheckOut] , 
-    checkout => checkout.openModelAddress
+
+
+export const selectIsFetchingCheckOut = createSelector(
+    [selectCheckOut],
+    checkOut => checkOut.isFetching
 )

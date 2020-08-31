@@ -18,7 +18,3 @@ export const checkOutFailure = err => ({
 export const setCheckOuToFalse = () => ({
     type: CHECKOUT_ACTIONS_TYPE.SET_STATE_TO_FALSE
 })
-
-export const toggleModelCheckOut = () => ({
-    type: CHECKOUT_ACTIONS_TYPE.OPEN_MODEL_CHECK_OUT
-})

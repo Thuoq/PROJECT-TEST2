@@ -29,10 +29,10 @@ class RightNavigation extends React.Component {
       key="1"
       icon={(
         // FIXED ROUTER 
-        <a href="/">
+        <Link to="/">
           <HomeOutlined style={{ fontSize: '2.5rem', paddingTop: '1rem' }} />
           Home
-        </a>
+        </Link>
       )}
     >
       {' '}

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {Link} from 'react-router-dom';
 import {setCheckOuToFalse} from '../../../redux/check-out/check-out.action';
 import {connect} from 'react-redux'
-import { Result, Button , Modal} from 'antd';
+import { Result , Modal} from 'antd';
 import { createStructuredSelector } from 'reselect';
-import { selectSuccess } from '../../../redux/check-out/check-out.selector';
+import { selectSuccess ,selectIsFetchingCheckOut} from '../../../redux/check-out/check-out.selector';
 
 
 const SuccessCheckout = ({setCheckOuToFalse,success}) => (
@@ -19,7 +19,7 @@ const SuccessCheckout = ({setCheckOuToFalse,success}) => (
       title="Thanks for buy Product at my shop"
       subTitle="Thanks you and see You Again"
       extra={[
-        <Button type="link" href="/shop" onClick ={() => setCheckOuToFalse()} key="buy" >Buy Again</Button>,
+        <Link  to="/shop" onClick ={() => setCheckOuToFalse()} key="buy" >Buy Again</Link>,
       ]} 
     />
   </Modal>
@@ -28,8 +28,11 @@ const SuccessCheckout = ({setCheckOuToFalse,success}) => (
 const mapDispatchToProps = dispatch => ({
   setCheckOuToFalse : () => dispatch(setCheckOuToFalse())
 })
+
+
 const mapStateToProps = createStructuredSelector({
-  success: selectSuccess
+  success: selectSuccess,
+  isFetching: selectIsFetchingCheckOut
 })
 SuccessCheckout.propTypes = {
   setCheckOuToFalse: PropTypes.func,

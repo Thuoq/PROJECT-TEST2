@@ -36,7 +36,7 @@ const CardItem = ({
         </Button>,
         <Button type="link" onClick ={() => {
           if(match.url === '/') {
-            history.push(`${match.url}productQuery/${cartItem.idProduct}`)
+            history.push(`${match.url}shop/${cartItem.idProduct}`)
           }else {
             history.push(`${match.url}/${cartItem.idProduct}`)
           }

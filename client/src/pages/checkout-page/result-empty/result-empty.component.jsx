@@ -19,4 +19,6 @@ ResultEmpty.propTypes = {
     push : PropTypes.func
   })
 }
+
+
 export default withRouter(ResultEmpty);

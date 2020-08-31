@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ModelCheckout from './pay-checkout/model-checkout.component';
 import { connect } from 'react-redux';
 import './checkout-page.styles.scss';
 import { createStructuredSelector } from 'reselect';
@@ -23,6 +24,7 @@ const CheckoutPage = ({ cartItems ,success}) => (
               }
             </div>
             <PayCheckOut />
+            <ModelCheckout/>
           </>
         )
         : (<ResultEmpty />)

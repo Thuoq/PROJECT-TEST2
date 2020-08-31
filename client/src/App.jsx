@@ -15,6 +15,8 @@ const UserPage = lazy(() => import('./pages/user-page/user-page.component'));
 const CheckoutPage = lazy(() => import('./pages/checkout-page/checkout-page.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
 
+
+
 const App = ({currentUser}) => ( 
   <div className="App">
         <Layout>

@@ -48,3 +48,4 @@ export const updatePhoneNumberStart = phoneNumber => ({
     type: USER_ACTIONS_TYPES.UPDATE_PHONE_START,
     payload: phoneNumber
 })
+
