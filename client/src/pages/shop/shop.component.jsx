@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import {getCollectionStart} from '../../redux/shop/shop.action';
 import ProductDetailPageContainer from '../product-detail-page/product-detail-page.container';
 
-class CollectionOverView extends React.Component {
+class ShopPage extends React.Component {
   componentDidMount() {
     const {getCollectionStart} = this.props;
     getCollectionStart();
@@ -31,8 +31,8 @@ class CollectionOverView extends React.Component {
 const mapDispatchToProps = dispatch => ({
   getCollectionStart : () => dispatch(getCollectionStart())
 })
-CollectionOverView.propTypes = {
+ShopPage.propTypes = {
   getCollectionStart: PropTypes.func
-}
+} 
 
-export default withRouter(connect(null,mapDispatchToProps)(CollectionOverView)) ;
+export default withRouter(connect(null,mapDispatchToProps)(ShopPage)) ;

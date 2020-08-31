@@ -21,7 +21,8 @@ const ModelCheckout = ({openModelAddress,toggleModelCheckOut,success,currentUser
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       setAddressShip(selectedRows[0].name)
-    }
+    },
+    selections: true
   };
   return (
     <>

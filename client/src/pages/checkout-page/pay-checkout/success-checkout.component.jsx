@@ -19,8 +19,8 @@ const SuccessCheckout = ({setCheckOuToFalse,success}) => (
       title="Thanks for buy Product at my shop"
       subTitle="Thanks you and see You Again"
       extra={[
-        <Button type="link" href="/productQuery" onClick ={() => setCheckOuToFalse()} key="buy" >Buy Again</Button>,
-      ]}
+        <Button type="link" href="/shop" onClick ={() => setCheckOuToFalse()} key="buy" >Buy Again</Button>,
+      ]} 
     />
   </Modal>
 );

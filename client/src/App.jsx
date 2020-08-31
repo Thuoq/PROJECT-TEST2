@@ -13,7 +13,7 @@ const HomePage = lazy(() => import('./pages/home-page/home-page.component'));
 const SignInSignUpPage = lazy(() => import('./pages/sign-in-sign-up/sign-in-sign-up.component'));
 const UserPage = lazy(() => import('./pages/user-page/user-page.component'));
 const CheckoutPage = lazy(() => import('./pages/checkout-page/checkout-page.component'))
-
+const ShopPage = lazy(() => import('./pages/shop/shop.component'))
 
 const App = ({currentUser}) => ( 
   <div className="App">
@@ -31,7 +31,10 @@ const App = ({currentUser}) => (
                   path="/user"
                   render={() => (currentUser ? <UserPage /> : <Redirect to="/signInSignUp" />)}
                 />
-                <Route path="/" component={HomePage} />
+                <Layout>
+                  <Route path="/shop" component = {ShopPage} />
+                  <Route exact path="/" component={HomePage} />
+                </Layout>
               </Suspense>
             </ErrorBoundary>
           </Switch>

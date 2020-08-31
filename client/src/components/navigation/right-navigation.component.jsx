@@ -41,7 +41,7 @@ class RightNavigation extends React.Component {
     <Menu.Item
       style={{ height: '100%' }}
       icon={(
-        <Link to="/productQuery">
+        <Link to="/shop">
           <ShopOutlined
             style={{ fontSize: '2.5rem', paddingTop: '1rem' }}
           />

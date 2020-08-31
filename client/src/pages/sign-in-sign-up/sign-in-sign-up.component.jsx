@@ -26,7 +26,7 @@ class SignInSignUpPage extends React.Component {
         >
           <Modal
             visible
-            onCancel= {() => history.push("/productQuery")}
+            onCancel= {() => history.push("/shop")}
             footer={null}
           > 
   
