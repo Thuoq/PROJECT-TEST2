@@ -20,7 +20,7 @@ const PayCheckOut = ({
       <div>
         <p>Total : </p>
         <p>
-          {totalItem}
+          {Math.round(totalItem * 100) / 100}
           $
         </p>
       </div>

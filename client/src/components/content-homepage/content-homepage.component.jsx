@@ -22,7 +22,7 @@ const ContentHomePage = ({collections,match,history}) => {
       }}
     >
       <Divider orientation="left"><h2>View Sale</h2></Divider>
-      <CarouselHomePage />
+      <CarouselHomePage collections={collections} />
       <Divider orientation="left"><h2>Best Sale</h2></Divider>
       <Row gutter={{
         xs: 8, sm: 16, md: 24, lg: 32,
