@@ -3,14 +3,16 @@ import axios from 'axios';
 import SHOP_ACTION_TYPES from './shop.types';
 import {selectCurrentQuery} from '../shop/shop.selector';
 import {getCollectionSuccess ,changeCurrentPage, getBestSaleSuccess} from './shop.action';
+import {URL,SHOP_API,SHOP_API_TOP_4_SALES} from '../../constants/api';
+
 
 export function fetchCollectionToServer(limit,page,nameEN) {
-    return axios(`http://localhost:2222/product?limit=${limit}&page=${page}&nameEN=${nameEN}`,{
+    return axios(`${URL}${SHOP_API}?limit=${limit}&page=${page}&nameEN=${nameEN}`,{
         method: "get",
     })
 }
 export function fetchBestSaleToServer() {
-    return axios(`http://localhost:2222/product/get-Top-4-Sales`,{
+    return axios(`${URL}${SHOP_API}${SHOP_API_TOP_4_SALES}`,{
         method: 'get'
     })
 }

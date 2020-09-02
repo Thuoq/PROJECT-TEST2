@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AutoSizeType } from 'rc-textarea/lib/ResizableTextArea';
 import TextArea from '../input/TextArea';
 interface EditableProps {
     prefixCls?: string;
@@ -9,6 +10,8 @@ interface EditableProps {
     className?: string;
     style?: React.CSSProperties;
     direction?: 'ltr' | 'rtl';
+    maxLength?: number;
+    autoSize?: boolean | AutoSizeType;
 }
 interface EditableState {
     current: string;

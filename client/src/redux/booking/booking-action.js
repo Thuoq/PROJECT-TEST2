@@ -8,6 +8,10 @@ export const getBookingSuccess = information => ({
     payload: information
 })
 
+export const getBookingFailure = () => ({
+    type: BOOKING_ACTION_TYPES.GET_BOOKING_FAILURE
+})
+
 export const updateCompleteStart = key => ({
     type: BOOKING_ACTION_TYPES.UPDATE_COMPLETE_START,
     payload: key

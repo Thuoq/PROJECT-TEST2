@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 
+import {withRouter} from 'react-router-dom';
 import withSpinner from '../with-spinner/with-spinner.component';
 import ContentHomePage from './content-homepage.component';
 import { createStructuredSelector } from 'reselect';
@@ -12,6 +13,6 @@ const mapStateToProps = createStructuredSelector({
 })
 
 
-const ContentHomePageContainer = connect(mapStateToProps)(withSpinner(ContentHomePage))
+const ContentHomePageContainer = withRouter(connect(mapStateToProps)(withSpinner(ContentHomePage)))
 
 export default ContentHomePageContainer;

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import './booking-content.styles.scss';
 import { Layout, Table,Skeleton } from 'antd';
+//import {Popconfirm , Button , message,Tag} from 'antd'
 import Prefjx from './booking-content.prefjx';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
@@ -14,7 +16,7 @@ const { Content } = Layout;
 
 class BookingContent extends React.Component {
   state = {
-    columnsPrefix : Prefjx
+    columnsPrefix :  Prefjx
   }
   createNewArr = (data) =>{
     return data.reduce((result, item) => {
@@ -69,10 +71,12 @@ class BookingContent extends React.Component {
               <div>
                 <Skeleton loading={isLoading} paragraph={{ rows: 6 }} active={true}>
                   <Table
-                    pagination={false}
+                    rowClassName ={(record, index) => record.isCompleted ?  "background-silver" : null}
+                  
+                    bordered
                     tableLayout="fixed"
                     rowSelection={{
-                      type:'radio',
+                      type: 'radio',
                       getCheckboxProps: record => ({
                         disabled: record.isCompleted === true,
                         // Column configuration not to be checked

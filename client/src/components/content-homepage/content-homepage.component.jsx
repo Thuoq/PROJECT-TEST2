@@ -1,16 +1,17 @@
 import React from 'react';
 import './content-homepage.styles.scss';
-
+import PropTypes from 'prop-types';
 import {
-  Layout, Row,  Col , Divider,
+  Layout, Row, Col, Divider,
 } from 'antd';
 import CardItem from '../card-item/card-item.component';
 import CarouselHomePage from '../carousel-homepage/carousel-homepage.component';
-//import { getCollectionStart } from '../../redux/shop/shop.action';
+// import { getCollectionStart } from '../../redux/shop/shop.action';
 
 const { Content } = Layout;
 
-const ContentHomePage = ({collections,match,history}) => {
+const ContentHomePage = ({ collections, match, history }) => {
+
   return(
   <Layout style={{ padding: '0 24px 24px' }}>
     <Content
@@ -29,16 +30,20 @@ const ContentHomePage = ({collections,match,history}) => {
       }}
       >
         {
-          collections.map((cartItem ,idx ) => (
+          collections.map((cartItem, idx) => (
             <Col xs={24} key={idx} sm={12} md={8} lg={6} className="gutter-row">
-              <CardItem  key={idx} cartItem={cartItem} match= {match} history={history}  />
-           </Col>
+              <CardItem key={idx} cartItem={cartItem} match={match} history={history} />
+            </Col>
           ))
         }
       </Row>
     </Content>
   </Layout>
 )};
-
+ContentHomePage.propTypes = {
+  collections: PropTypes.array.isRequired,
+  history: PropTypes.object,
+  match: PropTypes.object,
+};
 
 export default (ContentHomePage);

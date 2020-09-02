@@ -5,12 +5,13 @@ import CHECKOUT_ACTIONS_TYPE from './check-out.types';
 import {selectCartItem , selectTotalPrice} from '../cart/cart.selector';
 import {checkOutSuccess} from './check-out.action'
 import { message } from 'antd';
+import {URL,BOOKING_API} from '../../constants/api';
 
 
 
 export function fetchBookingToServer (data) {
     let token = "Bearer " + JSON.parse(localStorage.getItem("login"));
-    return axios(`http://localhost:2222/booking`, {
+    return axios(`${URL}${BOOKING_API}`, {
         method : "POST",
         headers : {
             'Authorization': token
