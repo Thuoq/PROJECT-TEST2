@@ -12,11 +12,7 @@ const CheckOutPage = lazy(() => import('../pages/checkout-page/checkout-page.com
 const SignInSignUpPage = lazy(() => import('../pages/sign-in-sign-up/sign-in-sign-up.component'));
 const UserPage = lazy(() => import('../pages/user-page/user-page.component'));
 
-
-
-
-
-const Routes = ({currentUser}) => (
+const Routes = () => (
     <Switch>
         <ErrorBoundary>
           <Suspense fallback={<Spinner />}>
