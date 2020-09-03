@@ -1,10 +1,11 @@
 import React , {lazy,Suspense} from 'react';
-import {Switch,Route,Redirect} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 
 import Spinner from '../components/spinner/spinner.component';
 import ErrorBoundary from '../components/error-boundary/error-boundary.component';
 import {Layout } from 'antd';
 import PublicRoute from './public.routes'
+import PrivateRoutes from './private.routes'
 const HomePage = lazy(() => import('../pages/home-page/home-page.component'));
 const ShopPage = lazy(() => import('../pages/shop/shop.component'));
 const CheckOutPage = lazy(() => import('../pages/checkout-page/checkout-page.component'));
@@ -23,15 +24,17 @@ const Routes = ({currentUser}) => (
               <PublicRoute exact path="/" component={HomePage} />
               <PublicRoute path="/shop" component={ShopPage} />
             </Layout>
-                <PublicRoute exact path="/checkout" component={CheckOutPage} />
-            <Route
+              <PublicRoute exact path="/checkout" component={CheckOutPage} />
+            <PrivateRoutes
               exact
               path="/signInSignUp"
-              render={() => (!currentUser ? <SignInSignUpPage /> : <Redirect to="/checkout" />)}
+              type ="signInSignUp"
+              component = {SignInSignUpPage}
+              
             />
-            <Route
+            <PrivateRoutes
               path="/user"
-              render={() => (currentUser ? <UserPage /> : <Redirect to="/signInSignUp" />)}
+              component = {UserPage}
             />
             {/* <Route component={Page404} /> */}
           </Suspense>

@@ -6,7 +6,7 @@ import { Modal , Table , Spin} from 'antd';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { selectIsFetchingCheckOut} from '../../../redux/check-out/check-out.selector';
-import {columns} from './model-checkout-prefix-layout';
+import {columns} from '../../../configs/model-checkout.config';
 import { selectCurrentUser } from '../../../redux/user/user.selector';
 import ModelForm from './model-form.component';
 import { checkOutStart } from '../../../redux/check-out/check-out.action';
@@ -24,9 +24,6 @@ const ModelCheckout = ({visible,setVisible,isFetchingCheckOut,success,currentUse
     },
     //selections: true
   };
-  
- 
-
   
   return (
    
