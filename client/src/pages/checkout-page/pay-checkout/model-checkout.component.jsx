@@ -24,10 +24,12 @@ const ModelCheckout = ({visible,setVisible,isFetchingCheckOut,success,currentUse
     },
     //selections: true
   };
+  
  
+
   
   return (
-    <Spin spinning={isFetchingCheckOut} size="large">
+   
       <Modal
         width={650}
         title="Please Choose Address"
@@ -36,26 +38,27 @@ const ModelCheckout = ({visible,setVisible,isFetchingCheckOut,success,currentUse
         onCancel={() => setVisible(!visible)}
         onOk = {() => checkOutStart(addressShip) }
       >
-        {
-          !success ? (
-            <>
-              <Table
-                pagination={false}
-                rowSelection={{
-                  type: "radio",
-                  ...rowSelection
-                }}
-                rowKey='_id'
-                columns={columns}
-                dataSource = {currentUser.address}
-              />
-                <br/>
-                <ModelForm/>  
-            </>
-          ) : (<SuccessCheckout/>)
-        }
+         <Spin spinning={isFetchingCheckOut} size="large">
+          {
+            !success ? (
+              <>
+                <Table
+                  pagination={false}
+                  rowSelection={{
+                    type: "radio",
+                    ...rowSelection
+                  }}
+                  rowKey='_id'
+                  columns={columns}
+                  dataSource = {currentUser.address}
+                />
+                  <br/>
+                  <ModelForm/>  
+              </>
+            ) : (<SuccessCheckout/>)
+          }
+         </Spin>
       </Modal>
-    </Spin>
 )};
 
 const mapStateProps = createStructuredSelector({
