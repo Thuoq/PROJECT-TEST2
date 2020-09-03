@@ -6,7 +6,7 @@ import {
   Form, Input, Tooltip, Button,Spin
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { formItemLayout, tailFormItemLayout } from './prefixLayout';
+import { formItemLayout, tailFormItemLayout } from '../../configs/form-layout.config';
 import { signUpStart } from '../../redux/user/user.action';
 import { createStructuredSelector } from 'reselect';
 import { selectIsLoadingUser } from '../../redux/user/user.selector';

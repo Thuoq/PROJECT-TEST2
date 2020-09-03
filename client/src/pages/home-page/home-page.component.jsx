@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentHomePageContainer from '../../components/content-homepage/content-homepage.container';
+import ContentHomePageContainer from '../../containers/content-homepage.container';
 import { getBestSaleStart } from '../../redux/shop/shop.action';
 import { connect } from 'react-redux';
 

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import './booking-content.styles.scss';
 import { Layout, Table,Skeleton } from 'antd';
 //import {Popconfirm , Button , message,Tag} from 'antd'
-import Prefjx from './booking-content.prefjx';
+import Prefjx from '../../configs/booking-content.config';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { getBookingStart, updateCompleteStart } from '../../redux/booking/booking-action';
