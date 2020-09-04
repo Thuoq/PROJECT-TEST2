@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {
   Layout, Menu,
@@ -12,11 +12,13 @@ import { ReactComponent as Shirt } from '../../assets/002-shirt.svg';
 import './sidebar-home.style.scss';
 import { getCollectionStart } from '../../redux/shop/shop.action';
 
+
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 class SideBarHome extends React.Component {
   render() {
     const { windowWidth,getCollectionStart} = this.props;
+
     return(
         <Sider
           collapsed={windowWidth <= 900}
@@ -25,14 +27,20 @@ class SideBarHome extends React.Component {
         >
           <Menu
             mode="inline"
-            
             style={{ height: '100%', borderRight: 0 }}
           >
             <SubMenu key="sub3" icon={<Shirt className="icon-sidebar-home" />} title={<span className="title-category">Clothes</span>}>
               {
-                dataSideBar.map((el,idx) =>  <Menu.Item onClick={() => {
-                  getCollectionStart({nameEN: el})
-                }} key={idx}>{el}</Menu.Item>)
+                dataSideBar.map((el,idx) =>  <Menu.Item  key={idx}>
+                  <Link to= {{
+                    pathname:"/shop",
+                    search:`?nameEN=${el}&&page=1`,
+                  }}
+                  onClick= {() =>getCollectionStart({nameEN: el}) }
+                  >
+                    {el}
+                  </Link>
+                </Menu.Item>)
               }
             </SubMenu>
           </Menu>
@@ -44,6 +52,8 @@ class SideBarHome extends React.Component {
 const mapDispatchToProps = dispatch => ({
   getCollectionStart : inforQuery => dispatch(getCollectionStart(inforQuery))
 })
+
+
 
 SideBarHome.propTypes = {
   getCollectionStart: PropTypes.func,

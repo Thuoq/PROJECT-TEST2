@@ -7,6 +7,7 @@ import SideBarHome from '../../components/sidebar-home/sidebar-home.component';
 import { connect } from 'react-redux';
 import {getCollectionStart} from '../../redux/shop/shop.action';
 import ProductDetailPageContainer from '../../containers/product-detail.container';
+import { Layout } from 'antd';
 
 class ShopPage extends React.Component {
   componentDidMount() {
@@ -17,13 +18,13 @@ class ShopPage extends React.Component {
   render() {
     const {match} = this.props;
     return(
-      <>
+      <Layout>
       <SideBarHome />
-      <Switch>
-        <Route exact path={`${match.url}`} component={CollectionPageContainer} />
-        <Route  path={`${match.url}/:id`} component={ProductDetailPageContainer} />
-      </Switch>
-    </>
+        <Switch>
+          <Route exact path={`${match.url}`} component={CollectionPageContainer} />
+          <Route  path={`${match.url}/:id`} component={ProductDetailPageContainer} />
+        </Switch>
+      </Layout>
     )
   }
 }

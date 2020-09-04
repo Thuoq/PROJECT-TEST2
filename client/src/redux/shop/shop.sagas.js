@@ -1,6 +1,7 @@
 import {takeLatest , call ,put , all ,select} from 'redux-saga/effects';
 import axios from 'axios';
 import SHOP_ACTION_TYPES from './shop.types';
+import {handleConvertDataBestSale} from './shop.utils';
 import {selectCurrentQuery} from '../shop/shop.selector';
 import {getCollectionSuccess ,changeCurrentPage, getBestSaleSuccess} from './shop.action';
 import {URL,SHOP_API,SHOP_API_TOP_4_SALES} from '../../constants/api';
@@ -16,17 +17,7 @@ export function fetchBestSaleToServer() {
         method: 'get'
     })
 }
-function handleConvertDataBestSale(arr) {
-    var mark = {}
-    var result = []
-    for(let i = 0 ; i < arr.length ; i++) {
-        mark._id = arr[i]._id;
-        mark.quantity = arr[i].quantity;
-        mark = {...arr[i].cart[0]}
-        result.push(mark)
-    }
-    return result;
-}
+
 export function* fetchCollectionAsync({payload}) { 
     let page = 1;
     let limit = 12;

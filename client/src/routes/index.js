@@ -1,9 +1,7 @@
 import React , {lazy,Suspense} from 'react';
-import {Switch} from 'react-router-dom';
-
+import {Switch, Route, Redirect} from 'react-router-dom';
 import Spinner from '../components/spinner/spinner.component';
 import ErrorBoundary from '../components/error-boundary/error-boundary.component';
-import {Layout } from 'antd';
 import PublicRoute from './public.routes'
 import PrivateRoutes from './private.routes'
 const HomePage = lazy(() => import('../pages/home-page/home-page.component'));
@@ -11,33 +9,37 @@ const ShopPage = lazy(() => import('../pages/shop/shop.component'));
 const CheckOutPage = lazy(() => import('../pages/checkout-page/checkout-page.component'));
 const SignInSignUpPage = lazy(() => import('../pages/sign-in-sign-up/sign-in-sign-up.component'));
 const UserPage = lazy(() => import('../pages/user-page/user-page.component'));
+const Page404 = lazy(() => import('../pages/404/404.component'));
 
-const Routes = () => (
-    <Switch>
+
+const Routes = ({currentUser}) => {
+
+  return(
         <ErrorBoundary>
           <Suspense fallback={<Spinner />}>
-            <Layout>
-              <PublicRoute exact path="/" component={HomePage} />
-              <PublicRoute path="/shop" component={ShopPage} />
-            </Layout>
-              <PublicRoute exact path="/checkout" component={CheckOutPage} />
-            <PrivateRoutes
-              exact
-              path="/signInSignUp"
-              type ="signInSignUp"
-              component = {SignInSignUpPage}
+          <Switch>
+             
+                <PublicRoute exact path = "/" component={HomePage} />
+                <PublicRoute path = "/shop" component={ShopPage} />
+                <PublicRoute exact path = "/checkout" component={CheckOutPage} />
               
-            />
-            <PrivateRoutes
-              path="/user"
-              component = {UserPage}
-            />
-            {/* <Route component={Page404} /> */}
+                <Route
+                  exact
+                  path = "/signInSignUp"
+                  render= { () => !currentUser ? <SignInSignUpPage/> : <Redirect to="/checkout" />} 
+                />
+                <PrivateRoutes
+                  path = "/user"
+                  component = {UserPage}
+                />  
+                <Route path="*"  component = {Page404} />
+              
+            </Switch>
           </Suspense>
 
         </ErrorBoundary>
-
-      </Switch>
-)
+         
+      
+)}
 
 export default Routes;

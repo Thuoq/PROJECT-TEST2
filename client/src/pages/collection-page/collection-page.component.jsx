@@ -1,6 +1,6 @@
 import React  , {useState } from 'react';
 import PropTypes from 'prop-types';
-
+import {useQuery} from '../../helpers/query';
 import './collection-page.styles.scss';
 import {
   Layout, Input, Row, Col,Pagination
@@ -9,13 +9,15 @@ import CardItem from '../../components/card-item/card-item.component';
 const { Content } = Layout;
 
 const CollectionPage = ({currentPage,match,collections,history,getCollectionStart,...props}) => {
-  const [filedSearch , setFieldSearch] = useState("");
+  const [filedSearch , setFieldSearch] = useState(""); 
+  const query = useQuery();
   const filterSearch = collections.filter(el => el.nameEN.toLowerCase().includes(filedSearch.toLowerCase()));  
   return( 
   <Layout style={{ padding: '0 2.4rem 2.4rem' }}>
         <Input.Search
           placeholder="Search By Category ... "
           onSearch = {(value) => {
+            history.push(`${match.url}/?nameEN=${value}`)
             getCollectionStart({nameEN: value})
           }}
           enterButton="Search"
@@ -42,9 +44,12 @@ const CollectionPage = ({currentPage,match,collections,history,getCollectionStar
             }
           </Row>
           <Pagination style={{textAlign:'center'}} current={currentPage}  onChange ={(page,pageSize) => {
-          
+            if(!query.get("nameEN")) {
+              history.push(`${match.url}/?page=${page}`)
+            }else {
+              history.push(`${match.url}/?nameEN=${query.get("nameEN")}&&page=${page}`)
+            }
             getCollectionStart({page, limit : pageSize})
-            
           }}defaultPageSize={12} total={100} />
         </Content>
     </Layout>
