@@ -8,12 +8,7 @@ export const getCollectionStart = (pageAndLimit) => ({
 })
 
 export const getBestSaleStart = () => ({
-    type: SHOP_ACTION_TYPES.GET_BEST_SALE_START
-})
-
-export const getBestSaleSuccess = collections => ({
-    type: SHOP_ACTION_TYPES.GET_BEST_SALE_SUCCESS,
-    payload: collections
+    type: SHOP_ACTION_TYPES.GET_COLLECTIONS_BEST_SALE_START
 })
 
 export const getCollectionSuccess = data => ({
@@ -21,6 +16,9 @@ export const getCollectionSuccess = data => ({
     payload : data
 })
 
+export const getCollectionFailure = () => ({
+    type : SHOP_ACTION_TYPES.GET_COLLECTIONS_FAILURE
+}) 
 export const changeCurrentPage = page => ({
     type : SHOP_ACTION_TYPES.CHANGE_CURRENT_PAGE,
     payload : page

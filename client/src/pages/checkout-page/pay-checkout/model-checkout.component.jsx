@@ -47,7 +47,7 @@ const ModelCheckout = ({visible,setVisible,isFetchingCheckOut,success,currentUse
                   }}
                   rowKey='_id'
                   columns={columns}
-                  dataSource = {currentUser.address}
+                  dataSource = {currentUser ? currentUser.address : []}
                 />
                   <br/>
                   <ModelForm/>  

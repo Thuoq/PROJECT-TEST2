@@ -10,15 +10,17 @@ import Navigation from './components/navigation/navigation.component';
 import Routes from './routes/index';
 
 
-const App = ({ currentUser }) => (
+const App = ({currentUser,...props}) => {
+
+  return(
   <div className="App">
     <Layout>
       <Navigation />
-        <Routes currentUser = {currentUser}/>
+        <Routes currentUser = {currentUser} />
     </Layout>
   </div>
 
-);
+)};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,

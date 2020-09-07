@@ -16,12 +16,12 @@ const checkOutReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 success : !state.success,
-                isFetching: true,
+                isFetching: false,
             }
         case CHECKOUT_ACTIONS_TYPE.CHECK_OUT_FAILURE:
             return {
                 ...state,
-                isFetching : false,
+                isFetching : false, 
                 success: false
             }
         

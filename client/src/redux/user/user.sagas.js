@@ -1,46 +1,32 @@
 import {
   takeLatest, all, call, put,
 } from 'redux-saga/effects';
-import axios from 'axios';
-import { message } from 'antd';
+import AxiosInstance from '../../helpers/interceptor';
+import {messageError} from '../../helpers/error.message';
+import { push } from 'react-router-redux'
+import {setToken,getToken,removeToken} from '../../helpers/auth';
 import USER_ACTIONS_TYPES from './user.types';
 import {
-  setCurrentUser, signOutSuccess, signUpFailure, signInFailure,
+  setCurrentUser,
+  signOutSuccess, 
+  signUpFailure, 
+  signInFailure, 
+  updateUserFailure,
 } from './user.action';
-//import { selectCurrentUser } from './user.selector';
+
 import {URL,USER_API} from '../../constants/api';
 
-// export function fetchSessionToServer() {
-//   const token = `Bearer ${JSON.parse(localStorage.getItem('login'))}`;
-//   return axios('http://localhost:2222/user/session', {
-//     method: 'get',
-//     headers: {
-//       Authorization: token,
-//     },
-//   });
-// }
 
 export function fetchUserToServer(data, type) {
-  return axios(`${URL}${USER_API}/${type}`, {
+  return AxiosInstance(`${URL}${USER_API}/${type}`, {
     method: 'post',
     data,
   });
 }
 
-export function fetchUpdateAddressToServer(data) {
-  const token = `Bearer ${JSON.parse(localStorage.getItem('login'))}`;
-  return axios(`${URL}${USER_API}/address`, {
-    method: 'POST',
-    headers: {
-      Authorization: token,
-    },
-    data,
-  });
-}
-
-export function fetchUpdatePhoneToServer(data) {
-  const token = `Bearer ${JSON.parse(localStorage.getItem('login'))}`;
-  return axios(`${URL}${USER_API}/phone`, {
+export function fetchUpdateInformationUser(data,type) {
+  const token = `Bearer ${getToken()}`;
+  return AxiosInstance(`${URL}${USER_API}/${type}`, {
     method: 'PATCH',
     headers: {
       Authorization: token,
@@ -53,9 +39,9 @@ export function* signUp({ payload }) {
   try {
     const { data: { data: { user }, token } } = yield call(fetchUserToServer, payload, 'register');
     yield put(setCurrentUser(user));
-    localStorage.setItem('login', JSON.stringify(token));
+    setToken(token)
   } catch (err) {
-    message.error(`${err.response.data.message}`);
+    messageError(err);
     yield put(signUpFailure());
   }
 }
@@ -64,36 +50,46 @@ export function* signIn({ payload }) {
   try {
     const { data: { data: { user }, token } } = yield call(fetchUserToServer, payload, 'signIn');
     yield put(setCurrentUser(user));
-    localStorage.setItem('login', JSON.stringify(token));
+    setToken(token);
   } catch (err) {
-    message.error(`${err.response.data.message}`);
+    messageError(err);
     yield put(signInFailure());
   }
 }
 
 export function* signOut() {
-  localStorage.removeItem('login');
+  removeToken()
   yield put(signOutSuccess());
 }
 
 export function* updateAddressCheckOut({ payload }) {
-  const { data: { data: { user } } } = yield call(fetchUpdateAddressToServer, payload);
-  yield put(setCurrentUser(user));
+  try {
+    const { data: { data: { user } } } = yield call(fetchUpdateInformationUser, payload,"address");
+    yield put(setCurrentUser(user));
+  } catch(err) {
+    messageError(err);
+    yield put(updateUserFailure())
+  }
 }
 
 export function* updatePhoneNumber({ payload }) {
-  const { data: { data: { user } } } = yield call(fetchUpdatePhoneToServer, payload);
-  yield put(setCurrentUser(user));
+  try {
+    const { data: { data: { user } } } = yield call(fetchUpdateInformationUser, payload,"phone");
+    yield put(setCurrentUser(user));
+  } catch (err) {
+    messageError(err);
+    yield put(updateUserFailure())
+  }
 }
-// export function* sessionUser() {
-//   try {
-//     const { data: { data: { user } } } = yield call(fetchSessionToServer());
-//     if (!user) return;
-//     put(selectCurrentUser(user));
-//   } catch (err) {
-//     message.error(`${err.response.data.message}`);
-//   }
-// }
+
+function* userExpired () {
+  yield put(push("/signInSignUp"))
+}
+
+
+export function* onUserExpired () {
+  yield takeLatest(USER_ACTIONS_TYPES.AUTH_EXPIRED_TYPES, userExpired)
+}
 
 export function* onSignOutStart() {
   yield takeLatest(USER_ACTIONS_TYPES.SIGN_OUT_START, signOut);
@@ -114,12 +110,6 @@ export function* onUpdatePhone() {
   yield takeLatest(USER_ACTIONS_TYPES.UPDATE_PHONE_START, updatePhoneNumber);
 }
 
-// CHECK USER SESSION
-
-// export function* onCheckUserSession() {
-//   yield takeLatest(USER_ACTIONS_TYPES.CHECK_SESSION_USER_START, sessionUser);
-// }
-
 export function* userSagas() {
   yield all([
     call(onSignUpStart),
@@ -127,5 +117,6 @@ export function* userSagas() {
     call(onSignOutStart),
     call(onUpdateAddress),
     call(onUpdatePhone),
+    call(onUserExpired)
   ]);
 }

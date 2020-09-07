@@ -6,6 +6,7 @@ const PrivateRoutes = ({component:Component,type,...props}) => {
     return(
         <Route {...props} render ={() => {
             if(!isLogin()) {
+                
                 return <Redirect to ={{pathname: "/checkout"}}/>
             }
             return <Component/>

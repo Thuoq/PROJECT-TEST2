@@ -3,20 +3,20 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'antd/dist/antd.css';
 import './index.scss';
-
-import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker';
-import { store ,persistor} from './redux/store';
+import { store ,persistor,history} from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react'
-
+import {Router} from 'react-router-dom';
+import {syncHistoryWithStore} from 'react-router-redux';
+const customHistory = syncHistoryWithStore(history,store);
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={customHistory  }>
       <PersistGate persistor={persistor}>
         <App />
       </PersistGate>
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById('root'),
 );

@@ -2,16 +2,16 @@ import {
   takeLatest, call, put, all,
 } from 'redux-saga/effects';
 import axios from 'axios';
-import { message } from 'antd';
 import BOOKING_ACTION_TYPES from './booking-types';
 import { getBookingSuccess, getBookingFailure } from './booking-action';
-import history from '../../history';
+
 import { handleData } from './booking-utils';
 import {URL,BOOKING_API} from '../../constants/api';
-
+import { messageError } from '../../helpers/error.message';
+import { getToken  } from '../../helpers/auth'
 
 export function fetchBookingToServer() {
-  const token = `Bearer ${JSON.parse(localStorage.getItem('login'))}`;
+  const token = `Bearer ${getToken()}`;
   return axios(`${URL}${BOOKING_API}`, {
     method: 'get',
     headers: {
@@ -19,8 +19,8 @@ export function fetchBookingToServer() {
     },
   });
 }
-export function pathBookingToServer(data) {
-  const token = `Bearer ${JSON.parse(localStorage.getItem('login'))}`;
+export function patchBookingToServer(data) {
+  const token = `Bearer ${getToken()}`;
   return axios(`${URL}${BOOKING_API}`, {
     method: 'patch',
     headers: {
@@ -36,15 +36,13 @@ export function* getBooking() {
     const data = yield call(handleData, booking);
     yield put(getBookingSuccess(data));
   } catch (err) {
-    message.error(`${err.response.data.message}`);
-    localStorage.removeItem('login');
-    history.push('/signInSignUp');
+    messageError(err);
     yield put(getBookingFailure());
-  }
+  } 
 }
 
 export function* updateComplete({ payload }) {
-  const { data: { data: { booking } } } = yield call(pathBookingToServer, payload);
+  const { data: { data: { booking } } } = yield call(patchBookingToServer, payload);
   const data = yield call(handleData, booking);
   yield put(getBookingSuccess(data));
 }

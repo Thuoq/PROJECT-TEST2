@@ -10,9 +10,9 @@ export const checkOutSuccess = () => ({
     type: CHECKOUT_ACTIONS_TYPE.CHECK_OUT_SUCCESS
 })
 
-export const checkOutFailure = err => ({
+export const checkOutFailure = ()  => ({
     type:CHECKOUT_ACTIONS_TYPE.CHECK_OUT_FAILURE,
-    payload : err
+
 })
 
 export const setCheckOuToFalse = () => ({

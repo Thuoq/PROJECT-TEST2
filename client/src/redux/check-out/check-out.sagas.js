@@ -1,17 +1,17 @@
-import axios from 'axios'; 
 import moment from 'moment';
+import AxiosInstance from '../../helpers/interceptor';
 import {takeLatest, all, call,put , select} from 'redux-saga/effects';
 import CHECKOUT_ACTIONS_TYPE from './check-out.types';
 import {selectCartItem , selectTotalPrice} from '../cart/cart.selector';
-import {checkOutSuccess} from './check-out.action'
-import { message } from 'antd';
+import {checkOutSuccess,checkOutFailure} from './check-out.action'
+import { messageError } from '../../helpers/error.message';
 import {URL,BOOKING_API} from '../../constants/api';
-
+import {getToken } from '../../helpers/auth'
 
 
 export function fetchBookingToServer (data) {
-    let token = "Bearer " + JSON.parse(localStorage.getItem("login"));
-    return axios(`${URL}${BOOKING_API}`, {
+    let token = "Bearer " + getToken();
+    return AxiosInstance(`${URL}${BOOKING_API}`, {
         method : "POST",
         headers : {
             'Authorization': token
@@ -35,7 +35,9 @@ export function *checkOut({payload}) {
         yield call(fetchBookingToServer,data);
         yield put(checkOutSuccess());
     }catch(err) {
-        message.error(`${err.response.data.message}`);
+        messageError(`${err}`);
+        yield put(checkOutFailure());
+       
     }
 }
 

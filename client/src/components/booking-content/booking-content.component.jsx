@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import './booking-content.styles.scss';
-import { Layout, Table,Skeleton } from 'antd';
+import { Layout, Table,Spin } from 'antd';
 //import {Popconfirm , Button , message,Tag} from 'antd'
 import Prefjx from '../../configs/booking-content.config';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { getBookingStart, updateCompleteStart } from '../../redux/booking/booking-action';
 import { selectHistoryBooking, selectIsLoadingBOOKING } from '../../redux/booking/booking-selector';
+import ExportCSV from '../exportCSV/exportcsv.component';
 
 const { Content } = Layout;
 
@@ -58,7 +59,7 @@ class BookingContent extends React.Component {
 
   render() {
     const {columnsPrefix} = this.state;
-    const {historyBooking,isLoading} = this.props; 
+    const {historyBooking,isLoading,currentUser} = this.props; 
 
       return (
           <Layout style={{ padding: '0 24px 24px' }}>
@@ -68,11 +69,11 @@ class BookingContent extends React.Component {
               minHeight: 600,
             }}
             >
+              {currentUser.roles.includes("admin") ? <ExportCSV  csvData ={historyBooking} fileName="booking-data"/> : null}
               <div>
-                <Skeleton loading={isLoading} paragraph={{ rows: 6 }} active={true}>
+                <Spin spinning ={isLoading} size="large">
                   <Table
                     rowClassName ={(record, index) => record.isCompleted ?  "background-silver" : null}
-                  
                     bordered
                     tableLayout="fixed"
                     rowSelection={{
@@ -90,7 +91,7 @@ class BookingContent extends React.Component {
                     columns={columnsPrefix}
                     rowKey='key'
                   /> 
-                </Skeleton>
+                </Spin>
               </div>
             </Content>
           </Layout>
