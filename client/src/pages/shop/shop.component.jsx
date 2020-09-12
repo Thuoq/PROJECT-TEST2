@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Switch, Route, withRouter } from 'react-router-dom';
 import CollectionPageContainer from '../../containers/collection-page.container';
-import SideBarHome from '../../components/sidebar-home/sidebar-home.component';
+
 import { connect } from 'react-redux';
 import {getCollectionStart} from '../../redux/shop/shop.action';
 import ProductDetailPageContainer from '../../containers/product-detail.container';
@@ -18,8 +18,7 @@ class ShopPage extends React.Component {
   render() {
     const {match} = this.props;
     return(
-      <Layout>
-      <SideBarHome />
+      <Layout style={{marginTop:'-3.6rem'}}>
         <Switch>
           <Route exact path={`${match.url}`} component={CollectionPageContainer} />
           <Route  path={`${match.url}/:id`} component={ProductDetailPageContainer} />

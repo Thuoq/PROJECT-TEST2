@@ -1,14 +1,13 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
-import { createStructuredSelector } from 'reselect';
-import { selectIsLoadingUser } from '../../redux/user/user.selector';
 
-import { Form, Input, Button ,Spin} from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
+import { Form, Input, Button  , Divider} from 'antd';
+import {  LockOutlined } from '@ant-design/icons';
 import { signInStart } from '../../redux/user/user.action';
 import { connect } from 'react-redux';
 
-const SignIn  =  ({signInStart,isLoading}) => {
+const SignIn  =  ({signInStart}) => {
   const [form]  = Form.useForm()
   
   const onFinish = values => { 
@@ -17,9 +16,7 @@ const SignIn  =  ({signInStart,isLoading}) => {
   };
 
   return (
-    <Spin
-    spinning ={isLoading}
-    >
+   
       <Form
         name="normal_login"
         className="login-form"
@@ -28,7 +25,27 @@ const SignIn  =  ({signInStart,isLoading}) => {
         }}
         onFinish={onFinish}
         form = {form}
+        style={{
+          padding: '1rem',
+          textAlign:'center',
+          background: "white",
+          boxShadow:" 0 1rem 2rem rgba(0,0,0,0.2)"
+        }}
       >
+        <Divider style={{
+          marginBottom: '5rem'
+        }} orientation='center'>
+          <h2 style={{
+            fontSize:'2.4rem',
+            fontWeight:700,
+            color: '#d4b106'
+          }}>Login</h2>
+        </Divider>
+        
+        <p style={{
+          color: "#777",
+          fontWeight: 300
+        }}> Welcome back! Sign in to your account</p>
         <Form.Item
           name="email"
           rules={[
@@ -37,10 +54,10 @@ const SignIn  =  ({signInStart,isLoading}) => {
               message: "Please input your Email!"
             }
           ]}
-        >
+          >
           <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            prefix={<i className="fa fa-envelope site-form-item-icon" />}
+            placeholder="E-mail"
           />
         </Form.Item>
         <Form.Item
@@ -60,30 +77,33 @@ const SignIn  =  ({signInStart,isLoading}) => {
         </Form.Item>
       
 
-        <Form.Item>
+        <Form.Item >
           <Button
             type="primary"
             htmlType="submit"
             className="login-form-button"
+            style={{
+              width:'100%',
+              backgroundColor: "#d4b106",
+              borderColor: "#d4b106"
+            }}
           >
             Log in
           </Button>
         </Form.Item>
       </Form>
-    </Spin>
+ 
   )
 }
 
 const mapDispatchToProps = dispatch => ({
   signInStart : emailAndPassword => dispatch(signInStart(emailAndPassword)),
 })
-const mapStateToProps = createStructuredSelector({
-  isLoading : selectIsLoadingUser,
-})
+
 
 SignIn.propTypes = {
   signInStart: PropTypes.func,
   isLoading: PropTypes.bool
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignIn);
+export default connect(null,mapDispatchToProps)(SignIn);

@@ -12,9 +12,9 @@ const { Content } = Layout;
 
 
 const InformationUser = () => (
-  <Layout style={{ padding: '0 24px 24px' }}>
+  <Layout style={{ padding: '0 2.4rem 2.4rem' }}>
     <Content style={{
-      padding: 24,
+      padding: "2.4rem",
       margin: 0,
       minHeight: 600,
     }}

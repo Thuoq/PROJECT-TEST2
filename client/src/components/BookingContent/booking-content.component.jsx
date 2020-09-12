@@ -62,7 +62,7 @@ class BookingContent extends React.Component {
     const {historyBooking,isLoading,currentUser} = this.props; 
 
       return (
-          <Layout style={{ padding: '0 24px 24px' }}>
+          <Layout style={{ padding: '0 2.4rem 2.4rem' }}>
             <Content style={{
               padding: 24,
               margin: 0,

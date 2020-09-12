@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import {
-  Form, Input, Tooltip, Button,Spin
+  Form, Input, Button , Divider
 } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { formItemLayout, tailFormItemLayout } from '../../configs/form-layout.config';
+import { HomeOutlined,UserOutlined ,LockOutlined,PhoneOutlined} from '@ant-design/icons';
 import { signUpStart } from '../../redux/user/user.action';
-import { createStructuredSelector } from 'reselect';
-import { selectIsLoadingUser } from '../../redux/user/user.selector';
 
 
-const SignUp = ({signUpStart,errorMessage,isLoading}) => {
+const SignUp = ({signUpStart}) => {
   const [form] = Form.useForm();
   
   const onFinish = values => {
@@ -21,17 +18,35 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
   }
  
   return( 
-    <Spin spinning ={isLoading}>
         <Form
-          {...formItemLayout}
           name="register"
           onFinish={onFinish}
-          scrollToFirstError
+          className="login-form"
           form={form}
+          style={{
+            padding: '1rem',
+            textAlign:'center',
+            background: "white",
+            boxShadow:" 0 1rem 2rem rgba(0,0,0,0.2)"
+          }}
         >
+           <Divider style={{
+          marginBottom: '5rem'
+        }} orientation='center'>
+          <h2 style={{
+            fontSize:'2.4rem',
+            fontWeight:700,
+            color: '#d4b106'
+          }}>Register</h2>
+        </Divider>          
+        
+        <p style={{
+          color: "#777",
+          fontWeight: 300
+        }}> Create your very own account</p>
           <Form.Item
             name="email"
-            label="E-mail"
+            
             rules={[
               {
                 type: 'email',
@@ -43,12 +58,12 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="E-mail" prefix={<i className="fa fa-envelope site-form-item-icon "></i>} />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
+         
             rules={[
               {
                 required: true,
@@ -57,12 +72,12 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
             ]}
             hasFeedback
           >
-            <Input.Password />
+            <Input.Password prefix={<LockOutlined className="site-form-item-icon" />}  placeholder="password" />
           </Form.Item>
 
           <Form.Item
             name="confirmPassword"
-            label="Confirm Password"
+            
             dependencies={['password']}
             hasFeedback
             rules={[
@@ -84,19 +99,11 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
               }),
             ]}
           >
-            <Input.Password />
+            <Input.Password prefix={<LockOutlined className="site-form-item-icon" />}   placeholder="Confirm Password"/>
           </Form.Item>
 
           <Form.Item
             name="name"
-            label={(
-              <span>
-                Nickname&nbsp;
-                <Tooltip title="What do you want others to call you?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            )}
             rules={[
               {
                 required: true,
@@ -105,12 +112,14 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
               },
             ]}
           >
-            <Input />
+            <Input prefix={
+              <UserOutlined className="site-form-item-icon" />
+            } placeholder="Nick Name" />
           </Form.Item>
 
           <Form.Item
             name="address"
-            label="Address"
+            
             rules={[
               {
                 required: true,
@@ -118,12 +127,12 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
               },
             ]}
           >
-            <Input />
+            <Input  prefix={<HomeOutlined className="site-form-item-icon"/>} placeholder="Address"/>
           </Form.Item>
 
           <Form.Item
             name="phoneNumber"
-            label="Phone Number"
+            
             rules={[
               {
                 required: true,
@@ -145,26 +154,27 @@ const SignUp = ({signUpStart,errorMessage,isLoading}) => {
             ]}
           >
             <Input
-              style={{
-                width: '100%',
-              }}
+              placeholder="Phone Number"
+              prefix={<PhoneOutlined className="site-form-item-icon"/>}
+             
             />
           </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item >
+            <Button  style={{
+              width:'100%',
+              backgroundColor: "#d4b106",
+              borderColor: "#d4b106"
+            }} 
+            type="primary" htmlType="submit">
               Register
             </Button>
           </Form.Item>
       </Form>
-    </Spin>
+   
   )
 }
 
-const mapStateToProps = createStructuredSelector({
- 
-  isLoading : selectIsLoadingUser
-})
 
 const mapDispatchToProps = dispatch => ({
   signUpStart : userCredentials => dispatch(signUpStart(userCredentials))
@@ -175,4 +185,4 @@ SignUp.propTypes = {
   isLoading: PropTypes.bool
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp);
+export default connect(null,mapDispatchToProps)(SignUp);

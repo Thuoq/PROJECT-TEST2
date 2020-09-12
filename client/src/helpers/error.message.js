@@ -1,3 +1,6 @@
 import {message} from 'antd';
 
-export const messageError = (err) => message(err.response.data.message)
+export const messageError = (err) => {
+    return message.error(err.response.data.message)
+
+}

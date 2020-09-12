@@ -1,17 +1,26 @@
-@import '../../responsive-mixin.scss';
+@import "../../responsive-mixin.scss";
 .ant-row {
-    .gutter-row {
-        @include respone(tab-port) {
-            margin-bottom: 5rem !important;
-        }
-        .card-container {
-            width: 30rem;
-            @include respone(tab-port) {
-                width: 26rem !important ;
-            }
-            
-        }
+  .gutter-row {
+    @include respone(tab-port) {
+      margin-bottom: 5rem !important;
     }
+    .card-container {
+      width: 30rem;
+
+      @include respone(tab-port) {
+        width: 26rem;
+      }
+      @include respone(phone) {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
 }
-
-
+.shop-container {
+  padding: 0 2.4rem 2.4rem;
+  background-color: white;
+  @include respone(phone) {
+    margin-top: 15rem;
+  }
+}

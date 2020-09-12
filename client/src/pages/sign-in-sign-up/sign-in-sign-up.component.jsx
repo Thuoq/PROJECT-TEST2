@@ -1,81 +1,54 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {
-  Layout, Modal, Tabs,
+  Layout,Col , Row , Spin
 } from 'antd';
 import windowSize from 'react-window-size';
 
-import { ReactComponent as LoginIcon } from '../../assets/001-login.svg';
-import { ReactComponent as Register } from '../../assets/002-escalator.svg';
 import SignIn from '../../components/sign-in/sign-in.component';
 import SignUp from '../../components/sign-up/sign-up.component';
 import './sign-in-sign-up.styles.scss';
+import { createStructuredSelector } from 'reselect';
+import { selectIsLoadingUser } from '../../redux/user/user.selector';
 
 const { Content } = Layout;
-const { TabPane } = Tabs;
+
 
 class SignInSignUpPage extends React.Component {
   render() {
-    const {windowWidth,history} = this.props;
+    const {isLoading} =this.props;
+    //const {windowWidth,history} = this.props;
     return(
-      <>
-    
-        <Content
-          className="containerSignInSignUp"
-        >
-          <Modal
-            visible
-            onCancel= {() => history.push("/shop")}
-            footer={null}
-          > 
+      
   
-           
-            <Tabs
-              defaultActiveKey="1"
-              size={windowWidth <= 900 ? 'small' : 'large'}
-              centered="true"
-              tabBarGutter={50}
-            >
-              <TabPane
-                tab={(
-                  <span style={{ display: 'flex', justifyContent: 'center' }}>
-                    <LoginIcon style={{ width: '25px', height: '25px' }} />
-                    &nbsp;
-
-                    Log In
-                  </span>
-                )}
-                key="1"
-              >
-                <SignIn />
-              </TabPane>
-              <TabPane
-                tab={(
-                  <span style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Register style={{ width: '25px', height: '25px' }} />
-                    &nbsp;
-
-                    Sign Up
-                  </span>
-                )}
-                key="2"
-              >
-                <SignUp />
-              </TabPane>
-            </Tabs>
-          </Modal>
-          
+          <Content
+            className="containerSignInSignUp"
+          > 
+             <Spin spinning={isLoading} size="large">
+              <Row gutter={[56, 16]}>
+                <Col span={12}>
+                  <SignIn />
+                </Col>
+                <Col span={12}>
+                  <SignUp />
+                </Col>
+              </Row>
+            </Spin>
         </Content>
-
-      </>
+     
     )
   }
 }
+
+const mapStateToProps = createStructuredSelector({
+  isLoading : selectIsLoadingUser
+})
 
 SignInSignUpPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   })
 }
-export default withRouter(windowSize(SignInSignUpPage));
+export default withRouter(connect(mapStateToProps)(windowSize(SignInSignUpPage)));

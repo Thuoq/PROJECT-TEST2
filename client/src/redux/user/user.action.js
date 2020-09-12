@@ -18,10 +18,12 @@ export const signInStart = (emailAndPassword) => ({
   payload: emailAndPassword,
 });
 
-export const signInFailure = (errMessage) => ({
+export const signInFailure = (errMessage) => {
+  
+  return ({
   type: USER_ACTIONS_TYPES.SIGN_IN_FAILURE,
   payload: errMessage,
-});
+})};
 
 export const signOutStart = () => ({
   type: USER_ACTIONS_TYPES.SIGN_OUT_START,

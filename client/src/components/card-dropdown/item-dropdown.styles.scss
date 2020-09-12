@@ -1,0 +1,33 @@
+.select-items {
+  table {
+    width: 100%;
+    tr {
+      td {
+        padding-bottom: 2rem;
+      }
+      td.si-pic {
+        img {
+          border: 1px solid #ebebeb;
+        }
+      }
+      td.si-text {
+        padding-left: 1.8rem;
+        .product-selected {
+          p {
+            color: #e7ab3c;
+            line-height: 3rem;
+            margin-bottom: 0.7rem;
+          }
+          h6 {
+            color: #232530;
+          }
+        }
+      }
+      td.si-close {
+        color: #252525;
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+    }
+  }
+}

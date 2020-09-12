@@ -1,25 +1,45 @@
-@import './responsive-mixin.scss';
+@import "./responsive-mixin.scss";
 
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu  {
-  margin: 0px 40px;
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
+  margin: 0 4rem;
 }
 
 .ant-layout-sider-trigger {
   position: static;
 }
 
-
 html {
-    font-size: 62.5%; //1rem = 16px , 1rem = 10px
-    
-    @include respone (tab-land) {
-        font-size:56.25% ;
-    }
-    @include respone (tab-port) {
-        font-size: 50%; 
-    }
-    
-    @include respone (big-desktop) {
-        font-size:75%;
-    }
+  font-size: 62.5%; //1rem = 16px , 1rem = 10px
+
+  @include respone(tab-port) {
+    font-size: 50%;
+  }
+  @include respone(tab-land) {
+    font-size: 56.25%;
+  }
+
+  @include respone(big-desktop) {
+    font-size: 75%;
+  }
+}
+.container {
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 118rem;
+  @include respone(phone) {
+    max-width: 54rem;
+  }
+  @include respone(tab-port) {
+    max-width: 72rem;
+  }
+  @include respone(tab-land) {
+    max-width: 96rem;
+  }
+  @include respone(big-desktop) {
+    max-width: 118rem;
+  }
 }

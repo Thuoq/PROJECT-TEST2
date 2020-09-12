@@ -5,36 +5,38 @@ import {
   Layout, Row, Col, Divider,
 } from 'antd';
 import CardItem from '../card-item/card-item.component';
-import CarouselHomePage from '../carousel-homepage/carousel-homepage.component';
-// import { getCollectionStart } from '../../redux/shop/shop.action';
+
+import BannerSecondary from '../banner/BannerSecondary';
+import BannerHeading from '../banner/BannerHeading';
+
 
 const { Content } = Layout;
 
 const ContentHomePage = ({ collections, match, history }) => {
 
   return(
-  <Layout style={{ padding: '0 24px 24px' }}>
+  <Layout  style={{ marginTop: '-2rem' }}>
     <Content
-      className="site-layout-background"
-      style={{
-        padding: 24,
-        margin: 0,
-        minHeight: 600,
-      }}
-    >
-      <Divider orientation="left"><h2>View Sale</h2></Divider>
-      <CarouselHomePage collections={collections} />
-      <Divider orientation="left"><h2>Best Sale</h2></Divider>
-      <Row gutter={{
+      className="site-layout-background">
+      <BannerHeading/>
+      <BannerSecondary/>
+      
+      <Divider orientation="center" style={{whiteSpace: "normal"}}>
+        <h2 style={{fontSize:'4rem',fontWeight:'600',color:'#000'}}>Best Sellers</h2>
+        <p style={{color: 'gray',fontWeight:'400'}}>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+      </Divider>
+      <Row style={{
+        marginRight: '0'
+      }} gutter={{
         xs: 8, sm: 16, md: 24, lg: 32,
       }}
       >
         {
           collections.map((cartItem, idx) => (
-            <Col xs={24} key={idx} sm={12} md={8} lg={6} className="gutter-row">
-              <CardItem key={idx} cartItem={cartItem} match={match} history={history} />
+            <Col xs={24} key={idx} sm={12} md={8} lg={6} >
+              <CardItem  key={idx} cartItem={cartItem} match={match} history={history} />
             </Col>
-          ))
+          )) 
         }
       </Row>
     </Content>

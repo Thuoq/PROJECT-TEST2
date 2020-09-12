@@ -4,6 +4,7 @@ import {
 import AxiosInstance from '../../helpers/interceptor';
 import {messageError} from '../../helpers/error.message';
 import { push } from 'react-router-redux'
+//import {message} from 'antd'
 import {setToken,getToken,removeToken} from '../../helpers/auth';
 import USER_ACTIONS_TYPES from './user.types';
 import {
@@ -52,7 +53,7 @@ export function* signIn({ payload }) {
     yield put(setCurrentUser(user));
     setToken(token);
   } catch (err) {
-    messageError(err);
+     messageError(err);
     yield put(signInFailure());
   }
 }
@@ -66,7 +67,7 @@ export function* updateAddressCheckOut({ payload }) {
   try {
     const { data: { data: { user } } } = yield call(fetchUpdateInformationUser, payload,"address");
     yield put(setCurrentUser(user));
-  } catch(err) {
+  } catch(err) { 
     messageError(err);
     yield put(updateUserFailure())
   }

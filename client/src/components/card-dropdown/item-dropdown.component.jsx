@@ -1,38 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {DeleteOutlined,} from '@ant-design/icons';
+import {deleteItemToCart} from '../../redux/cart/cart.action'
+import './item-dropdown.styles.scss';
 
-import { DeleteOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+const ItemDropdown = ({cartItem,deleteItemToCart}) => ( 
+    <tr>
+        <td className="si-pic">
+            <img width={100} height={100} src={cartItem.photoURL} alt="" />
+        </td>
+        <td className="si-text">
+            <div className="product-selected">
+            <p>${cartItem.priceUSD} x {cartItem.quantity}</p>
+            <h6>{cartItem.nameEN}</h6>
+            </div>
+        </td>
+        <td className="si-close">
+            <DeleteOutlined onClick={() => deleteItemToCart(cartItem)} className="ti-close" />
+        </td>
+    </tr>
+)
 
-const ItemDropdown = ({ cartItem, deleteItemToCart }) => (
-  <div className="item-dropdown-container">
-    <div className="item-dropdown-infor">
-      <img alt="item-dropdown" src={cartItem.photoURL} />
-      <div className="item-dropdown-title">
-        <span>
-          {cartItem.priceUSD}
-          $ x
-          {' '}
-          {cartItem.quantity}
-        </span>
-      </div>
-    </div>
-    <div className="item-dropdown-delete">
-      <Button onClick={() => deleteItemToCart(cartItem)}>
-        <DeleteOutlined />
-      </Button>
+const mapDispatchToProps = dispatch => ({
+    deleteItemToCart : cartItem => dispatch(deleteItemToCart(cartItem))
+}) 
 
-    </div>
-  </div>
-);
-
-ItemDropdown.propTypes = {
-  cartItem: PropTypes.shape({
-    priceUSD: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    photoURL: PropTypes.string.isRequired
-  }),
-  deleteItemToCart: PropTypes.func
-}
-
-export default ItemDropdown;
+export default connect(null,mapDispatchToProps)(ItemDropdown);

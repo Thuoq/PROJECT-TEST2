@@ -18,7 +18,7 @@ const CardItem = ({
   
   return (
     <Card
-      className="card-container"
+      className="card-container animate__animated animate__zoomInDown"
       hoverable
       loading = {isLoading}
       cover={(
