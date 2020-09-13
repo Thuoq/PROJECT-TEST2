@@ -1,14 +1,13 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
-const selectCheckOut = state => state.checkout;
-
+const selectCheckOut = (state) => state.checkout;
 
 export const selectSuccess = createSelector(
-    [selectCheckOut],
-    checkout => checkout.success
-)
+  [selectCheckOut],
+  (checkout) => checkout.success
+);
 
 export const selectIsFetchingCheckOut = createSelector(
-    [selectCheckOut],
-    checkOut => checkOut.isFetching
-)
+  [selectCheckOut],
+  (checkOut) => checkOut.isFetching
+);

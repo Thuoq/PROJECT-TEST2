@@ -1,6 +1,6 @@
 export const columns = [
-    {
-      title: "Address Ship",
-      dataIndex: "name"
-    }
-  ];
+  {
+    title: 'Address Ship',
+    dataIndex: 'name',
+  },
+];

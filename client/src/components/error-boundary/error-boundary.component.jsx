@@ -1,12 +1,13 @@
 import React from 'react';
 import { Result } from 'antd';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 class ErrorBoundary extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      hasErrored: false
+      hasErrored: false,
     };
   }
 
@@ -23,10 +24,10 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasErrored) {
       return (
         <Result
-            status="500"
-            title="500"
-            subTitle="Sorry, something went wrong."
-            extra={<Link to="/shop" >Back Home</Link>}
+          status="500"
+          title="500"
+          subTitle="Sorry, something went wrong."
+          extra={<Link to="/shop">Back Home</Link>}
         />
       );
     }

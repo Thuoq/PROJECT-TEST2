@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
-import { DeleteOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  CaretUpOutlined,
+  CaretDownOutlined,
+} from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { decreaseItemToCart, addItemToCart, deleteItemToCart } from '../../../redux/cart/cart.action';
+import {
+  decreaseItemToCart,
+  addItemToCart,
+  deleteItemToCart,
+} from '../../../redux/cart/cart.action';
 import './product-checkout.styles.scss';
 
 import ProductItem from '../product-item/product-item.component';
 
 const ProductCheckOut = ({
-  cartCheckout, decreaseItemToCart, addItemToCart, deleteItemToCart,
+  cartCheckout,
+  decreaseItemToCart,
+  addItemToCart,
+  deleteItemToCart,
 }) => (
   <div className="product-container">
     <ProductItem cartItem={cartCheckout} />
@@ -20,7 +31,11 @@ const ProductCheckOut = ({
       <CaretUpOutlined onClick={() => addItemToCart(cartCheckout)} />
     </div>
     <div className="product-delete">
-      <Button onClick={() => deleteItemToCart(cartCheckout)} type="text" icon={<DeleteOutlined />} />
+      <Button
+        onClick={() => deleteItemToCart(cartCheckout)}
+        type="text"
+        icon={<DeleteOutlined />}
+      />
     </div>
   </div>
 );

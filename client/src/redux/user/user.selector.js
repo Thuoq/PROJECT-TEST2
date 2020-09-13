@@ -4,22 +4,20 @@ const selectUser = (state) => state.user;
 
 export const selectCurrentUser = createSelector(
   [selectUser],
-  (user) => user.currentUser,
+  (user) => user.currentUser
 );
 
 export const selectAddressName = createSelector(
   [selectCurrentUser],
-  currentUser => currentUser.address.map(el => el.name)
-)
-
-
+  (currentUser) => currentUser.address.map((el) => el.name)
+);
 
 export const selectIsLoadingUser = createSelector(
   [selectUser],
-  user => user.isLoading
-)
+  (user) => user.isLoading
+);
 
 export const selectIsUpdatingUser = createSelector(
   [selectUser],
-  user => user.isUpdating
-)
+  (user) => user.isUpdating
+);

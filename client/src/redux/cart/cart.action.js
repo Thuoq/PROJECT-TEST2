@@ -20,6 +20,5 @@ export const deleteItemToCart = (cartItem) => ({
 });
 
 export const clearCart = () => ({
-  type: CartActionTypes.CLEAR_CART_SIGN_OUT
-})
-
+  type: CartActionTypes.CLEAR_CART_SIGN_OUT,
+});

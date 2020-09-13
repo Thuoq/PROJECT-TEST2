@@ -62,10 +62,15 @@
       padding: 1.5rem 2rem 1.5rem 0;
       border-right: 1px solid #e5e5e5;
       a {
-        color: #252525;
+        color: #2f62d6;
+
         font-size: 1.4rem;
         display: inline-block;
         margin-left: 1.5rem;
+        transition: all 0.2s ease;
+        &:hover {
+          color: #e7ab3c;
+        }
       }
     }
   }

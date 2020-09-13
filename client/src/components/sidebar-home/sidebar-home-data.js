@@ -108,7 +108,7 @@ const dataSideBar = [
   'Smooth dress',
   'Accessories Accessories',
   'Hair clipper',
-  'Bóng Đá'
-  ]
+  'Bóng Đá',
+];
 
 export default dataSideBar;

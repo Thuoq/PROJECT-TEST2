@@ -18,6 +18,10 @@
       @media screen and (max-width: 762px) {
         text-align: center;
       }
+      @include respone(tab-land) {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
   }
 }

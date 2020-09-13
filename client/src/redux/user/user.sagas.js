@@ -1,22 +1,19 @@
-import {
-  takeLatest, all, call, put,
-} from 'redux-saga/effects';
+import { takeLatest, all, call, put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import AxiosInstance from '../../helpers/interceptor';
-import {messageError} from '../../helpers/error.message';
-import { push } from 'react-router-redux'
-//import {message} from 'antd'
-import {setToken,getToken,removeToken} from '../../helpers/auth';
+import { messageError } from '../../helpers/error.message';
+// import {message} from 'antd'
+import { setToken, getToken, removeToken } from '../../helpers/auth';
 import USER_ACTIONS_TYPES from './user.types';
 import {
   setCurrentUser,
-  signOutSuccess, 
-  signUpFailure, 
-  signInFailure, 
+  signOutSuccess,
+  signUpFailure,
+  signInFailure,
   updateUserFailure,
 } from './user.action';
 
-import {URL,USER_API} from '../../constants/api';
-
+import { URL, USER_API } from '../../constants/api';
 
 export function fetchUserToServer(data, type) {
   return AxiosInstance(`${URL}${USER_API}/${type}`, {
@@ -25,7 +22,7 @@ export function fetchUserToServer(data, type) {
   });
 }
 
-export function fetchUpdateInformationUser(data,type) {
+export function fetchUpdateInformationUser(data, type) {
   const token = `Bearer ${getToken()}`;
   return AxiosInstance(`${URL}${USER_API}/${type}`, {
     method: 'PATCH',
@@ -38,9 +35,14 @@ export function fetchUpdateInformationUser(data,type) {
 
 export function* signUp({ payload }) {
   try {
-    const { data: { data: { user }, token } } = yield call(fetchUserToServer, payload, 'register');
+    const {
+      data: {
+        data: { user },
+        token,
+      },
+    } = yield call(fetchUserToServer, payload, 'register');
     yield put(setCurrentUser(user));
-    setToken(token)
+    setToken(token);
   } catch (err) {
     messageError(err);
     yield put(signUpFailure());
@@ -49,47 +51,59 @@ export function* signUp({ payload }) {
 
 export function* signIn({ payload }) {
   try {
-    const { data: { data: { user }, token } } = yield call(fetchUserToServer, payload, 'signIn');
+    const {
+      data: {
+        data: { user },
+        token,
+      },
+    } = yield call(fetchUserToServer, payload, 'signIn');
     yield put(setCurrentUser(user));
     setToken(token);
   } catch (err) {
-     messageError(err);
+    messageError(err);
     yield put(signInFailure());
   }
 }
 
 export function* signOut() {
-  removeToken()
+  removeToken();
   yield put(signOutSuccess());
 }
 
 export function* updateAddressCheckOut({ payload }) {
   try {
-    const { data: { data: { user } } } = yield call(fetchUpdateInformationUser, payload,"address");
+    const {
+      data: {
+        data: { user },
+      },
+    } = yield call(fetchUpdateInformationUser, payload, 'address');
     yield put(setCurrentUser(user));
-  } catch(err) { 
+  } catch (err) {
     messageError(err);
-    yield put(updateUserFailure())
+    yield put(updateUserFailure());
   }
 }
 
 export function* updatePhoneNumber({ payload }) {
   try {
-    const { data: { data: { user } } } = yield call(fetchUpdateInformationUser, payload,"phone");
+    const {
+      data: {
+        data: { user },
+      },
+    } = yield call(fetchUpdateInformationUser, payload, 'phone');
     yield put(setCurrentUser(user));
   } catch (err) {
     messageError(err);
-    yield put(updateUserFailure())
+    yield put(updateUserFailure());
   }
 }
 
-function* userExpired () {
-  yield put(push("/signInSignUp"))
+function* userExpired() {
+  yield put(push('/signInSignUp'));
 }
 
-
-export function* onUserExpired () {
-  yield takeLatest(USER_ACTIONS_TYPES.AUTH_EXPIRED_TYPES, userExpired)
+export function* onUserExpired() {
+  yield takeLatest(USER_ACTIONS_TYPES.AUTH_EXPIRED_TYPES, userExpired);
 }
 
 export function* onSignOutStart() {
@@ -104,7 +118,10 @@ export function* onSignInStart() {
 }
 
 export function* onUpdateAddress() {
-  yield takeLatest(USER_ACTIONS_TYPES.UPDATE_ADDRESS_START, updateAddressCheckOut);
+  yield takeLatest(
+    USER_ACTIONS_TYPES.UPDATE_ADDRESS_START,
+    updateAddressCheckOut
+  );
 }
 
 export function* onUpdatePhone() {
@@ -118,6 +135,6 @@ export function* userSagas() {
     call(onSignOutStart),
     call(onUpdateAddress),
     call(onUpdatePhone),
-    call(onUserExpired)
+    call(onUserExpired),
   ]);
 }

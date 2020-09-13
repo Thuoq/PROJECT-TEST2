@@ -35,13 +35,10 @@ const bookingSchema = new mongoose.Schema({
     },
     
 })
-// bookingSchema.pre(/^find/, function(next) {
-//     this.populate('users').populate({
-//       path: 'product',
-//       select: 'name'
-//     });
-//     next();
-// });
+bookingSchema.pre(/^find/, function(next) {
+    this.populate('cart._id').populate({path: 'idUser',select: ['phoneNumber' , 'name']})
+    next();
+});
 
 
 

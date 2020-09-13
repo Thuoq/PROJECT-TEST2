@@ -13,21 +13,18 @@ import { selectSuccess } from '../../redux/check-out/check-out.selector';
 
 const CheckoutPage = ({ cartItems, success }) => (
   <div className="container-checkout">
-    {
-      cartItems.length
-        ? (
-          <>
-            <div className="product-checkout-page">
-              {
-                 cartItems.map((el, idx) => <ProductCheckOut key={idx} cartCheckout={el} />)
-              }
-            </div>
-            <PayCheckOut />
-
-          </>
-        )
-        : (<ResultEmpty />)
-    }
+    {cartItems.length ? (
+      <>
+        <div className="product-checkout-page">
+          {cartItems.map((el, idx) => (
+            <ProductCheckOut key={idx} cartCheckout={el} />
+          ))}
+        </div>
+        <PayCheckOut />
+      </>
+    ) : (
+      <ResultEmpty />
+    )}
     {!success ? null : <SuccessCheckout />}
   </div>
 );

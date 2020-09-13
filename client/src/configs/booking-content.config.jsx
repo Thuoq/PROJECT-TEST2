@@ -1,15 +1,14 @@
 import React from 'react';
 import moment from 'moment';
-import {
-  Popconfirm, Button, message, Tag,
-} from 'antd';
+import { Popconfirm, Button, message, Tag } from 'antd';
 
 const Prefjx = [
   {
     title: 'Date',
     dataIndex: 'createAt',
-    sorter: (a, b) => moment(a.createAt, 'MMMM Do YYYY, h:mm:ss a')
-              - moment(b.createAt, 'MMMM Do YYYY, h:mm:ss a'),
+    sorter: (a, b) =>
+      moment(a.createAt, 'MMMM Do YYYY, h:mm:ss a') -
+      moment(b.createAt, 'MMMM Do YYYY, h:mm:ss a'),
     width: 250,
     ellipsis: true,
     fixed: 'left',
@@ -68,16 +67,13 @@ const Prefjx = [
     title: 'BOX_NO',
     dataIndex: 'boxNo',
     width: 150,
-    render: () => (
-      <p>BOX NO</p>
-    ),
+    render: () => <p>BOX NO</p>,
   },
   {
     title: 'PACKAGE_QTY',
     dataIndex: 'quantity',
     ellipsis: true,
     width: 150,
-
   },
   {
     title: 'ORDER_ITEM',
@@ -141,7 +137,12 @@ const Prefjx = [
     dataIndex: 'origin',
     ellipsis: true,
     width: 250,
-    render: (text) => (text === 'Trung Quốc' ? <Tag color="volcano">{text}</Tag> : <Tag color="geekblue">{text}</Tag>),
+    render: (text) =>
+      text === 'Trung Quốc' ? (
+        <Tag color="volcano">{text}</Tag>
+      ) : (
+        <Tag color="geekblue">{text}</Tag>
+      ),
   },
   {
     title: 'AMOUNT',
@@ -191,7 +192,9 @@ const Prefjx = [
           okText="Yes"
           cancelText="No"
           onCancel={() => message.error('U click on No')}
-          onConfirm={() => this.handleComplete({ key: record.key, id: record._id })}
+          onConfirm={() =>
+            this.handleComplete({ key: record.key, id: record._id })
+          }
         >
           <Button type="primary">Complete</Button>
         </Popconfirm>

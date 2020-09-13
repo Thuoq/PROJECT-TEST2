@@ -13,14 +13,9 @@ exports.createBooking = catchAsync(async (req,res,next) => {
 exports.getBooking = catchAsync(async (req,res,next) => {
     let booking;
     if( !req.user.roles.includes("admin") ) {
-        booking =  await Booking.find({idUser: req.user._id})
-                        .populate('cart._id')
-                        .populate({path: 'idUser',select: ['phoneNumber' , 'name']})
-                        
-                 
+        booking =  await Booking.find({idUser: req.user._id})      
     }else {
-        booking = await Booking.find().populate('cart._id')
-        .populate({path: 'idUser',select: ['phoneNumber' , 'name']})
+        booking = await Booking.find()
         
     }   
   
@@ -39,8 +34,7 @@ exports.updateComplete = catchAsync(async (req,res,next) => {
      await Booking.update({"_id":id, "cart.key":key},{$set: {"cart.$.isCompleted":true}},{
         new: true
     })
-    booking = await Booking.find().populate('cart._id')
-        .populate({path: 'idUser',select: ['phoneNumber' , 'name']})
+    booking = await Booking.find()
     res.status(200).json({
         status: 'success',
         length : booking.length, 
