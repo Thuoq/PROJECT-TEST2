@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '../../helpers/query';
-import { FilterOutlined } from '@ant-design/icons';
 import './collection-page.styles.scss';
-import { Layout, Row, Col, Pagination, Button } from 'antd';
+import { Layout, Row, Col, Pagination } from 'antd';
 import CardItem from '../../components/card-item/card-item.component';
 import SortProduct from '../../components/sort-product/sort-product.component';
 
@@ -17,26 +16,9 @@ const CollectionPage = ({
   getCollectionStart,
   ...props
 }) => {
-  const [visible, setVisible] = useState(false);
   const query = useQuery();
-
   return (
     <Layout.Content className="shop-container">
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <h2>Product Pages</h2>
-        <Button
-          onClick={() => setVisible(!visible)}
-          shape="circle"
-          icon={<FilterOutlined />}
-        />
-      </div>
-      <SortProduct visible={visible} />
-
       <Content
         className="site-layout-background"
         style={{
@@ -45,6 +27,13 @@ const CollectionPage = ({
           minHeight: 600,
         }}
       >
+        <div
+          style={{
+            textAlign: 'right',
+          }}
+        >
+          <SortProduct {...props} />
+        </div>
         <Row gutter={[48, 24]}>
           {collections.map((cartItem, idx) => (
             <Col key={idx} xs={24} sm={12} md={8} lg={6} className="gutter-row">

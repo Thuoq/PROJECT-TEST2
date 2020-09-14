@@ -5,12 +5,13 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.getAllProduct = catchAsync(async ( req, res, next) => {
     
-    let features 
+    let features  
     if(req.query.nameEN) {
         features = new APIFeatures(Product.find({"nameEN": {$regex:req.query.nameEN}}),req.query)
         .sort().limitFields().paginate()
     }else {
         req.query.nameEN = undefined;
+        
         features = new APIFeatures(Product.find(),req.query)
         .filter().sort().limitFields().paginate()
     }

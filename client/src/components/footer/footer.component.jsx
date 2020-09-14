@@ -11,7 +11,7 @@ const Footer = () => (
           <div className="footer-left">
             <div className="footer-logo">
               <Link to="/">
-                <img src="img/footer-logo.png" alt="" />
+                <img src="https://i.postimg.cc/cH8BcTSc/logo.png" alt="" />
               </Link>
             </div>
             <ul>

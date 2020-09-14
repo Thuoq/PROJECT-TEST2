@@ -21,9 +21,6 @@ class SideBarHome extends React.Component {
         collapsed={windowWidth <= 900}
         style={windowWidth <= 900 ? { width: '5rem' } : ''}
         className="site-layout-background"
-        style={{
-          boxShadow: '0 1rem 1rem rgb(205,205,205)',
-        }}
       >
         <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
           <SubMenu

@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Popconfirm, Button, message, Tag } from 'antd';
 
-const Prefjx = [
+const preFix = (classConstructor) => [
   {
     title: 'Date',
     dataIndex: 'createAt',
@@ -193,7 +193,7 @@ const Prefjx = [
           cancelText="No"
           onCancel={() => message.error('U click on No')}
           onConfirm={() =>
-            this.handleComplete({ key: record.key, id: record._id })
+            classConstructor.handleComplete({ key: record.key, id: record._id })
           }
         >
           <Button type="primary">Complete</Button>
@@ -203,4 +203,4 @@ const Prefjx = [
   },
 ];
 
-export default Prefjx;
+export default preFix;

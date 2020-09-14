@@ -11,10 +11,12 @@ import { useQuery } from '../../helpers/query';
 
 const ShopPage = ({ match, getCollectionStart }) => {
   const query = useQuery();
+
   const nameEN = query.get('nameEN');
+  const sort = query.get('sort');
   useEffect(() => {
-    getCollectionStart({ nameEN });
-  }, [nameEN, getCollectionStart]);
+    getCollectionStart({ nameEN, sort });
+  }, [nameEN, sort, getCollectionStart]);
   return (
     <Layout style={{ marginTop: '-3.6rem' }}>
       <Switch>

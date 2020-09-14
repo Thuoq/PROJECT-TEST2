@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import './booking-content.styles.scss';
 import { Layout, Table, Spin } from 'antd';
 //import {Popconfirm , Button , message,Tag} from 'antd'
-import Prefjx from '../../configs/booking-content.config';
+import preFix from '../../configs/booking-content.config';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import {
@@ -21,7 +21,7 @@ const { Content } = Layout;
 
 class BookingContent extends React.Component {
   state = {
-    columnsPrefix: Prefjx,
+    columnsPrefix: preFix(this),
   };
   createNewArr = (data) => {
     return data

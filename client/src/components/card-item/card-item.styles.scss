@@ -1,8 +1,18 @@
-@import "../../responsive-mixin.scss";
+@import '../../responsive-mixin.scss';
 
 .card-container {
   width: 100%;
   margin-bottom: 2rem;
+  & .ant-card-cover {
+    overflow: hidden;
+    img {
+      transition: all 0.5s ease-in;
+      &:hover {
+        transform: scale(1.3);
+      }
+    }
+  }
+
   @include respone(tab-port) {
     margin-bottom: 5rem !important;
   }

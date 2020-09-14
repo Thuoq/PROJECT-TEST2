@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import './navigations.top.scss';

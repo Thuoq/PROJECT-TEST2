@@ -11,9 +11,9 @@ import { URL, SHOP_API, SHOP_API_TOP_4_SALES } from '../../constants/api';
 import AxiosInstance from '../../helpers/interceptor';
 import { messageError } from '../../helpers/error.message';
 
-export function fetchCollectionToServer(limit, page, nameEN) {
+export function fetchCollectionToServer(limit, page, nameEN, sort) {
   return AxiosInstance(
-    `${URL}${SHOP_API}?limit=${limit}&page=${page}&nameEN=${nameEN}`,
+    `${URL}${SHOP_API}?limit=${limit}&page=${page}&nameEN=${nameEN}&sort=${sort}`,
     {
       method: 'get',
     }
@@ -30,9 +30,11 @@ export function* fetchCollectionAsync({ payload }) {
     let page = 1;
     let limit = 12;
     let nameEN = yield select(selectCurrentQuery);
+    let sort = '';
     if (payload) {
       page = payload.page || 1;
       limit = payload.limit || 12;
+      sort = payload.sort;
     }
     if (!nameEN) {
       nameEN = 's';
@@ -42,7 +44,7 @@ export function* fetchCollectionAsync({ payload }) {
       data: {
         data: { products },
       },
-    } = yield call(fetchCollectionToServer, limit, page, nameEN);
+    } = yield call(fetchCollectionToServer, limit, page, nameEN, sort);
     yield put(getCollectionSuccess(products));
   } catch (err) {
     messageError(err);
