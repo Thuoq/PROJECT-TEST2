@@ -6,7 +6,7 @@ import './index.scss';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Router } from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
-import App from './App.jsx';
+import App from './App.js';
 import * as serviceWorker from './serviceWorker';
 import { store, persistor, history } from './redux/store';
 

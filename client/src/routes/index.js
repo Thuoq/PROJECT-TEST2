@@ -1,20 +1,18 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Spinner from '../components/spinner/spinner.component';
-import ErrorBoundary from '../components/error-boundary/error-boundary.component';
+import Spinner from '../components/Spinner/Spinner';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import PublicRoute from './public.routes';
 import PrivateRoutes from './private.routes';
 
-const HomePage = lazy(() => import('../pages/home-page/home-page.component'));
-const ShopPage = lazy(() => import('../pages/shop/shop.component'));
-const CheckOutPage = lazy(() =>
-  import('../pages/checkout-page/checkout-page.component')
-);
+const HomePage = lazy(() => import('../pages/Home/Home'));
+const ShopPage = lazy(() => import('../pages/Shop/Shop'));
+const CheckOutPage = lazy(() => import('../pages/Checkout/Checkout'));
 const SignInSignUpPage = lazy(() =>
-  import('../pages/sign-in-sign-up/sign-in-sign-up.component')
+  import('../pages/SignInSignUp/SignInSignUp')
 );
-const UserPage = lazy(() => import('../pages/user-page/user-page.component'));
-const Page404 = lazy(() => import('../pages/404/404.component'));
+const UserPage = lazy(() => import('../pages/User/User'));
+const Page404 = lazy(() => import('../pages/404/404'));
 
 const Routes = ({ currentUser }) => (
   <ErrorBoundary>
