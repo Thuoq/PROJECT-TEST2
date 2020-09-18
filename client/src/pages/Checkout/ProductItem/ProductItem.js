@@ -16,7 +16,7 @@ ProductItem.propTypes = {
   cartItem: PropTypes.shape({
     photoURL: PropTypes.string,
     nameEN: PropTypes.string,
-    priceUSD: PropTypes.string,
+    priceUSD: PropTypes.number,
   }),
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '../../helpers/query';
+import queryString from 'query-string';
 import './Collection.scss';
 import { Layout, Row, Col, Pagination } from 'antd';
 import CardItem from '../../components/CardItem/CardItem';
@@ -9,14 +9,14 @@ import SortProduct from '../../components/SortProduct/SortProduct';
 const { Content } = Layout;
 
 const CollectionPage = ({
-  currentPage,
   match,
   collections,
   history,
-  getCollectionStart,
+  location,
   ...props
 }) => {
-  const query = useQuery();
+  const parsed = queryString.parse(location.search);
+
   return (
     <Layout.Content className="shop-container">
       <Content
@@ -60,16 +60,11 @@ const CollectionPage = ({
         )}
         <Pagination
           style={{ textAlign: 'center' }}
-          current={currentPage}
-          onChange={(page, pageSize) => {
-            if (!query.get('nameEN')) {
-              history.push(`${match.url}?page=${page}`);
-            } else {
-              history.push(
-                `${match.url}?nameEN=${query.get('nameEN')}&&page=${page}`
-              );
-            }
-            getCollectionStart({ page, limit: pageSize });
+          current={parseInt(parsed.page)}
+          onChange={(page) => {
+            parsed.page = page;
+            let stringified = queryString.stringify(parsed);
+            history.push(`${match.url}?${stringified}`);
           }}
           defaultPageSize={12}
           total={100}

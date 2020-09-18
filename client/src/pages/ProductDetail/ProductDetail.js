@@ -192,10 +192,10 @@ ProductDetailPage.propTypes = {
     photoURL: PropTypes.string,
     nameEN: PropTypes.string,
     nameVN: PropTypes.string,
-    weight: PropTypes.string,
-    totalWeight: PropTypes.string,
+    weight: PropTypes.number,
+    totalWeight: PropTypes.number,
     origin: PropTypes.string,
-    priceUSD: PropTypes.string,
+    priceUSD: PropTypes.number,
   }),
   addItemToCart: PropTypes.func,
 };

@@ -1,47 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
+import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
-import { useQuery } from '../../helpers/query';
 
-import { UpOutlined } from '@ant-design/icons';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import './SortProduct.scss';
-import { Checkbox, Button } from 'antd';
+import { Radio } from 'antd';
 
-const SortProduct = ({ history, match }) => {
-  const query = useQuery();
+const SortProduct = ({ history, match, location }) => {
+  const parsed = queryString.parse(location.search);
 
-  const [sort, setSort] = useState([]);
-  const onChange = (checkedValues) => {
-    setSort(checkedValues);
+  const onChange = (e) => {
+    parsed.sort = e.target.value;
+    let stringified = queryString.stringify(parsed);
+    history.push(`${match.url}?${stringified}`);
   };
   return (
     <div className="sort-container animate__slow animate__animated animate__fadeInUp">
-      <Checkbox.Group
-        defaultValue={query.get('sort')}
+      <Radio.Group
+        defaultValue={parsed.sort}
         className="sort-group"
         onChange={onChange}
+        size="large"
         style={{ width: '100%' }}
       >
-        <Button
-          onClick={() =>
-            history.push(
-              `${match.url}?${
-                query.get('nameEN') ? `nameEN=${query.get('nameEN')}` : ''
-              }&sort=${sort.join(',')}`
-            )
-          }
-          className="sort-heading"
-        >
-          Sort Now :{' '}
-        </Button>
-        <Checkbox value="price">
-          Price <UpOutlined />
-        </Checkbox>
-        <Checkbox value="weight">
-          Weight <UpOutlined />
-        </Checkbox>
-      </Checkbox.Group>
+        <Radio value="priceUSD">
+          Price Increase <UpOutlined />
+        </Radio>
+        <Radio value="-priceUSD">
+          Price Decrease <DownOutlined />
+        </Radio>
+      </Radio.Group>
     </div>
   );
 };

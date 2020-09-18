@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { useQuery } from '../../helpers/query';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import './NavigationSearch.scss';
 import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-
 import { Row, Col, Input, Button } from 'antd';
 import CartDropdown from '../CardDropdown/CartDropdown';
 import { getCollectionStart } from '../../redux/shop/shop.action';
@@ -14,16 +12,12 @@ import { createStructuredSelector } from 'reselect';
 import { selectTotalQuantity } from '../../redux/cart/cart.selector';
 
 const NavigationSearch = ({ totalQuantity, history, match }) => {
-  const query = useQuery();
   const [filedSearch, setFiledSearch] = useState('');
   const handleChange = (e) => {
     setFiledSearch(e.target.value);
   };
   const handleSearch = () => {
-    const sort = query.get('sort');
-    history.push(
-      `${match.url}shop/?nameEN=${filedSearch}${sort ? `&sort=${sort}` : ''}`
-    );
+    history.push(`${match.url}shop?nameEN=${filedSearch}`);
   };
   return (
     <div className="container">
@@ -48,7 +42,7 @@ const NavigationSearch = ({ totalQuantity, history, match }) => {
                 <Input.Search
                   style={{ height: '100%' }}
                   type="text"
-                  onSearch
+                  defaultValue={filedSearch}
                   onChange={handleChange}
                   placeholder="What do you need ?"
                 />

@@ -31,7 +31,7 @@ const createSendToken = (user, statusCode, res) => {
             user,
         }
     })
-}
+} 
 
 
 exports.register  = catchAsync(async (req,res,next) => {

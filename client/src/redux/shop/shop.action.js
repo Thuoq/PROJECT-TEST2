@@ -17,7 +17,3 @@ export const getCollectionSuccess = (data) => ({
 export const getCollectionFailure = () => ({
   type: SHOP_ACTION_TYPES.GET_COLLECTIONS_FAILURE,
 });
-export const changeCurrentPage = (page) => ({
-  type: SHOP_ACTION_TYPES.CHANGE_CURRENT_PAGE,
-  payload: page,
-});

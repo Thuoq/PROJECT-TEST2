@@ -1,12 +1,7 @@
-import { takeLatest, call, put, all, select } from 'redux-saga/effects';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 import SHOP_ACTION_TYPES from './shop.types';
 import { handleConvertDataBestSale } from './shop.utils';
-import { selectCurrentQuery } from './shop.selector';
-import {
-  getCollectionSuccess,
-  changeCurrentPage,
-  getCollectionFailure,
-} from './shop.action';
+import { getCollectionSuccess, getCollectionFailure } from './shop.action';
 import { URL, SHOP_API, SHOP_API_TOP_4_SALES } from '../../constants/api';
 import AxiosInstance from '../../helpers/interceptor';
 import { messageError } from '../../helpers/error.message';
@@ -29,17 +24,16 @@ export function* fetchCollectionAsync({ payload }) {
   try {
     let page = 1;
     let limit = 12;
-    let nameEN = yield select(selectCurrentQuery);
+    let nameEN = 'T';
     let sort = '';
+
     if (payload) {
       page = payload.page || 1;
       limit = payload.limit || 12;
       sort = payload.sort;
+      nameEN = payload.nameEN || 'T';
     }
-    if (!nameEN) {
-      nameEN = 's';
-    }
-    yield put(changeCurrentPage(page));
+
     const {
       data: {
         data: { products },

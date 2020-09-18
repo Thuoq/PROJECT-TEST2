@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import queryString from 'query-string';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import CollectionPageContainer from '../../containers/Collection';
 import { getCollectionStart } from '../../redux/shop/shop.action';
 import ProductDetailPageContainer from '../../containers/product-detail.container';
-import { useQuery } from '../../helpers/query';
 
-const ShopPage = ({ match, getCollectionStart }) => {
-  const query = useQuery();
-
-  const nameEN = query.get('nameEN');
-  const sort = query.get('sort');
+const ShopPage = ({ match, location, getCollectionStart }) => {
+  const parsed = queryString.parse(location.search);
+  const nameEN = parsed.nameEN;
+  const sort = parsed.sort;
+  const page = parsed.page;
   useEffect(() => {
-    getCollectionStart({ nameEN, sort });
-  }, [nameEN, sort, getCollectionStart]);
+    getCollectionStart({ nameEN, sort, page });
+  }, [nameEN, sort, page, getCollectionStart]);
   return (
     <Layout style={{ marginTop: '-3.6rem' }}>
       <Switch>

@@ -13,6 +13,15 @@ const ContentHomePage = ({ collections, match, history }) => (
   <Layout style={{ marginTop: '-2rem' }}>
     <Content className="site-layout-background">
       <BannerHeading />
+      <Divider orientation="center" style={{ whiteSpace: 'normal' }}>
+        <h2 style={{ fontSize: '4rem', fontWeight: '600', color: '#000' }}>
+          Popular Sales
+        </h2>
+        <p style={{ color: 'gray', fontWeight: '400' }}>
+          Far far away, behind the word mountains, far from the countries
+          Vokalia and Consonantia
+        </p>
+      </Divider>
       <BannerSecondary />
       <Divider orientation="center" style={{ whiteSpace: 'normal' }}>
         <h2 style={{ fontSize: '4rem', fontWeight: '600', color: '#000' }}>

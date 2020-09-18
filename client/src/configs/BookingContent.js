@@ -182,7 +182,6 @@ const preFix = (classConstructor) => [
     width: 150,
     fixed: 'right',
     render: (text, record) => {
-      console.log(this);
       if (record.isCompleted) {
         return <h2>Done</h2>;
       }
