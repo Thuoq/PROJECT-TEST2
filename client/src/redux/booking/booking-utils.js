@@ -14,6 +14,9 @@ export function handleData(arr) {
       temp.origin = arr[i].cart[j]._id.origin;
       temp.nameEN = arr[i].cart[j]._id.nameEN;
       temp.nameVN = arr[i].cart[j]._id.nameVN;
+      temp.isGettingProduct = arr[i].cart[j].isGettingProduct;
+      temp.isShippingProduct = arr[i].cart[j].isShippingProduct;
+      temp.isReceivedProduct = arr[i].cart[j].isReceivedProduct;
       temp.isCompleted = arr[i].cart[j].isCompleted;
       temp.weight = arr[i].cart[j]._id.weight;
       temp.totalWeight = arr[i].cart[j]._id.totalWeight;

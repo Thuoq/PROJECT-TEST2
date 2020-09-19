@@ -23,6 +23,7 @@ const bookingReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
+
     default:
       return state;
   }

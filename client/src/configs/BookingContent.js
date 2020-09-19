@@ -4,14 +4,27 @@ import { Popconfirm, Button, message, Tag } from 'antd';
 
 const preFix = (classConstructor) => [
   {
+    title: 'IdOrder',
+    dataIndex: '_id',
+    width: 250,
+
+    render(_, row) {
+      return {
+        children: <Tag color="magenta">{row._id}</Tag>,
+        props: {
+          rowSpan: row.rowSpan,
+        },
+      };
+    },
+  },
+  {
     title: 'Date',
     dataIndex: 'createAt',
     sorter: (a, b) =>
       moment(a.createAt, 'MMMM Do YYYY, h:mm:ss a') -
       moment(b.createAt, 'MMMM Do YYYY, h:mm:ss a'),
-    width: 250,
-    ellipsis: true,
-    fixed: 'left',
+    width: 300,
+
     render(_, row) {
       return {
         children: <Tag color="magenta">{row.createAt}</Tag>,
@@ -25,7 +38,6 @@ const preFix = (classConstructor) => [
     title: 'Name',
     dataIndex: 'name',
     width: 150,
-    fixed: 'left',
     render(_, row) {
       return {
         children: <Tag color="#2db7f5">{row.name}</Tag>,
@@ -64,53 +76,16 @@ const preFix = (classConstructor) => [
     },
   },
   {
-    title: 'BOX_NO',
-    dataIndex: 'boxNo',
-    width: 150,
-    render: () => <p>BOX NO</p>,
-  },
-  {
-    title: 'PACKAGE_QTY',
-    dataIndex: 'quantity',
-    ellipsis: true,
-    width: 150,
-  },
-  {
-    title: 'ORDER_ITEM',
-    dataIndex: 'idProduct',
-    ellipsis: true,
-    width: 150,
-  },
-  {
     title: 'ITEM_DESCRIPTION_EN',
     dataIndex: 'nameEN',
     ellipsis: true,
-    width: 200,
+    width: 500,
   },
   {
     title: 'ITEM_DESCRIPTION',
     dataIndex: 'nameVN',
     ellipsis: true,
     width: 600,
-  },
-  {
-    title: 'ORDER_QUANTITY',
-    dataIndex: 'quantity',
-    ellipsis: true,
-    width: 150,
-    render(_, row) {
-      return {
-        children: row.quantity,
-        props: {
-          rowSpan: row.rowSpan,
-        },
-      };
-    },
-  },
-  {
-    title: 'UOM',
-    dataIndex: 'uom',
-    width: 150,
   },
   {
     title: 'ORDER_NET_WEIGHT',
@@ -145,6 +120,20 @@ const preFix = (classConstructor) => [
       ),
   },
   {
+    title: 'ORDER_QUANTITY',
+    dataIndex: 'quantity',
+    ellipsis: true,
+    width: 150,
+    render(_, row) {
+      return {
+        children: row.quantity,
+        props: {
+          rowSpan: row.rowSpan,
+        },
+      };
+    },
+  },
+  {
     title: 'AMOUNT',
     dataIndex: 'priceUSD',
     width: 150,
@@ -155,7 +144,11 @@ const preFix = (classConstructor) => [
     width: 150,
     render(_, row) {
       return {
-        children: <Tag color="magenta">{row.totalMoney}</Tag>,
+        children: (
+          <Tag color="magenta">
+            {Math.round(row.quantity * row.priceUSD * 100) / 100}$
+          </Tag>
+        ),
         props: {
           rowSpan: row.rowSpan,
         },
@@ -163,26 +156,78 @@ const preFix = (classConstructor) => [
     },
   },
   {
-    title: 'ORDER_CURR_CODE',
-    dataIndex: 'orderCurrCode',
+    title: 'Getting Product',
+    dataIndex: 'isGettingProduct',
+    key: 'isGettingProduct',
     ellipsis: true,
-    width: 200,
+    width: 150,
+    fixed: 'right',
+    render: (text, record) => {
+      let status = 'isGettingProduct';
+      if (record.isGettingProduct) {
+        return <h2>Done</h2>;
+      }
+
+      return (
+        <Popconfirm
+          title="Are you sure Is Complete ?"
+          okText="Yes"
+          cancelText="No"
+          onCancel={() => message.error('U click on No')}
+          onConfirm={() =>
+            classConstructor.handleComplete({
+              key: record.key,
+              id: record._id,
+              status,
+            })
+          }
+        >
+          <Button type="primary">Complete</Button>
+        </Popconfirm>
+      );
+    },
   },
   {
-    title: 'SHIP_FROM_PORT',
-    dataIndex: 'shipFormPort',
-    ellipsis: true,
-    width: 200,
-  },
-  {
-    title: 'isComplete',
-    dataIndex: 'isComplete',
+    title: 'Shipping Product',
+    dataIndex: 'isShippingProduct',
     key: 'delete',
     ellipsis: true,
     width: 150,
     fixed: 'right',
     render: (text, record) => {
-      if (record.isCompleted) {
+      if (record.isShippingProduct) {
+        return <h2>Done</h2>;
+      }
+      let status = 'isShippingProduct';
+      return (
+        <Popconfirm
+          title="Are you sure Is Complete ?"
+          okText="Yes"
+          cancelText="No"
+          onCancel={() => message.error('U click on No')}
+          onConfirm={() =>
+            classConstructor.handleComplete({
+              key: record.key,
+              id: record._id,
+              status,
+            })
+          }
+        >
+          <Button type="primary">Complete</Button>
+        </Popconfirm>
+      );
+    },
+  },
+  {
+    title: 'Received Product',
+    dataIndex: 'isReceivedProduct',
+    key: 'delete',
+    ellipsis: true,
+    width: 150,
+    fixed: 'right',
+    render: (text, record) => {
+      let status = 'isReceivedProduct';
+      if (record.isReceivedProduct) {
         return <h2>Done</h2>;
       }
       return (
@@ -192,7 +237,11 @@ const preFix = (classConstructor) => [
           cancelText="No"
           onCancel={() => message.error('U click on No')}
           onConfirm={() =>
-            classConstructor.handleComplete({ key: record.key, id: record._id })
+            classConstructor.handleComplete({
+              key: record.key,
+              id: record._id,
+              status,
+            })
           }
         >
           <Button type="primary">Complete</Button>

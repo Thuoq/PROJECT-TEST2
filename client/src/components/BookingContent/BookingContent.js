@@ -16,44 +16,37 @@ import {
   selectIsLoadingBOOKING,
 } from '../../redux/booking/booking-selector';
 import ExportCSV from '../ExportCSV/ExportCSV';
+import RadioBooking from './RadioBooking';
 
 const { Content } = Layout;
 
 class BookingContent extends React.Component {
   state = {
     columnsPrefix: preFix(this),
+    status: '',
   };
-  createNewArr = (data) => {
-    return data
-      .reduce((result, item) => {
-        //First, take the name field as a new array result
-        if (result.indexOf(item.createAt) < 0) {
-          result.push(item.createAt);
-        }
-        return result;
-      }, [])
-      .reduce((result, name) => {
-        //Take the data with the same name as a new array, and add a new field * * rowSpan inside it**
-        const children = data.filter((item) => item.createAt === name);
 
-        result = result.concat(
-          children.map((item, index) => ({
-            ...item,
-            rowSpan: index === 0 ? children.length : 0, //Add the first row of data to the rowSpan field
-          }))
-        );
-        return result;
-      }, []);
-  };
   handleComplete = (key) => {
     const { updateCompleteStart } = this.props;
     updateCompleteStart(key);
+  };
+
+  handleChangeStatus = (status) => {
+    this.setState({
+      status,
+    });
   };
   componentDidMount() {
     const { currentUser, getBookingStart } = this.props;
     const { columnsPrefix } = this.state;
     if (!currentUser.roles.includes('admin')) {
-      let newState = columnsPrefix.filter((el) => el.title !== 'isComplete');
+      let newState = columnsPrefix.filter(
+        (el) =>
+          el.title !== 'isComplete' &&
+          el.title !== 'Getting Product' &&
+          el.title !== 'Shipping Product' &&
+          el.title !== 'Received Product'
+      );
       this.setState({
         columnsPrefix: newState,
       });
@@ -62,8 +55,12 @@ class BookingContent extends React.Component {
   }
 
   render() {
-    const { columnsPrefix } = this.state;
+    const { columnsPrefix, status } = this.state;
     const { historyBooking, isLoading, currentUser } = this.props;
+    const dataFilterStatus = historyBooking.filter((cartItem) => {
+      if (!status) return cartItem;
+      return cartItem[status] === true;
+    });
 
     return (
       <Layout style={{ padding: '0 2.4rem 2.4rem' }}>
@@ -75,32 +72,33 @@ class BookingContent extends React.Component {
           }}
         >
           {currentUser.roles.includes('admin') ? (
-            <ExportCSV csvData={historyBooking} fileName="booking-data" />
+            <>
+              <ExportCSV csvData={historyBooking} fileName="booking-data" />
+              <br />
+            </>
           ) : null}
-          <div>
-            <Spin spinning={isLoading} size="large">
-              <Table
-                rowClassName={(record) =>
-                  record.isCompleted ? 'background-silver' : null
-                }
-                bordered
-                tableLayout="fixed"
-                rowSelection={{
-                  type: 'radio',
-                  getCheckboxProps: (record) => ({
-                    disabled: record.isCompleted === true,
-                    // Column configuration not to be checked
-                    name: record.name,
-                  }),
-                }}
-                scroll={{ x: 2000 }}
-                title={() => 'Booking Pages'}
-                dataSource={this.createNewArr(historyBooking)}
-                columns={columnsPrefix}
-                rowKey="key"
-              />
-            </Spin>
-          </div>
+          <RadioBooking handleChangeStatus={this.handleChangeStatus} />
+          <Spin spinning={isLoading} size="large">
+            <Table
+              rowClassName={(record) =>
+                record.isCompleted ? 'background-silver' : null
+              }
+              bordered
+              tableLayout="fixed"
+              rowSelection={{
+                type: 'radio',
+                getCheckboxProps: (record) => ({
+                  disabled: record.isCompleted === true,
+                  // Column configuration not to be checked
+                  name: record.name,
+                }),
+              }}
+              scroll={{ x: 2000 }}
+              dataSource={dataFilterStatus}
+              columns={columnsPrefix}
+              rowKey="key"
+            />
+          </Spin>
         </Content>
       </Layout>
     );

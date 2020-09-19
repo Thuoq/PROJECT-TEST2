@@ -16,6 +16,18 @@ const bookingSchema = new mongoose.Schema({
             key: {
                 type: Number
             },
+            isGettingProduct : {
+                type : Boolean,
+                default: false,
+            },
+            isShippingProduct: {
+                type : Boolean,
+                default: false,
+            },
+            isReceivedProduct: {
+                type : Boolean,
+                default: false,
+            },
             isCompleted : {
                 type : Boolean,
                 default: false,
@@ -37,6 +49,7 @@ const bookingSchema = new mongoose.Schema({
 })
 bookingSchema.pre(/^find/, function(next) {
     this.populate('cart._id').populate({path: 'idUser',select: ['phoneNumber' , 'name']})
+    
     next();
 });
 

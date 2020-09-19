@@ -16,7 +16,6 @@ exports.getBooking = catchAsync(async (req,res,next) => {
         booking =  await Booking.find({idUser: req.user._id})      
     }else {
         booking = await Booking.find()
-        
     }   
   
     res.status(200).json({
@@ -30,8 +29,14 @@ exports.getBooking = catchAsync(async (req,res,next) => {
 
 exports.updateComplete = catchAsync(async (req,res,next) => {
     
-    const {key,id} = req.body;
-     await Booking.update({"_id":id, "cart.key":key},{$set: {"cart.$.isCompleted":true}},{
+    const {key,id,status} = req.body;
+
+    
+    // Change placeholder make true 
+    var placeholder = {};
+    placeholder[`cart.$.${status}`] = true;
+  
+    await Booking.update({"_id":id, "cart.key":key},{$set: placeholder},{
         new: true
     })
     booking = await Booking.find()
