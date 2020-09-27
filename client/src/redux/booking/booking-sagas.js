@@ -1,8 +1,8 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import axios from 'axios';
+
 import BOOKING_ACTION_TYPES from './booking-types';
 import { getBookingSuccess, getBookingFailure } from './booking-action';
-
+import AxiosInstance from '../../helpers/interceptor';
 import { handleData } from './booking-utils';
 import { URL, BOOKING_API } from '../../constants/api';
 import { messageError } from '../../helpers/error.message';
@@ -10,7 +10,7 @@ import { getToken } from '../../helpers/auth';
 
 export function fetchBookingToServer() {
   const token = `Bearer ${getToken()}`;
-  return axios(`${URL}${BOOKING_API}`, {
+  return AxiosInstance(`${URL}${BOOKING_API}`, {
     method: 'get',
     headers: {
       Authorization: token,
@@ -19,7 +19,7 @@ export function fetchBookingToServer() {
 }
 export function patchBookingToServer(data) {
   const token = `Bearer ${getToken()}`;
-  return axios(`${URL}${BOOKING_API}`, {
+  return AxiosInstance(`${URL}${BOOKING_API}`, {
     method: 'patch',
     headers: {
       Authorization: token,

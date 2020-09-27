@@ -1,14 +1,37 @@
 @import '../../responsive-mixin.scss';
 
 .card-container {
-  width: 100%;
   margin-bottom: 2rem;
   & .ant-card-cover {
     overflow: hidden;
+    height: 16rem;
+
     img {
+      height: 100%;
+      width: 100%;
       transition: all 0.5s ease-in;
+      @include respone(tab-port) {
+        height: 100%;
+        width: 100%;
+      }
       &:hover {
         transform: scale(1.3);
+      }
+    }
+  }
+  & .ant-card-body {
+    padding: 0.5rem;
+    padding-bottom: 0;
+  }
+  & .ant-card-meta-title {
+    @include respone(phone) {
+      text-align: center;
+    }
+    span {
+      font-size: 1rem;
+      font-weight: 700;
+      @include respone(tab-port) {
+        font-size: 1.6rem;
       }
     }
   }

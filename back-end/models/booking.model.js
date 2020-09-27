@@ -40,6 +40,9 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: [true, "Provide us address"]
     },
+    numberPaymentCard : {
+        type: String,  
+    },
     totalMoney : Number,
     createAt: {
         type: String,

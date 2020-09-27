@@ -17,7 +17,7 @@ const NavigationSearch = ({ totalQuantity, history, match }) => {
     setFiledSearch(e.target.value);
   };
   const handleSearch = () => {
-    history.push(`${match.url}shop?nameEN=${filedSearch}`);
+    history.push(`${match.url}shop?nameEN=${filedSearch}&page=1`);
   };
   return (
     <div className="container">

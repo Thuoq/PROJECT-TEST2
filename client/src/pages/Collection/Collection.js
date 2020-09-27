@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import './Collection.scss';
 import { Layout, Row, Col, Pagination } from 'antd';
-import CardItem from '../../components/CardItem/CardItem';
-import SortProduct from '../../components/SortProduct/SortProduct';
+import { CardItem, SortProduct } from '../../components/index';
 
 const { Content } = Layout;
 
@@ -35,14 +34,14 @@ const CollectionPage = ({
           <SortProduct {...props} />
         </div>
         {collections.length ? (
-          <Row gutter={[48, 24]}>
+          <Row gutter={[16, 16]}>
             {collections.map((cartItem, idx) => (
               <Col
                 key={idx}
                 xs={24}
-                sm={12}
-                md={8}
-                lg={6}
+                sm={8}
+                md={6}
+                lg={3}
                 className="gutter-row"
               >
                 <CardItem
@@ -66,8 +65,8 @@ const CollectionPage = ({
             let stringified = queryString.stringify(parsed);
             history.push(`${match.url}?${stringified}`);
           }}
-          defaultPageSize={12}
-          total={100}
+          defaultPageSize={24}
+          total={200}
         />
       </Content>
     </Layout.Content>

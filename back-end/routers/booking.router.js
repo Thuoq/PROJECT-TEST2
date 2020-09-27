@@ -13,6 +13,7 @@ router
     .patch(BookingController.updateComplete)
     .get(BookingController.getBooking)
     .post(BookingController.createBooking);
+router.post('/stripe-information',BookingController.stripeHandleInformation)
     
 
 

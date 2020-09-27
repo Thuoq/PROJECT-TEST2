@@ -1,10 +1,16 @@
-@import "../../responsive-mixin.scss";
+@import '../../responsive-mixin.scss';
 .inner-header {
   padding: 3.9rem 0;
   .logo {
     padding: 1.2rem 0;
     a {
       display: inline-block;
+      @include respone(phone) {
+        img {
+          width: 7rem;
+          height: 2rem;
+        }
+      }
     }
   }
   .advanced-search {
@@ -20,8 +26,12 @@
       border: none;
       font-size: 1.6rem;
       color: #252525;
+
       position: relative;
       height: 100%;
+      @include respone(phone) {
+        padding-left: 0.6rem;
+      }
       &:before {
         position: absolute;
         right: 0;
@@ -29,14 +39,14 @@
         width: 0.1rem;
         height: 2rem;
         background: #e5e5e5;
-        content: "";
+        content: '';
       }
       &:after {
         position: absolute;
         right: 1.1rem;
         top: 1rem;
-        content: "";
-        font-family: "ElegantIcons";
+        content: '';
+        font-family: 'ElegantIcons';
         font-size: 1.6rem;
         color: #b2b2b2;
       }
@@ -51,6 +61,14 @@
         font-size: 1.6rem;
         color: black;
         padding-left: 2rem;
+        @include respone(phone) {
+          padding-left: 0rem;
+        }
+        &::placeholder {
+          @include respone(phone) {
+            font-size: 1rem;
+          }
+        }
       }
       button {
         font-size: 1.6rem;
@@ -64,10 +82,16 @@
         cursor: pointer;
         height: 100%;
         z-index: 1111;
+        @include respone(phone) {
+          padding: 1rem 1.3rem 1rem;
+        }
         span {
           font-size: 2.5rem;
           @include respone(tab-port) {
             font-size: 2rem;
+          }
+          @include respone(phone) {
+            font-size: 1.5rem;
           }
         }
       }

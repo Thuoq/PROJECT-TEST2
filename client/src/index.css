@@ -6,3 +6,8 @@
 .ant-layout-sider-trigger {
   position: static;
 }
+@media print {
+  @page {
+    size: landscape;
+  }
+}

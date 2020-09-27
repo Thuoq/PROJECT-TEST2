@@ -44,7 +44,7 @@ const NavigationCategory = ({ location }) => (
             <Link to="/">Home</Link>
           </li>
           <li className={location.pathname.includes('shop') ? 'active' : ' '}>
-            <Link to="/shop">Shop</Link>
+            <Link to="/shop/?page=1">Shop</Link>
           </li>
 
           <li>

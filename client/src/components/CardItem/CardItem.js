@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { Card, Button } from 'antd';
-import { MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Card } from 'antd';
+import { EllipsisOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { addItemToCart } from '../../redux/cart/cart.action';
 import './CardItem.scss';
 import CardItemContent from './CardContent';
@@ -17,25 +17,10 @@ const CardItem = ({ cartItem, addItemToCart, match, history, isLoading }) => (
     className="card-container animate__animated animate__zoomInDown"
     hoverable
     loading={isLoading}
-    cover={
-      <img
-        alt="example"
-        className="card-image"
-        style={{ width: '100%' }}
-        src={cartItem.photoURL}
-      />
-    }
+    cover={<img alt="example" className="card-image" src={cartItem.photoURL} />}
     actions={[
-      <Button
-        key="submit"
-        type="primary"
-        onClick={() => addItemToCart(cartItem)}
-      >
-        Add To Card
-        <ShoppingCartOutlined />
-      </Button>,
-      <Button
-        type="link"
+      <ShoppingCartOutlined onClick={() => addItemToCart(cartItem)} />,
+      <EllipsisOutlined
         onClick={() => {
           if (match.url === '/') {
             history.push(`${match.url}shop/${cartItem.idProduct}`);
@@ -43,14 +28,12 @@ const CardItem = ({ cartItem, addItemToCart, match, history, isLoading }) => (
             history.push(`${match.url}/${cartItem.idProduct}`);
           }
         }}
-      >
-        More Detail
-        <MoreOutlined />
-      </Button>,
+      />,
     ]}
   >
     <Meta
-      title={<span style={{ fontSize: '1.6rem' }}>{cartItem.nameEN}</span>}
+      className="card-meta"
+      title={<span>{cartItem.nameEN}</span>}
       description={<CardItemContent cartItem={cartItem} />}
     />
   </Card>

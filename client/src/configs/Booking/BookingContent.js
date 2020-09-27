@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
+import ModelPrint from './ModelPrint';
 import { Popconfirm, Button, message, Tag } from 'antd';
+
+// import Pdf from 'react-to-pdf';
 
 const preFix = (classConstructor) => [
   {
@@ -249,6 +252,24 @@ const preFix = (classConstructor) => [
       );
     },
   },
+  {
+    title: 'Detail Payment',
+    dataIndex: 'numberPaymentCard',
+    key: 'pdf',
+    ellipsis: true,
+    width: 150,
+    fixed: 'right',
+    render: (text, record, _id) => {
+      const userInfo = {
+        name: record.name,
+        totalMoney: record.totalMoney,
+        creditCard: record.numberPaymentCard,
+      };
+      return <ModelPrint key={_id} userInfo={userInfo} />;
+    },
+  },
 ];
+
+//ExportCSV
 
 export default preFix;

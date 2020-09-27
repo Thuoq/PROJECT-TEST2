@@ -1,21 +1,29 @@
-@import "../../responsive-mixin.scss";
+@import '../../responsive-mixin.scss';
 .banner-area {
-  margin-top: -2rem;
+  margin-top: -1.6rem;
   @include respone(phone) {
     padding-top: 10rem;
     margin-top: 0;
+  }
+  .img-fluid {
+    background-image: url('https://i.postimg.cc/gjxtGnNc/6.jpg');
+    background-size: cover;
+    height: 70rem;
   }
 }
 .banner-content {
   margin-top: 20rem;
   @include respone(phone) {
-    margin-top: 10rem;
+    margin-top: 7rem;
   }
   .title-top {
     font-size: 4.8rem;
     font-weight: 400;
     @include respone(tab-port) {
       font-size: 3.5rem;
+    }
+    @include respone(phone) {
+      font-size: 1.8rem;
     }
     span {
       font-size: 1.8rem;
@@ -29,6 +37,9 @@
     margin-bottom: 2rem;
     @include respone(tab-port) {
       font-size: 4.5rem;
+    }
+    @include respone(phone) {
+      font-size: 2rem;
     }
   }
 

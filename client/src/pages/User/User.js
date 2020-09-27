@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { Layout } from 'antd';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import SideBarUser from '../../components/SidebarUser/SidebarUser';
-import BookingContent from '../../components/BookingContent/BookingContent';
-import InformationUser from '../../components/InformationUser/InformationUser';
+import {
+  SideBarUser,
+  BookingContent,
+  InformationUser,
+} from '../../components/index';
 
 const UserPage = ({ match }) => (
   <Layout style={{ minHeight: '60vh', marginTop: '-3.6rem' }}>

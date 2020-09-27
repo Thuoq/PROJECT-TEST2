@@ -4,9 +4,11 @@ import queryString from 'query-string';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
-import CollectionPageContainer from '../../containers/Collection';
+import {
+  CollectionPageContainer,
+  ProductDetailPageContainer,
+} from '../../containers/index';
 import { getCollectionStart } from '../../redux/shop/shop.action';
-import ProductDetailPageContainer from '../../containers/product-detail.container';
 
 const ShopPage = ({ match, location, getCollectionStart }) => {
   const parsed = queryString.parse(location.search);

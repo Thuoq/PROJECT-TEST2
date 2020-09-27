@@ -5,14 +5,9 @@ import './BannerHeading.scss';
 
 const BannerHeading = () => (
   <section className="banner-area" id="home">
-    <Row>
+    <Row className="img-fluid">
       <Col span={12}>
-        <img
-          className="img-fluid"
-          style={{ width: '100vw ' }}
-          src="https://i.postimg.cc/gjxtGnNc/6.jpg"
-          alt="#"
-        />
+        <div />
       </Col>
       <Col
         span={12}

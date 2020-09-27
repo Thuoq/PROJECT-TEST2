@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import './BookingContent.scss';
-import { Layout, Table, Spin } from 'antd';
+import { Layout, Table, Spin, Input } from 'antd';
 //import {Popconfirm , Button , message,Tag} from 'antd'
-import preFix from '../../configs/BookingContent';
+import preFix from '../../configs/Booking/BookingContent';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import {
@@ -17,6 +18,7 @@ import {
 } from '../../redux/booking/booking-selector';
 import ExportCSV from '../ExportCSV/ExportCSV';
 import RadioBooking from './RadioBooking';
+import ImportExcel from '../ImportExcel/ImportExcel';
 
 const { Content } = Layout;
 
@@ -24,6 +26,12 @@ class BookingContent extends React.Component {
   state = {
     columnsPrefix: preFix(this),
     status: '',
+    filedSearchName: '',
+  };
+  handleChangeSearchUser = (e) => {
+    this.setState({
+      filedSearchName: e.target.value,
+    });
   };
 
   handleComplete = (key) => {
@@ -38,14 +46,17 @@ class BookingContent extends React.Component {
   };
   componentDidMount() {
     const { currentUser, getBookingStart } = this.props;
+
     const { columnsPrefix } = this.state;
     if (!currentUser.roles.includes('admin')) {
+      // FUNC AFTER BUG:
       let newState = columnsPrefix.filter(
         (el) =>
           el.title !== 'isComplete' &&
           el.title !== 'Getting Product' &&
           el.title !== 'Shipping Product' &&
-          el.title !== 'Received Product'
+          el.title !== 'Received Product' &&
+          el.title !== 'Detail Payment'
       );
       this.setState({
         columnsPrefix: newState,
@@ -55,11 +66,21 @@ class BookingContent extends React.Component {
   }
 
   render() {
-    const { columnsPrefix, status } = this.state;
+    const { columnsPrefix, status, filedSearchName } = this.state;
     const { historyBooking, isLoading, currentUser } = this.props;
     const dataFilterStatus = historyBooking.filter((cartItem) => {
-      if (!status) return cartItem;
-      return cartItem[status] === true;
+      if (status && filedSearchName)
+        return (
+          cartItem[status] === true &&
+          cartItem.name.toLowerCase().includes(filedSearchName.toLowerCase())
+        );
+      else if (!status && !filedSearchName) return cartItem;
+      else if (status) return cartItem[status] === true;
+      else if (filedSearchName)
+        return cartItem.name
+          .toLowerCase()
+          .includes(filedSearchName.toLowerCase());
+      return cartItem;
     });
 
     return (
@@ -73,8 +94,16 @@ class BookingContent extends React.Component {
         >
           {currentUser.roles.includes('admin') ? (
             <>
+              <Input
+                size="large"
+                placeholder="Search Booking By User Name"
+                onChange={this.handleChangeSearchUser}
+                style={{ marginBottom: '2rem' }}
+              />
               <ExportCSV csvData={historyBooking} fileName="booking-data" />
               <br />
+              <br />
+              <ImportExcel />
             </>
           ) : null}
           <RadioBooking handleChangeStatus={this.handleChangeStatus} />
@@ -86,7 +115,6 @@ class BookingContent extends React.Component {
               bordered
               tableLayout="fixed"
               rowSelection={{
-                type: 'radio',
                 getCheckboxProps: (record) => ({
                   disabled: record.isCompleted === true,
                   // Column configuration not to be checked

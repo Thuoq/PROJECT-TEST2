@@ -5,6 +5,7 @@ export function handleData(arr) {
     temp._id = arr[i]._id;
     temp.address = arr[i].address;
     temp.createAt = arr[i].createAt;
+    temp.numberPaymentCard = arr[i].numberPaymentCard;
     temp.phoneNumber = arr[i].idUser.phoneNumber;
     temp.name = arr[i].idUser.name;
     temp.totalMoney = arr[i].totalMoney;
