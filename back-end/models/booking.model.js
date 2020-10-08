@@ -5,7 +5,7 @@ const bookingSchema = new mongoose.Schema({
     idUser: {
         type: mongoose.Schema.ObjectId,
         ref: 'users',
-        required: [true, 'Booking must belong to a User'],
+       
     },
     cart: [
         { 
@@ -28,14 +28,15 @@ const bookingSchema = new mongoose.Schema({
                 type : Boolean,
                 default: false,
             },
-            isCompleted : {
-                type : Boolean,
-                default: false,
-            },
             quantity: Number 
-            
         }
     ],
+    name: {
+        type: String,
+    },
+    phoneNumber : {
+        type: Number,
+    },
     address: {
         type: String,
         required: [true, "Provide us address"]

@@ -1,9 +1,8 @@
 const catchAsync  = require('../utils/catchAsync');
-const stripe = require('stripe')(process.env.SECRET_STRIPE);
-
 
 const Booking = require('../models/booking.model');
-const {sendGridMail} = require('../helpers/sendGridMail')
+const {sendGridMail} = require('../helpers/sendGridMail');
+
 exports.createBooking = catchAsync(async (req,res,next) => {
    
     req.body.idUser = req.user._id;
@@ -18,7 +17,8 @@ exports.createBooking = catchAsync(async (req,res,next) => {
 
 exports.getBooking = catchAsync(async (req,res,next) => {
     let booking;
-    if( !req.user.roles.includes("admin") ) {
+    
+    if( !req.user.role.includes("admin") ) {
         booking =  await Booking.find({idUser: req.user._id})      
     }else {
         booking = await Booking.find()
@@ -36,16 +36,14 @@ exports.getBooking = catchAsync(async (req,res,next) => {
 exports.updateComplete = catchAsync(async (req,res,next) => {
     
     const {key,id,status} = req.body;
-
-
     // Change placeholder make true 
     var placeholder = {};
-    placeholder[`cart.$.${status}`] = true;
-  
-    await Booking.update({"_id":id, "cart.key":key},{$set: placeholder},{
+    placeholder[`cart.$.${status}`] = !req.body[status];
+    await Booking.updateOne({"_id":id, "cart.key":key},{$set: placeholder},{
         new: true
     })
-    booking = await Booking.find()
+    console.log(b)
+    let booking = await Booking.find()
     res.status(200).json({
         status: 'success',
         length : booking.length, 
@@ -57,7 +55,7 @@ exports.updateComplete = catchAsync(async (req,res,next) => {
 
 exports.stripeHandleInformation = catchAsync(async (req,res,next) => {
     await stripe.charges.create(req.body, function(err,charges) {
-        console.log(charges)
+        
         if (err) {
 			res.json(err)
 			return
@@ -66,4 +64,37 @@ exports.stripeHandleInformation = catchAsync(async (req,res,next) => {
 		return
     })
 	
+})
+
+exports.handleUploadDataExcel = catchAsync(async (req,res,next) => {
+ 
+    res.status(200).json({
+        status:'success'
+    })
+})
+
+
+exports.updateCompleteMany = catchAsync(async (req,res,next) => {
+   
+    const {bookings , status} = req.body;
+    var placeholder = {};
+        placeholder[`cart.$.${status}`] = true;
+   
+    bookings.forEach(async cart => {
+        placeholder[`cart.$.${status}`] = !cart[`${status}`];
+        await Booking.updateOne({"_id":cart._id, "cart.key":cart.key},{$set: placeholder},{
+            new: true
+        })
+    })
+    
+    let booking = await Booking.find()
+    
+    res.status(200).json({
+        status: 'success',
+        length : booking.length, 
+        data: {
+            booking,
+        }
+    })
+    
 })

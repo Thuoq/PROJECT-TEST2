@@ -32,6 +32,7 @@ const Routes = ({ currentUser }) => (
             )
           }
         />
+
         <PrivateRoutes path="/user" component={UserPage} />
         <Route path="*" component={Page404} />
       </Switch>

@@ -8,7 +8,7 @@ class ComponentToPrint extends React.Component {
     return (
       <Result
         status="success"
-        title="Successfully Purchased Le Van Thuong Card "
+        title={`Successfully Purchased  ${userInfo.name.toUpperCase()} Card`}
         subTitle={
           <div className="subtitle-container">
             <h3>
@@ -17,7 +17,9 @@ class ComponentToPrint extends React.Component {
             <h3>
               Card Number:{' '}
               <span>
-                XXXX {userInfo.creditCard.slice(5, userInfo.creditCard.length)}
+                XXXX{' '}
+                {userInfo.creditCard.slice(5, userInfo.creditCard.length - 12)}{' '}
+                XXXX
               </span>
             </h3>
             <h3>

@@ -17,3 +17,4 @@ export { default as SortProduct } from './SortProduct/SortProduct';
 export { default as Spinner } from './Spinner/Spinner';
 export { default as StripeButton } from './StripeButton/StripeButton';
 export { default as CartDropdown } from './CardDropdown/CartDropdown';
+export { default as DescriptionTableCard } from './DescriptionTableCard/DescriptionTableCard';

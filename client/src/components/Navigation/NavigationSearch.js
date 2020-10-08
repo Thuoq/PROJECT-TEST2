@@ -7,7 +7,6 @@ import './NavigationSearch.scss';
 import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Row, Col, Input, Button } from 'antd';
 import CartDropdown from '../CardDropdown/CartDropdown';
-import { getCollectionStart } from '../../redux/shop/shop.action';
 import { createStructuredSelector } from 'reselect';
 import { selectTotalQuantity } from '../../redux/cart/cart.selector';
 
@@ -69,18 +68,11 @@ const NavigationSearch = ({ totalQuantity, history, match }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getCollectionStart: (searchFiled) =>
-    dispatch(getCollectionStart(searchFiled)),
-});
 const mapStateToProps = createStructuredSelector({
   totalQuantity: selectTotalQuantity,
 });
 NavigationSearch.propTypes = {
-  getCollectionStart: PropTypes.func,
   totalQuantity: PropTypes.number,
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NavigationSearch)
-);
+export default withRouter(connect(mapStateToProps)(NavigationSearch));

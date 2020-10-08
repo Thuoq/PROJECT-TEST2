@@ -8,6 +8,8 @@ const INITIAL_STATE = {
 const bookingReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case BOOKING_ACTION_TYPES.GET_BOOKING_START:
+    case BOOKING_ACTION_TYPES.UPDATE_COMPLETE_START:
+    case BOOKING_ACTION_TYPES.UPDATE_COMPLETE_MULTIPLE_START:
       return {
         ...state,
         isLoading: true,

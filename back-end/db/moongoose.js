@@ -6,6 +6,6 @@ mongoose.connect(process.env.DB,{
     useUnifiedTopology: true
   }).then(() => {
     console.log("Database connected successfully")
-  });
+  })
 
  

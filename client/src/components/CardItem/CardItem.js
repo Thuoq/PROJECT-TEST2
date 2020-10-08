@@ -9,6 +9,7 @@ import './CardItem.scss';
 import CardItemContent from './CardContent';
 import { createStructuredSelector } from 'reselect';
 import { selectIsCollectionLoading } from '../../redux/shop/shop.selector';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -20,15 +21,15 @@ const CardItem = ({ cartItem, addItemToCart, match, history, isLoading }) => (
     cover={<img alt="example" className="card-image" src={cartItem.photoURL} />}
     actions={[
       <ShoppingCartOutlined onClick={() => addItemToCart(cartItem)} />,
-      <EllipsisOutlined
-        onClick={() => {
-          if (match.url === '/') {
-            history.push(`${match.url}shop/${cartItem.idProduct}`);
-          } else {
-            history.push(`${match.url}/${cartItem.idProduct}`);
-          }
-        }}
-      />,
+      match.url === '/' ? (
+        <Link to={`${match.url}shop/${cartItem._id}`}>Detail</Link>
+      ) : (
+        <EllipsisOutlined
+          onClick={() => {
+            history.push(`${match.url}${cartItem._id}`);
+          }}
+        />
+      ),
     ]}
   >
     <Meta
@@ -50,7 +51,7 @@ CardItem.propTypes = {
   isLoading: PropTypes.bool,
   cartItem: PropTypes.shape({
     nameEN: PropTypes.string,
-    idProduct: PropTypes.number,
+
     photoURL: PropTypes.string,
   }),
   history: PropTypes.shape({

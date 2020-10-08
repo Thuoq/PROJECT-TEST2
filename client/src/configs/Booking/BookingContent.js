@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import ModelPrint from './ModelPrint';
+import ModelCard from './ModelCard';
 import { Popconfirm, Button, message, Tag } from 'antd';
 
 // import Pdf from 'react-to-pdf';
@@ -40,7 +41,7 @@ const preFix = (classConstructor) => [
   {
     title: 'Name',
     dataIndex: 'name',
-    width: 150,
+    width: 250,
     render(_, row) {
       return {
         children: <Tag color="#2db7f5">{row.name}</Tag>,
@@ -68,7 +69,7 @@ const preFix = (classConstructor) => [
     title: 'Address Ship',
     dataIndex: 'address',
     ellipsis: true,
-    width: 250,
+    width: 1000,
     render(_, row) {
       return {
         children: <Tag color="magenta">{row.address}</Tag>,
@@ -167,10 +168,6 @@ const preFix = (classConstructor) => [
     fixed: 'right',
     render: (text, record) => {
       let status = 'isGettingProduct';
-      if (record.isGettingProduct) {
-        return <h2>Done</h2>;
-      }
-
       return (
         <Popconfirm
           title="Are you sure Is Complete ?"
@@ -182,10 +179,13 @@ const preFix = (classConstructor) => [
               key: record.key,
               id: record._id,
               status,
+              isGettingProduct: record.isGettingProduct,
             })
           }
         >
-          <Button type="primary">Complete</Button>
+          <Button type="primary">
+            {record.isGettingProduct ? 'Undo' : 'Complete'}
+          </Button>
         </Popconfirm>
       );
     },
@@ -198,9 +198,6 @@ const preFix = (classConstructor) => [
     width: 150,
     fixed: 'right',
     render: (text, record) => {
-      if (record.isShippingProduct) {
-        return <h2>Done</h2>;
-      }
       let status = 'isShippingProduct';
       return (
         <Popconfirm
@@ -213,10 +210,13 @@ const preFix = (classConstructor) => [
               key: record.key,
               id: record._id,
               status,
+              isShippingProduct: record.isShippingProduct,
             })
           }
         >
-          <Button type="primary">Complete</Button>
+          <Button type="primary">
+            {record.isShippingProduct ? 'Undo' : 'Complete'}
+          </Button>
         </Popconfirm>
       );
     },
@@ -230,9 +230,6 @@ const preFix = (classConstructor) => [
     fixed: 'right',
     render: (text, record) => {
       let status = 'isReceivedProduct';
-      if (record.isReceivedProduct) {
-        return <h2>Done</h2>;
-      }
       return (
         <Popconfirm
           title="Are you sure Is Complete ?"
@@ -244,20 +241,23 @@ const preFix = (classConstructor) => [
               key: record.key,
               id: record._id,
               status,
+              isReceivedProduct: record.isReceivedProduct,
             })
           }
         >
-          <Button type="primary">Complete</Button>
+          <Button type="primary">
+            {record.isReceivedProduct ? 'Undo' : 'Complete'}
+          </Button>
         </Popconfirm>
       );
     },
   },
   {
-    title: 'Detail Payment',
+    title: 'Detail Payment Card',
     dataIndex: 'numberPaymentCard',
     key: 'pdf',
     ellipsis: true,
-    width: 150,
+    width: 180,
     fixed: 'right',
     render: (text, record, _id) => {
       const userInfo = {
@@ -266,6 +266,17 @@ const preFix = (classConstructor) => [
         creditCard: record.numberPaymentCard,
       };
       return <ModelPrint key={_id} userInfo={userInfo} />;
+    },
+  },
+  {
+    title: 'Detail About Card',
+    dataIndex: 'numberPaymentCard',
+    key: 'table',
+    ellipsis: true,
+    width: 180,
+    fixed: 'right',
+    render: (text, record) => {
+      return <ModelCard productDetail={record} />;
     },
   },
 ];

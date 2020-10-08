@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import './Collection.scss';
@@ -8,14 +8,20 @@ import { CardItem, SortProduct } from '../../components/index';
 const { Content } = Layout;
 
 const CollectionPage = ({
-  match,
   collections,
-  history,
   location,
+  getCollectionStart,
+  history,
+  match,
   ...props
 }) => {
   const parsed = queryString.parse(location.search);
-
+  const nameEN = parsed.nameEN;
+  const sort = parsed.sort;
+  const page = parsed.page;
+  useEffect(() => {
+    getCollectionStart({ nameEN, sort, page });
+  }, [nameEN, sort, page, getCollectionStart]);
   return (
     <Layout.Content className="shop-container">
       <Content

@@ -2,19 +2,25 @@ const mongoose = require('mongoose');
 
 
 const productSchema = new mongoose.Schema({
-    idProduct: Number,
-    idShop: Number,
+    
+    
     nameEN: String,
     nameVN: String,
     weight: Number,
     origin: String,
     priceVN: Number,
     priceUSD: Number,
-    amount: Number,
+    isImportExcelBooking: {
+        type: Boolean,
+        default: false
+    },
     totalWeight: Number,
     totalPriceUSD: Number,
+    photoURL: {
+        type:String,
+        default : 'https://i.postimg.cc/Gm3qNSGQ/photo-1583743814966-8936f5b7be1a.jpg'
+    },
     productURL: String,
-    photoURL: String,
     
 })
 

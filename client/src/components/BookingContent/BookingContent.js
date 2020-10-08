@@ -18,7 +18,7 @@ import {
 } from '../../redux/booking/booking-selector';
 import ExportCSV from '../ExportCSV/ExportCSV';
 import RadioBooking from './RadioBooking';
-import ImportExcel from '../ImportExcel/ImportExcel';
+import ButtonGroupChosen from './ButtonGroupChosen';
 
 const { Content } = Layout;
 
@@ -27,6 +27,7 @@ class BookingContent extends React.Component {
     columnsPrefix: preFix(this),
     status: '',
     filedSearchName: '',
+    bookingsChoose: [],
   };
   handleChangeSearchUser = (e) => {
     this.setState({
@@ -48,7 +49,7 @@ class BookingContent extends React.Component {
     const { currentUser, getBookingStart } = this.props;
 
     const { columnsPrefix } = this.state;
-    if (!currentUser.roles.includes('admin')) {
+    if (!currentUser.role.includes('admin')) {
       // FUNC AFTER BUG:
       let newState = columnsPrefix.filter(
         (el) =>
@@ -66,7 +67,12 @@ class BookingContent extends React.Component {
   }
 
   render() {
-    const { columnsPrefix, status, filedSearchName } = this.state;
+    const {
+      columnsPrefix,
+      status,
+      filedSearchName,
+      bookingsChoose,
+    } = this.state;
     const { historyBooking, isLoading, currentUser } = this.props;
     const dataFilterStatus = historyBooking.filter((cartItem) => {
       if (status && filedSearchName)
@@ -92,7 +98,7 @@ class BookingContent extends React.Component {
             minHeight: 600,
           }}
         >
-          {currentUser.roles.includes('admin') ? (
+          {currentUser.role.includes('admin') ? (
             <>
               <Input
                 size="large"
@@ -102,24 +108,26 @@ class BookingContent extends React.Component {
               />
               <ExportCSV csvData={historyBooking} fileName="booking-data" />
               <br />
-              <br />
-              <ImportExcel />
+              <ButtonGroupChosen bookingsChoose={bookingsChoose} />
             </>
           ) : null}
           <RadioBooking handleChangeStatus={this.handleChangeStatus} />
           <Spin spinning={isLoading} size="large">
             <Table
               rowClassName={(record) =>
-                record.isCompleted ? 'background-silver' : null
+                record.receivedProduct ? 'background-silver' : null
               }
               bordered
               tableLayout="fixed"
               rowSelection={{
                 getCheckboxProps: (record) => ({
-                  disabled: record.isCompleted === true,
+                  disabled: record.receivedProduct === true,
                   // Column configuration not to be checked
                   name: record.name,
                 }),
+                onChange: (selectedRowKeys, selectedRows) => {
+                  this.setState({ bookingsChoose: selectedRows });
+                },
               }}
               scroll={{ x: 2000 }}
               dataSource={dataFilterStatus}
@@ -148,7 +156,7 @@ const mapDispatchToProps = (dispatch) => ({
 BookingContent.propTypes = {
   historyBooking: PropTypes.array.isRequired,
   currentUser: PropTypes.shape({
-    roles: PropTypes.oneOf(['user', 'admin']),
+    role: PropTypes.oneOf(['user', 'admin']),
   }),
   isLoading: PropTypes.bool.isRequired,
   getBookingStart: PropTypes.func.isRequired,

@@ -35,13 +35,6 @@ const createSendToken = (user, statusCode, res) => {
 
 
 exports.register  = catchAsync(async (req,res,next) => {
-    const arrAddress = [
-        {
-            name : req.body.address
-        }
-    ]
-    req.body.address = arrAddress;
-
     const newUser = await User.create(req.body);
     createSendToken(newUser,201,res); 
 })
@@ -65,20 +58,12 @@ exports.signIn =  catchAsync(async (req,res,next) => {
     createSendToken(user,200,res);
 })
 
-exports.refresh = catchAsync(async (req,res,next) => {
-    const {user} = req;
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            user,
-        }
-    }) 
-})
 
 exports.protect = catchAsync(async (req,res,next) => {
     
     let token; 
+    
     if  (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
        
         token  = req.headers.authorization.split(' ')[1];
@@ -111,3 +96,34 @@ exports.protect = catchAsync(async (req,res,next) => {
     
     next();
 })  
+
+exports.restrictTo = (...roles) => {
+    return (req,res,next) => {
+        // roles ['admin'] rolesBasic = 'user'
+
+        if(!roles.includes(req.user.role)) {
+            return new AppError('You do not have permission to perform this action',401)
+        }
+        next()
+    }
+   
+}
+
+exports.forgotPassword = catchAsync( async (req,res,next) => {
+    // 1) Get user based on POSTED email
+    const user = await User.findOne({email: req.body.email});
+    if (!user) {
+        return next(new AppError('There is no user with email address.',404))
+    }
+    // 2) Generate the random reset token
+    const resetToken = user.createPasswordResetToken();
+
+    await user.save({validateBeforeSave: false});
+
+    
+    // 3) Send it to user's email
+})
+
+exports.resetPassword = catchAsync(async (req,res,next) => {
+
+})

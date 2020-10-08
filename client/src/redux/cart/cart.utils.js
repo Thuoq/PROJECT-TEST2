@@ -1,13 +1,9 @@
 export const addItemToCart = (cartItems, cartItemToAdd) => {
-  const existItem = cartItems.find(
-    (el) => el.idProduct === cartItemToAdd.idProduct
-  );
+  const existItem = cartItems.find((el) => el._id === cartItemToAdd._id);
 
   if (existItem) {
     return cartItems.map((el) =>
-      el.idProduct === cartItemToAdd.idProduct
-        ? { ...el, quantity: el.quantity + 1 }
-        : el
+      el._id === cartItemToAdd._id ? { ...el, quantity: el.quantity + 1 } : el
     );
   }
   return [
@@ -17,20 +13,16 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 };
 
 export const decreaseItemToCart = (cartItems, cartItemToAdd) => {
-  const existItem = cartItems.find(
-    (el) => el.idProduct === cartItemToAdd.idProduct
-  );
+  const existItem = cartItems.find((el) => el._id === cartItemToAdd._id);
 
   if (existItem.quantity === 1) {
-    return cartItems.filter((el) => el.idProduct !== cartItemToAdd.idProduct);
+    return cartItems.filter((el) => el._id !== cartItemToAdd._id);
   }
 
   return cartItems.map((el) =>
-    el.idProduct === cartItemToAdd.idProduct
-      ? { ...el, quantity: el.quantity - 1 }
-      : el
+    el._id === cartItemToAdd._id ? { ...el, quantity: el.quantity - 1 } : el
   );
 };
 
 export const deleteItemToCart = (cartItems, cartItemToAdd) =>
-  cartItems.filter((el) => el.idProduct !== cartItemToAdd.idProduct);
+  cartItems.filter((el) => el._id !== cartItemToAdd._id);

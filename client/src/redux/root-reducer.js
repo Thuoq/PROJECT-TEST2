@@ -11,7 +11,7 @@ import bookingReducer from './booking/booking-reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cart', 'user'],
+  whitelist: ['cart', 'user', 'shop'],
 };
 
 const rootReducer = combineReducers({

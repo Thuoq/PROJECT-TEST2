@@ -17,7 +17,7 @@ exports.getAllProduct = catchAsync(async ( req, res, next) => {
 })
 
 
-exports.getTop4Sale = catchAsync(async (req,res,next) => {
+exports.getTop8Sale = catchAsync(async (req,res,next) => {
 
     
     const bestSale = await Booking.aggregate([
@@ -34,6 +34,9 @@ exports.getTop4Sale = catchAsync(async (req,res,next) => {
                 foreignField: "_id",
                 as: 'cart'
             }
+        },
+        {
+            $match: {"cart.isImportExcelBooking" : false }
         },
         {
             $sort: {quantity : -1}

@@ -1,0 +1,31 @@
+.specification-table {
+  // @include media-breakpoint-down (sm) {
+  // 	padding: 30px 10px;
+  // }
+
+  padding: 3rem;
+  border: 1px solid #eee;
+  background-color: white;
+  /* box-shadow: 0 0 black; */
+
+  .single-row {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+
+    padding: 1rem 0;
+    span {
+      width: 50%;
+      &:first-child {
+        margin-left: 5rem;
+        // @include media-breakpoint-down (sm) {
+        // 	margin-left: 0;
+        // }
+      }
+    }
+    border-bottom: 1px solid #eee;
+    &:last-child {
+      border-bottom: 0px;
+    }
+  }
+}

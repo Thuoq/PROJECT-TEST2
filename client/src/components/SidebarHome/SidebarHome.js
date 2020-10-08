@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout, Menu } from 'antd';
-import windowSize from 'react-window-size';
+//import windowSize from 'react-window-size';
 import dataSideBar from './sidebar-home-data';
 import { ReactComponent as Shirt } from '../../assets/002-shirt.svg';
 
@@ -14,14 +14,10 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 class SideBarHome extends React.Component {
   render() {
-    const { windowWidth, getCollectionStart } = this.props;
+    const { getCollectionStart } = this.props;
 
     return (
-      <Sider
-        collapsed={windowWidth <= 900}
-        style={windowWidth <= 900 ? { width: '5rem' } : ''}
-        className="site-layout-background"
-      >
+      <Sider className="site-layout-background">
         <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
           <SubMenu
             key="sub3"
@@ -56,4 +52,4 @@ SideBarHome.propTypes = {
   getCollectionStart: PropTypes.func,
 };
 
-export default connect(null, mapDispatchToProps)(windowSize(SideBarHome));
+export default connect(null, mapDispatchToProps)(SideBarHome);

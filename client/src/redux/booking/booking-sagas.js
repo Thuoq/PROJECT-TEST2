@@ -7,6 +7,16 @@ import { handleData } from './booking-utils';
 import { URL, BOOKING_API } from '../../constants/api';
 import { messageError } from '../../helpers/error.message';
 import { getToken } from '../../helpers/auth';
+export function patchBookingMultipleCompleteToServer(data) {
+  const token = `Bearer ${getToken()}`;
+  return AxiosInstance(`${URL}${BOOKING_API}/update-complete-many`, {
+    method: 'patch',
+    headers: {
+      Authorization: token,
+    },
+    data,
+  });
+}
 
 export function fetchBookingToServer() {
   const token = `Bearer ${getToken()}`;
@@ -35,12 +45,24 @@ export function* getBooking() {
         data: { booking },
       },
     } = yield call(fetchBookingToServer);
+
     const data = yield call(handleData, booking);
+
     yield put(getBookingSuccess(data));
   } catch (err) {
     messageError(err);
     yield put(getBookingFailure());
   }
+}
+export function* updateMultipleComplete({ payload }) {
+  const {
+    data: {
+      data: { booking },
+    },
+  } = yield call(patchBookingMultipleCompleteToServer, payload);
+
+  const data = yield call(handleData, booking);
+  yield put(getBookingSuccess(data));
 }
 
 export function* updateComplete({ payload }) {
@@ -49,10 +71,16 @@ export function* updateComplete({ payload }) {
       data: { booking },
     },
   } = yield call(patchBookingToServer, payload);
+
   const data = yield call(handleData, booking);
   yield put(getBookingSuccess(data));
 }
-
+export function* onUpdateMultipleComplete() {
+  yield takeLatest(
+    BOOKING_ACTION_TYPES.UPDATE_COMPLETE_MULTIPLE_START,
+    updateMultipleComplete
+  );
+}
 export function* onUpdateComplete() {
   yield takeLatest(BOOKING_ACTION_TYPES.UPDATE_COMPLETE_START, updateComplete);
 }
@@ -62,5 +90,9 @@ export function* onGetBookingStart() {
 }
 
 export function* bookingSagas() {
-  yield all([call(onGetBookingStart), call(onUpdateComplete)]);
+  yield all([
+    call(onGetBookingStart),
+    call(onUpdateComplete),
+    call(onUpdateMultipleComplete),
+  ]);
 }

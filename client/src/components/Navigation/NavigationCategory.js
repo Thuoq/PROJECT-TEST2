@@ -46,10 +46,6 @@ const NavigationCategory = ({ location }) => (
           <li className={location.pathname.includes('shop') ? 'active' : ' '}>
             <Link to="/shop/?page=1">Shop</Link>
           </li>
-
-          <li>
-            <Link to="/">Contact Us</Link>
-          </li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap" />

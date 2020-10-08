@@ -6,6 +6,7 @@ import {
   SideBarUser,
   BookingContent,
   InformationUser,
+  ImportExcel,
 } from '../../components/index';
 
 const UserPage = ({ match }) => (
@@ -14,6 +15,7 @@ const UserPage = ({ match }) => (
     <Switch>
       <Route exact path={`${match.url}`} component={InformationUser} />
       <Route exact path={`${match.url}/booking`} component={BookingContent} />
+      <Route exact path={`${match.url}/upload`} component={ImportExcel} />
     </Switch>
   </Layout>
 );
