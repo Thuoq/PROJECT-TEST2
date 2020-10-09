@@ -9,9 +9,10 @@ export const selectCollections = createSelector([selectShop], (shop) =>
 export const selectProductDetail = (idProductParams) =>
   createSelector([selectCollections], (collections) => {
     if (!collections) return null;
-    const collectionsExist = collections.find(
-      (el) => el.idProduct === idProductParams * 1
-    );
+    console.log(collections);
+    const collectionsExist = collections.find((el) => {
+      return el._id === idProductParams;
+    });
     return collectionsExist || null;
   });
 

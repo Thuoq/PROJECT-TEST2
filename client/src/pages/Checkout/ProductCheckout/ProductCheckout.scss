@@ -1,39 +1,39 @@
 @import '../../../responsive-mixin.scss';
 
-
 .product-container {
-	display: flex;
-	flex: 0 0 60%;
-	justify-content: space-between;
-	padding: 2rem;
-	height: 15rem;
-	border: 0.1rem solid #ccc;
+  display: flex;
+  flex: 0 0 60%;
+  justify-content: space-between;
+  padding: 2rem;
+  height: 15rem;
+  border: 0.1rem solid #ccc;
   margin-bottom: 5rem;
+  box-shadow: 0 1.25rem 1rem rgba(0, 0, 0, 0.2);
   @include respone(tab-port) {
     width: 100%;
     padding: 2rem;
   }
-	.product-quantity {
-		align-self: center;
-		display: flex;
-		justify-content: space-between;
-		width: 10rem;
-		align-items: center;
+  .product-quantity {
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    width: 10rem;
+    align-items: center;
     cursor: pointer;
     font-size: 2rem;
     @include respone(tab-port) {
       font-size: 1.5rem;
       justify-content: space-evenly;
     }
-    
-	}
-	.product-delete {
+  }
+  .product-delete {
     align-self: center;
     @include respone(tab-port) {
-      button ,svg{
+      button,
+      svg {
         width: 2.5rem;
         height: 2.5rem;
       }
     }
-	}
+  }
 }

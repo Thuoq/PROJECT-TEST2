@@ -4,18 +4,8 @@ const Booking = require('../models/booking.model');
 const APIFeatures = require('../utils/apiFeatures');
 
 exports.getAllProduct = catchAsync(async ( req, res, next) => {
-    
-    let features  
-    if(req.query.nameEN) {
-        features = new APIFeatures(Product.find({"nameEN": {$regex:req.query.nameEN}}),req.query)
-        .sort().limitFields().paginate()
-    }else {
-        req.query.nameEN = undefined;
-        
-        features = new APIFeatures(Product.find(),req.query)
-        .filter().sort().limitFields().paginate()
-    }
-    
+    let features =  new APIFeatures(Product.find({"nameEN": {$regex:req.query.nameEN}}),req.query)
+    .sort().limitFields().paginate()
     const products = await features.query;
     res.status(200).json({
         status: 'success',
@@ -27,7 +17,7 @@ exports.getAllProduct = catchAsync(async ( req, res, next) => {
 })
 
 
-exports.getTop4Sale = catchAsync(async (req,res,next) => {
+exports.getTop8Sale = catchAsync(async (req,res,next) => {
 
     
     const bestSale = await Booking.aggregate([
@@ -46,10 +36,13 @@ exports.getTop4Sale = catchAsync(async (req,res,next) => {
             }
         },
         {
+            $match: {"cart.isImportExcelBooking" : false }
+        },
+        {
             $sort: {quantity : -1}
         },
         {
-            $limit: 4
+            $limit: 8
         }
     ])
     res.status(200).json({

@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { Card, Button } from 'antd';
-import { MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Card } from 'antd';
+import { EllipsisOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { addItemToCart } from '../../redux/cart/cart.action';
 import './CardItem.scss';
 import CardItemContent from './CardContent';
 import { createStructuredSelector } from 'reselect';
 import { selectIsCollectionLoading } from '../../redux/shop/shop.selector';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -17,40 +18,23 @@ const CardItem = ({ cartItem, addItemToCart, match, history, isLoading }) => (
     className="card-container animate__animated animate__zoomInDown"
     hoverable
     loading={isLoading}
-    cover={
-      <img
-        alt="example"
-        className="card-image"
-        style={{ width: '100%' }}
-        src={cartItem.photoURL}
-      />
-    }
+    cover={<img alt="example" className="card-image" src={cartItem.photoURL} />}
     actions={[
-      <Button
-        key="submit"
-        type="primary"
-        onClick={() => addItemToCart(cartItem)}
-      >
-        Add To Card
-        <ShoppingCartOutlined />
-      </Button>,
-      <Button
-        type="link"
-        onClick={() => {
-          if (match.url === '/') {
-            history.push(`${match.url}shop/${cartItem.idProduct}`);
-          } else {
-            history.push(`${match.url}/${cartItem.idProduct}`);
-          }
-        }}
-      >
-        More Detail
-        <MoreOutlined />
-      </Button>,
+      <ShoppingCartOutlined onClick={() => addItemToCart(cartItem)} />,
+      match.url === '/' ? (
+        <Link to={`${match.url}shop/${cartItem._id}`}>Detail</Link>
+      ) : (
+        <EllipsisOutlined
+          onClick={() => {
+            history.push(`${match.url}${cartItem._id}`);
+          }}
+        />
+      ),
     ]}
   >
     <Meta
-      title={<span style={{ fontSize: '1.6rem' }}>{cartItem.nameEN}</span>}
+      className="card-meta"
+      title={<span>{cartItem.nameEN}</span>}
       description={<CardItemContent cartItem={cartItem} />}
     />
   </Card>
@@ -67,7 +51,7 @@ CardItem.propTypes = {
   isLoading: PropTypes.bool,
   cartItem: PropTypes.shape({
     nameEN: PropTypes.string,
-    idProduct: PropTypes.number,
+
     photoURL: PropTypes.string,
   }),
   history: PropTypes.shape({

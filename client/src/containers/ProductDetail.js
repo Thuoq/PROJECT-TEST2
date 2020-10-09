@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import ProductDetailPage from '../pages/ProductDetail/ProductDetail';
-import withSpinner from '../hocs/with-spinner/with-spinner.component';
 import { selectIsCollectionsLoaded } from '../redux/shop/shop.selector';
 import { addItemToCart } from '../redux/cart/cart.action';
 
@@ -17,5 +16,5 @@ const mapDispatchToProps = (dispatch) => ({
 const ProductDetailPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSpinner(ProductDetailPage));
+)(ProductDetailPage);
 export default ProductDetailPageContainer;

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { Layout, Row, Col, Divider } from 'antd';
 import CardItem from '../CardItem/CardItem';
 
-import BannerSecondary from '../Banner/BannerSecondary';
-import BannerHeading from '../Banner/BannerHeading';
+import { BannerSecondary, BannerHeading } from '../../components/index';
 
 const { Content } = Layout;
 
@@ -35,6 +34,7 @@ const ContentHomePage = ({ collections, match, history }) => (
       <Row
         style={{
           marginRight: '0',
+          marginLeft: '0',
         }}
         gutter={{
           xs: 8,
@@ -44,7 +44,7 @@ const ContentHomePage = ({ collections, match, history }) => (
         }}
       >
         {collections.map((cartItem, idx) => (
-          <Col xs={24} key={idx} sm={12} md={8} lg={6}>
+          <Col xs={24} key={idx} sm={8} md={6} lg={3}>
             <CardItem
               key={idx}
               cartItem={cartItem}

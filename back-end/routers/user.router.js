@@ -4,8 +4,10 @@ const router = express.Router();
 const Auth = require('../controllers/auth.controller');
 const UserController = require('../controllers/user.controller');
 
-router.get('/session', Auth.protect, UserController.sessionUser);
+ 
 router.post('/register', Auth.register);
+router.post('/forgotPassword', Auth.forgotPassword);
+router.post('/resetPassword', Auth.resetPassword);
 router.post('/signIn', Auth.signIn);
 router.get('/profile', Auth.protect, UserController.getProfileUser);
 router.patch('/address', Auth.protect, UserController.updateAddressUser);

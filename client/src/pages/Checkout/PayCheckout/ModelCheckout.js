@@ -39,7 +39,7 @@ const ModelCheckout = ({
       visible={visible}
       okText="Complete Shopping"
       onCancel={() => setVisible(!visible)}
-      onOk={() => checkOutStart(addressShip)}
+      onOk={() => checkOutStart({ address: addressShip })}
     >
       <Spin spinning={isFetchingCheckOut} size="large">
         {!success ? (

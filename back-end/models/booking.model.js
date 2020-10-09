@@ -5,7 +5,7 @@ const bookingSchema = new mongoose.Schema({
     idUser: {
         type: mongoose.Schema.ObjectId,
         ref: 'users',
-        required: [true, 'Booking must belong to a User'],
+       
     },
     cart: [
         { 
@@ -16,17 +16,33 @@ const bookingSchema = new mongoose.Schema({
             key: {
                 type: Number
             },
-            isCompleted : {
+            isGettingProduct : {
+                type : Boolean,
+                default: false,
+            },
+            isShippingProduct: {
+                type : Boolean,
+                default: false,
+            },
+            isReceivedProduct: {
                 type : Boolean,
                 default: false,
             },
             quantity: Number 
-            
         }
     ],
+    name: {
+        type: String,
+    },
+    phoneNumber : {
+        type: Number,
+    },
     address: {
         type: String,
         required: [true, "Provide us address"]
+    },
+    numberPaymentCard : {
+        type: String,  
     },
     totalMoney : Number,
     createAt: {
@@ -37,6 +53,7 @@ const bookingSchema = new mongoose.Schema({
 })
 bookingSchema.pre(/^find/, function(next) {
     this.populate('cart._id').populate({path: 'idUser',select: ['phoneNumber' , 'name']})
+    
     next();
 });
 

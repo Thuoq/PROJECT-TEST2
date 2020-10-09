@@ -1,12 +1,20 @@
+@import '../../responsive-mixin.scss';
 .cardItem-infor {
-    padding-left: 0.8rem;
-    li {
-        list-style: none;
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        span {
-            font-weight: 700;
-        }
-        
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    flex: 0 0 50%;
+    list-style: none;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    @include respone(tab-port) {
+      font-size: 1.6rem;
     }
+    span {
+      font-weight: 400;
+      color: black;
+    }
+  }
 }

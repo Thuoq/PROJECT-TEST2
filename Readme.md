@@ -26,4 +26,4 @@ Set up xong thì comment lại nha
 ## SET UP USER ADMIN
 
 Vì chưa setup User Admin ở trong database thì mình dùng Postman để tiện nhé
-`{ "email": "admin@gmail.com", "password" :"thuong123", "confirmPassword":"thuong123", "name": "Admin", "address":"Ha Noi", "phoneNumber" : "0983786614", "roles" : "admin" } `
+`{ "email": "admin@gmail.com", "password" :"thuong123", "confirmPassword":"thuong123", "name": "Admin", "address":"Ha Noi", "phoneNumber" : "0983786614", "role" : "admin" } `

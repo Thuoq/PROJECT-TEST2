@@ -26,9 +26,11 @@ export function* checkOut({ payload }) {
     const data = {
       cart: cartItem,
       totalMoney,
-      address: payload,
+      address: payload.address,
+      numberPaymentCard: payload.cardNumber,
       createAt: `${moment(new Date()).format('MMMM Do YYYY, h:mm:ss a')}`,
     };
+
     yield call(fetchBookingToServer, data);
     yield put(checkOutSuccess());
   } catch (err) {

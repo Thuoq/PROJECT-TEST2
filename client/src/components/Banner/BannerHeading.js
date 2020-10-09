@@ -2,17 +2,13 @@ import React from 'react';
 
 import { Col, Row, Button } from 'antd';
 import './BannerHeading.scss';
+import { withRouter } from 'react-router-dom';
 
-const BannerHeading = () => (
+const BannerHeading = ({ match, history }) => (
   <section className="banner-area" id="home">
-    <Row>
+    <Row className="img-fluid">
       <Col span={12}>
-        <img
-          className="img-fluid"
-          style={{ width: '100vw ' }}
-          src="https://i.postimg.cc/gjxtGnNc/6.jpg"
-          alt="#"
-        />
+        <div />
       </Col>
       <Col
         span={12}
@@ -25,8 +21,11 @@ const BannerHeading = () => (
           It’s Happening <br />
           this Season!
         </h1>
-        <Button type="primary" size="large">
-          {' '}
+        <Button
+          type="primary"
+          onClick={() => history.push(`${match.url}shop`)}
+          size="large"
+        >
           Purchase Now
         </Button>
       </Col>
@@ -34,4 +33,4 @@ const BannerHeading = () => (
   </section>
 );
 
-export default BannerHeading;
+export default withRouter(BannerHeading);

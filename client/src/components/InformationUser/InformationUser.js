@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout, Divider } from 'antd';
 import './InformationUser.scss';
 
-import AddAddressUser from './AddAddressUser';
+//import AddAddressUser from './AddAddressUser';
 import FormUser from './FormUser';
 
 const { Content } = Layout;
@@ -18,12 +18,11 @@ const InformationUser = () => (
       }}
     >
       <Divider>
-        {' '}
         <h2>Your Informations</h2>
       </Divider>
       <div className="informationUser-container">
         <FormUser />
-        <AddAddressUser />
+        {/* <AddAddressUser /> */}
       </div>
     </Content>
   </Layout>

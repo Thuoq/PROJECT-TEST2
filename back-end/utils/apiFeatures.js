@@ -26,8 +26,7 @@ class APIFeatures {
         this.query = this.query.sort(sortBy);
         
       } else {
-       
-        this.query = this.query.sort('priceUSD');
+        this.query = this.query.sort('nameEN');
       }
       return this; 
     }

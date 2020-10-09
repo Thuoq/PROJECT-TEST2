@@ -1,11 +1,11 @@
-@import "../../responsive-mixin.scss";
+@import '../../responsive-mixin.scss';
 .ant-row {
   .gutter-row {
     @include respone(tab-port) {
       margin-bottom: 5rem !important;
     }
     .card-container {
-      width: 30rem;
+      width: 100%;
 
       @include respone(tab-port) {
         width: 26rem;

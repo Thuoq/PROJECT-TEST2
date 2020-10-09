@@ -1,18 +1,17 @@
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Spinner from '../components/Spinner/Spinner';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import { Spinner, ErrorBoundary } from '../components/index';
+
 import PublicRoute from './public.routes';
 import PrivateRoutes from './private.routes';
-
-const HomePage = lazy(() => import('../pages/Home/Home'));
-const ShopPage = lazy(() => import('../pages/Shop/Shop'));
-const CheckOutPage = lazy(() => import('../pages/Checkout/Checkout'));
-const SignInSignUpPage = lazy(() =>
-  import('../pages/SignInSignUp/SignInSignUp')
-);
-const UserPage = lazy(() => import('../pages/User/User'));
-const Page404 = lazy(() => import('../pages/404/404'));
+import {
+  HomePage,
+  ShopPage,
+  CheckOutPage,
+  SignInSignUpPage,
+  UserPage,
+  Page404,
+} from '../pages/index';
 
 const Routes = ({ currentUser }) => (
   <ErrorBoundary>
@@ -33,6 +32,7 @@ const Routes = ({ currentUser }) => (
             )
           }
         />
+
         <PrivateRoutes path="/user" component={UserPage} />
         <Route path="*" component={Page404} />
       </Switch>

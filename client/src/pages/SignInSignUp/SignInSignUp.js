@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Layout, Col, Row, Spin } from 'antd';
-import windowSize from 'react-window-size';
-
-import SignIn from '../../components/SignIn/SignIn';
-import SignUp from '../../components/SignUp/SignUp';
+import { SignUp, SignIn } from '../../components/index';
 import './SignInSignUp.scss';
 import { createStructuredSelector } from 'reselect';
 import { selectIsLoadingUser } from '../../redux/user/user.selector';
@@ -43,6 +40,4 @@ SignInSignUpPage.propTypes = {
     push: PropTypes.func,
   }),
 };
-export default withRouter(
-  connect(mapStateToProps)(windowSize(SignInSignUpPage))
-);
+export default withRouter(connect(mapStateToProps)(SignInSignUpPage));
