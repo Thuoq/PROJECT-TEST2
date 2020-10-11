@@ -17,7 +17,7 @@ exports.handleCreateProductExcel = catchAsync(async (req,res,next ) => {
          }) 
         let product;
         if(!productExist) {
-            const priceUSD = Math.round(totalMoney/ quantity * 100) / 100;
+            const priceUSD = totalMoney.toFixed(2);
             const combineProduct  = {
                 nameEN,
                 nameVN,

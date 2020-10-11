@@ -15,7 +15,7 @@ const PayCheckOut = ({ totalItem }) => {
       <h2>Order Summary</h2>
       <div>
         <p>Total : </p>
-        <p>{Math.round(totalItem * 100) / 100}$</p>
+        <p>{totalItem.toFixed(2)}$</p>
       </div>
 
       {/* <StripeButton /> */}

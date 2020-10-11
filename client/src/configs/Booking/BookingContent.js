@@ -128,11 +128,7 @@ const preFix = (classConstructor) => [
     width: 150,
     render(_, row) {
       return {
-        children: (
-          <Tag color="magenta">
-            {Math.round(row.quantity * row.priceUSD * 100) / 100}$
-          </Tag>
-        ),
+        children: <Tag color="magenta">{row.quantity.toFixed(2)}$</Tag>,
         props: {
           rowSpan: row.rowSpan,
         },

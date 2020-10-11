@@ -30,7 +30,7 @@ const CartDropdown = ({ totalPrice, cartItems }) => (
         </div>
         <div className="select-total">
           <span>total:</span>
-          <h5>{Math.round(totalPrice * 100) / 100}$</h5>
+          <h5>{totalPrice.toFixed(2)}$</h5>
         </div>
         <div className="select-button">
           <Button

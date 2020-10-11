@@ -25,7 +25,7 @@ const ListUserCart = ({ totalItem, cartItems }) => (
           ))}
 
           <li className="total-price">
-            Total <span> $ {Math.round(totalItem * 100) / 100}</span>
+            Total <span> $ {totalItem.toFixed(2)}</span>
           </li>
         </ul>
 
@@ -34,7 +34,7 @@ const ListUserCart = ({ totalItem, cartItems }) => (
             CHECK OUT
           </Button>
           <Divider>OR PAY WITH Card</Divider>
-          <StripeButton price={Math.round(totalItem * 100) / 100} />
+          <StripeButton price={totalItem.toFixed(2)} />
         </div>
       </div>
     </div>

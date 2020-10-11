@@ -7,11 +7,11 @@ const CardContent = ({ cartItem }) => (
   <ul className="cardItem-infor">
     <li>
       <span>PriceEN </span> : &nbsp;
-      {cartItem.priceUSD}$
+      {cartItem.priceUSD.toFixed(2)}$
     </li>
     <li>
       <span>Weight :</span> &nbsp;
-      {cartItem.weight}
+      {cartItem.weight.toFixed(2)}
       KG
     </li>
 
