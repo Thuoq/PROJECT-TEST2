@@ -2,6 +2,7 @@ const catchAsync  = require('../utils/catchAsync');
 
 const Booking = require('../models/booking.model');
 const {sendGridMail} = require('../helpers/sendGridMail');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.createBooking = catchAsync(async (req,res,next) => {
    
@@ -16,14 +17,14 @@ exports.createBooking = catchAsync(async (req,res,next) => {
 
 
 exports.getBooking = catchAsync(async (req,res,next) => {
-    let booking;
+    let features
     
     if( !req.user.role.includes("admin") ) {
-        booking =  await Booking.find({idUser: req.user._id})      
-    }else {
-        booking = await Booking.find()
+        features = new APIFeatures(Booking.find({idUser: req.user._id})).sort()      
+    }else { 
+        features =  new APIFeatures(Booking.find(),req.query).paginate()
     }   
-  
+    const booking = await features.query;
     res.status(200).json({
         status: 'success',
         length : booking.length, 
@@ -42,7 +43,7 @@ exports.updateComplete = catchAsync(async (req,res,next) => {
     await Booking.updateOne({"_id":id, "cart.key":key},{$set: placeholder},{
         new: true
     })
-    console.log(b)
+    
     let booking = await Booking.find()
     res.status(200).json({
         status: 'success',
@@ -78,7 +79,7 @@ exports.updateCompleteMany = catchAsync(async (req,res,next) => {
    
     const {bookings , status} = req.body;
     var placeholder = {};
-        placeholder[`cart.$.${status}`] = true;
+       
    
     bookings.forEach(async cart => {
         placeholder[`cart.$.${status}`] = !cart[`${status}`];

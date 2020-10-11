@@ -102,11 +102,11 @@ class BookingContent extends React.Component {
             <>
               <Input
                 size="large"
-                placeholder="Search Booking By User Name"
+                placeholder="Search Booking By Waybill"
                 onChange={this.handleChangeSearchUser}
                 style={{ marginBottom: '2rem' }}
               />
-              <ExportCSV csvData={historyBooking} fileName="booking-data" />
+              <ExportCSV csvData={bookingsChoose} fileName="booking-data" />
               <br />
               <ButtonGroupChosen bookingsChoose={bookingsChoose} />
             </>

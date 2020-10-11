@@ -1,7 +1,7 @@
 import React from 'react';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 
 const ExportCSV = ({ csvData, fileName }) => {
   const fileType =
@@ -12,12 +12,18 @@ const ExportCSV = ({ csvData, fileName }) => {
     const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const data = new Blob([excelBuffer], { type: fileType });
-
     FileSaver.saveAs(data, fileName + fileExtension);
   };
   return (
-    <Button variant="warning" onClick={() => exportToCSV(csvData, fileName)}>
-      Export Excel{' '}
+    <Button
+      variant="warning"
+      onClick={() =>
+        csvData.length
+          ? exportToCSV(csvData, fileName)
+          : message.error('NO DATA CHOOSE')
+      }
+    >
+      Export Excel
     </Button>
   );
 };
