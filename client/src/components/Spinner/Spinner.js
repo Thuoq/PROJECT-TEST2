@@ -1,9 +1,10 @@
 import React from 'react';
 import './Spinner.scss';
+import { Spin } from 'antd';
 
-const Spinner = () => (
+const Spinner = ({ isLoading }) => (
   <div className="spinner-overlay">
-    <div className="spinner-container" />
+    <Spin spinning={isLoading} size="large" />
   </div>
 );
 

@@ -21,7 +21,7 @@ const corsOptions = {
 require('./db/moongoose');
 
 const Product = require('./models/product.model');
-
+ 
 // ROUTER AND CONTROLLER AND MIDDLEWARE
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');

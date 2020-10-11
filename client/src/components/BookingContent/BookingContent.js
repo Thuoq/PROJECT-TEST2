@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './BookingContent.scss';
 import { Layout, Table, Spin, Input } from 'antd';
-//import {Popconfirm , Button , message,Tag} from 'antd'
+
 import preFix from '../../configs/Booking/BookingContent';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';

@@ -7,17 +7,15 @@ import { EllipsisOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { addItemToCart } from '../../redux/cart/cart.action';
 import './CardItem.scss';
 import CardItemContent from './CardContent';
-import { createStructuredSelector } from 'reselect';
-import { selectIsCollectionLoading } from '../../redux/shop/shop.selector';
+
 import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
-const CardItem = ({ cartItem, addItemToCart, match, history, isLoading }) => (
+const CardItem = ({ cartItem, addItemToCart, match, history }) => (
   <Card
     className="card-container animate__animated animate__zoomInDown"
     hoverable
-    loading={isLoading}
     cover={<img alt="example" className="card-image" src={cartItem.photoURL} />}
     actions={[
       <ShoppingCartOutlined onClick={() => addItemToCart(cartItem)} />,
@@ -42,9 +40,6 @@ const CardItem = ({ cartItem, addItemToCart, match, history, isLoading }) => (
 const mapDispatchToProps = (dispatch) => ({
   addItemToCart: (cartItem) => dispatch(addItemToCart(cartItem)),
 });
-const mapStateToProps = createStructuredSelector({
-  isLoading: selectIsCollectionLoading,
-});
 
 CardItem.propTypes = {
   addItemToCart: PropTypes.func,
@@ -62,4 +57,4 @@ CardItem.propTypes = {
   }),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
+export default connect(null, mapDispatchToProps)(CardItem);

@@ -5,6 +5,7 @@ import {
   ProfileOutlined,
   AccountBookOutlined,
   UploadOutlined,
+  ShopOutlined,
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -22,9 +23,14 @@ const SideBarUser = ({ currentUser }) => (
         <Link to="/user/booking"> Booking</Link>
       </Menu.Item>
       {currentUser.role.includes('admin') ? (
-        <Menu.Item key="3" icon={<UploadOutlined />}>
-          <Link to="/user/upload"> Upload Booking</Link>
-        </Menu.Item>
+        <Menu>
+          <Menu.Item key="3" icon={<UploadOutlined />}>
+            <Link to="/user/upload"> Upload Booking</Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<ShopOutlined />}>
+            <Link to="/user/shop"> Manage Shop</Link>
+          </Menu.Item>
+        </Menu>
       ) : null}
     </Menu>
   </Sider>

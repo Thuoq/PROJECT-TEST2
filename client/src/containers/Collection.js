@@ -8,7 +8,7 @@ import {
   selectCollections,
   selectCurrentPage,
 } from '../redux/shop/shop.selector';
-//import withSpinner from '../hocs/with-spinner/with-spinner.component';
+
 import { getCollectionStart } from '../redux/shop/shop.action';
 
 const mapStateToProps = createStructuredSelector({

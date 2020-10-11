@@ -18,3 +18,4 @@ export { default as Spinner } from './Spinner/Spinner';
 export { default as StripeButton } from './StripeButton/StripeButton';
 export { default as CartDropdown } from './CardDropdown/CartDropdown';
 export { default as DescriptionTableCard } from './DescriptionTableCard/DescriptionTableCard';
+export { default as Directory } from './Directory/Directory';

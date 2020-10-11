@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
-import withSpinner from '../hocs/with-spinner/with-spinner.component';
+import withSpinner from '../hocs/WithSpinner/WithSpinner';
 import { ContentHomePage } from '../components/index';
 import {
   selectCollections,

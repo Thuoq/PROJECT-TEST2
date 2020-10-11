@@ -7,6 +7,7 @@ import {
   BookingContent,
   InformationUser,
   ImportExcel,
+  Directory,
 } from '../../components/index';
 
 const UserPage = ({ match }) => (
@@ -16,6 +17,7 @@ const UserPage = ({ match }) => (
       <Route exact path={`${match.url}`} component={InformationUser} />
       <Route exact path={`${match.url}/booking`} component={BookingContent} />
       <Route exact path={`${match.url}/upload`} component={ImportExcel} />
+      <Route exact path={`${match.url}/shop`} component={Directory} />
     </Switch>
   </Layout>
 );

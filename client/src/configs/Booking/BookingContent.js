@@ -69,7 +69,7 @@ const preFix = (classConstructor) => [
     title: 'Address Ship',
     dataIndex: 'address',
     ellipsis: true,
-    width: 1000,
+    width: 700,
     render(_, row) {
       return {
         children: <Tag color="magenta">{row.address}</Tag>,
@@ -83,33 +83,13 @@ const preFix = (classConstructor) => [
     title: 'ITEM_DESCRIPTION_EN',
     dataIndex: 'nameEN',
     ellipsis: true,
-    width: 500,
+    width: 200,
   },
   {
     title: 'ITEM_DESCRIPTION',
     dataIndex: 'nameVN',
     ellipsis: true,
-    width: 600,
-  },
-  {
-    title: 'ORDER_NET_WEIGHT',
-    dataIndex: 'weight',
-    ellipsis: true,
-    width: 250,
-  },
-  {
-    title: 'ORDER_GROSS_WEIGHT',
-    dataIndex: 'totalWeight',
-    ellipsis: true,
-    width: 250,
-    render(_, row) {
-      return {
-        children: <Tag color="volcano">{row.totalWeight}</Tag>,
-        props: {
-          rowSpan: row.rowSpan,
-        },
-      };
-    },
+    width: 800,
   },
   {
     title: 'ITEM_FACTORY_COUNTRY',
@@ -138,12 +118,12 @@ const preFix = (classConstructor) => [
     },
   },
   {
-    title: 'AMOUNT',
+    title: 'Price USD ',
     dataIndex: 'priceUSD',
     width: 150,
   },
   {
-    title: 'Total',
+    title: 'Total Money ',
     dataIndex: 'totalMoney',
     width: 150,
     render(_, row) {

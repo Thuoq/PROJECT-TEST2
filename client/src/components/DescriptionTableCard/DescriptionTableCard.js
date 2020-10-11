@@ -19,14 +19,7 @@ const DescriptionTableCard = ({ productDetail }) => (
       <span>Weight</span>
       <span>{productDetail.weight} KG</span>
     </div>
-    <div className="single-row">
-      <span>Order Net Weight</span>
-      <span>{productDetail.weight} KG</span>
-    </div>
-    <div className="single-row">
-      <span>Order Gross Weight</span>
-      <span>{productDetail.totalWeight}</span>
-    </div>
+
     <div className="single-row">
       <span>Origin</span>
       <span>{productDetail.origin}</span>
