@@ -1,8 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
-
-import { DescriptionTableCard } from '../../components';
-class ModelCard extends React.Component {
+import FormEditCard from './FormEditCard';
+class ModelEditCard extends React.Component {
   state = { visible: false };
 
   showModal = () => {
@@ -18,11 +17,11 @@ class ModelCard extends React.Component {
   };
 
   render() {
-    const { productDetail } = this.props;
+    const { record } = this.props;
     return (
       <>
         <Button type="primary" onClick={this.showModal}>
-          Look Card
+          Edit Card
         </Button>
         <Modal
           title="Description Card"
@@ -30,11 +29,11 @@ class ModelCard extends React.Component {
           onCancel={this.handleCancel}
           footer={null}
         >
-          <DescriptionTableCard productDetail={productDetail} />
+          <FormEditCard record={record} />
         </Modal>
       </>
     );
   }
 }
 
-export default ModelCard;
+export default ModelEditCard;

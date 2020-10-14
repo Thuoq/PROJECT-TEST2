@@ -4,7 +4,7 @@ import AxiosInstance from '../../helpers/interceptor';
 import CHECKOUT_ACTIONS_TYPE from './check-out.types';
 import { selectCartItem, selectTotalPrice } from '../cart/cart.selector';
 import { checkOutSuccess, checkOutFailure } from './check-out.action';
-import { messageError } from '../../helpers/error.message';
+import { messageError } from '../../helpers/message';
 import { URL, BOOKING_API } from '../../constants/api';
 import { getToken } from '../../helpers/auth';
 

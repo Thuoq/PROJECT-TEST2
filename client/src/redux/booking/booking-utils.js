@@ -9,6 +9,7 @@ export function handleData(arr) {
     if (!arr[i].idUser) {
       temp.phoneNumber = arr[i].phoneNumber;
       temp.name = arr[i].name;
+      temp.hawb = arr[i].HAWB;
     } else {
       temp.phoneNumber = arr[i].idUser.phoneNumber;
       temp.name = arr[i].idUser.name;

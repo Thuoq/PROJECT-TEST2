@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 const shopReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SHOP_ACTION_TYPES.GET_COLLECTIONS_START:
+    case SHOP_ACTION_TYPES.UPDATE_CONTENT_P_START:
       return {
         ...state,
         isLoading: true,
@@ -18,7 +19,13 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         collections: action.payload,
         isLoading: false,
       };
+    case SHOP_ACTION_TYPES.UPDATE_CONTENT_P_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case SHOP_ACTION_TYPES.GET_COLLECTIONS_BEST_SALE_START:
+    case SHOP_ACTION_TYPES.UPDATE_CONTENT_P_FAILURE:
       return {
         ...state,
         isLoading: true,

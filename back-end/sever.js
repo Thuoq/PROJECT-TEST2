@@ -20,7 +20,7 @@ const corsOptions = {
 // SERVER 
 require('./db/moongoose');
 
-const Product = require('./models/product.model');
+//const Product = require('./models/product.model');
  
 // ROUTER AND CONTROLLER AND MIDDLEWARE
 const AppError = require('./utils/appError');
@@ -28,6 +28,7 @@ const globalErrorHandler = require('./controllers/error.controller');
 const RouterUser = require('./routers/user.router');
 const RouterBooking = require('./routers/booking.router');
 const RouterProduct = require('./routers/product.router');
+const RouterAdmin = require('./routers/admin.router');
 // UP DATE ALL COLLECTION DATA
 // async function updateCollection () {
 //   await Product.updateMany({}, {$set: {isImportExcelBooking: false}});
@@ -43,7 +44,7 @@ const RouterProduct = require('./routers/product.router');
 //     })
 // })
 // console.log(process.env.NODE_ENV)
-const multer = require('multer')
+// const multer = require('multer')
 
 
 const PORT = process.env.PORT || 2222;
@@ -56,7 +57,7 @@ app.use(bodyParser.json());
 app.use('/api/v1/product', RouterProduct);
 app.use('/api/v1/booking', RouterBooking);
 app.use('/api/v1/user', RouterUser);
-
+app.use('/api/v1/admin',RouterAdmin);
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });

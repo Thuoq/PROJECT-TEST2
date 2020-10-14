@@ -1,10 +1,16 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import SHOP_ACTION_TYPES from './shop.types';
 import { handleConvertDataBestSale } from './shop.utils';
-import { getCollectionSuccess, getCollectionFailure } from './shop.action';
+import {
+  getCollectionSuccess,
+  getCollectionFailure,
+  updateContentProductFailure,
+  updateContentProductSuccess,
+} from './shop.action';
 import { URL, SHOP_API, SHOP_API_TOP_8_SALES } from '../../constants/api';
 import AxiosInstance from '../../helpers/interceptor';
-import { messageError } from '../../helpers/error.message';
+import { messageError, messageSuccess } from '../../helpers/message';
+import patchBookingContentOrProductContent from '../../helpers/BookingProduct';
 
 export function fetchCollectionToServer({ limit, page, nameEN, sort }) {
   return AxiosInstance(
@@ -60,6 +66,23 @@ export function* getBestSale() {
     put(getCollectionFailure());
   }
 }
+export function* updateContentProduct({ payload }) {
+  try {
+    yield call(patchBookingContentOrProductContent, payload);
+    yield put(updateContentProductSuccess());
+    messageSuccess();
+  } catch (err) {
+    messageError(err);
+    put(updateContentProductFailure());
+  }
+}
+
+export function* onUpdateContentProduct() {
+  yield takeLatest(
+    SHOP_ACTION_TYPES.UPDATE_CONTENT_P_START,
+    updateContentProduct
+  );
+}
 export function* fetchCollectionsStart() {
   yield takeLatest(
     SHOP_ACTION_TYPES.GET_COLLECTIONS_START,
@@ -73,5 +96,9 @@ export function* onGetBestSaleStart() {
   );
 }
 export function* shopSagas() {
-  yield all([call(fetchCollectionsStart), call(onGetBestSaleStart)]);
+  yield all([
+    call(fetchCollectionsStart),
+    call(onGetBestSaleStart),
+    call(onUpdateContentProduct),
+  ]);
 }

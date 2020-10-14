@@ -1,15 +1,10 @@
 const catchAsync  = require('../utils/catchAsync');
-
 const Booking = require('../models/booking.model');
-const {sendGridMail} = require('../helpers/sendGridMail');
 const APIFeatures = require('../utils/apiFeatures');
 
 exports.createBooking = catchAsync(async (req,res,next) => {
-   
     req.body.idUser = req.user._id;
-    sendGridMail(req.user.email)
     await Booking.create(req.body);
-   
     res.status(200).json({
         status: 'success'
     })
@@ -18,13 +13,23 @@ exports.createBooking = catchAsync(async (req,res,next) => {
 
 exports.getBooking = catchAsync(async (req,res,next) => {
     let features
-    
     if( !req.user.role.includes("admin") ) {
-        features = new APIFeatures(Booking.find({idUser: req.user._id})).sort()      
+        features = new APIFeatures(
+            Booking.find({idUser: req.user._id})
+            ,req.query)
+            .sort();     
     }else { 
-        features =  new APIFeatures(Booking.find(),req.query).paginate()
-    }   
-    const booking = await features.query;
+        features =  new APIFeatures(Booking
+            .find({idUser: {$exists: true}})
+            ,req.query
+        )
+    }
+    let booking = await features.query;
+    if(req.query.name && req.user.role.includes("admin") ) {
+        booking = booking.filter(el => 
+                el.idUser.name
+                .toLowerCase().includes(req.query.name.toLowerCase()));
+    }
     res.status(200).json({
         status: 'success',
         length : booking.length, 
@@ -76,7 +81,7 @@ exports.handleUploadDataExcel = catchAsync(async (req,res,next) => {
 
 
 exports.updateCompleteMany = catchAsync(async (req,res,next) => {
-   
+    
     const {bookings , status} = req.body;
     var placeholder = {};
        

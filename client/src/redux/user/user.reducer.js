@@ -14,7 +14,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
-    case USER_ACTIONS_TYPES.UPDATE_ADDRESS_START:
+
+    case USER_ACTIONS_TYPES.CHANGE_PASSWORD_START:
       return {
         ...state,
         isUpdating: true,
@@ -32,7 +33,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: null,
       };
-    case USER_ACTIONS_TYPES.UPDATE_USER_FAILURE:
+
+    case USER_ACTIONS_TYPES.CHANGE_PASSWORD_FAILURE:
       return {
         ...state,
         isUpdating: false,

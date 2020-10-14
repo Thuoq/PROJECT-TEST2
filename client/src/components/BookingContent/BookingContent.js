@@ -11,6 +11,7 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import {
   getBookingStart,
   updateCompleteStart,
+  getBookingWayBillStart,
 } from '../../redux/booking/booking-action';
 import {
   selectHistoryBooking,
@@ -26,13 +27,11 @@ class BookingContent extends React.Component {
   state = {
     columnsPrefix: preFix(this),
     status: '',
-    filedSearchName: '',
     bookingsChoose: [],
   };
-  handleChangeSearchUser = (e) => {
-    this.setState({
-      filedSearchName: e.target.value,
-    });
+  handleSearchWaybill = (values) => {
+    const { getBookingStart } = this.props;
+    getBookingStart(values);
   };
 
   handleComplete = (key) => {
@@ -47,47 +46,40 @@ class BookingContent extends React.Component {
   };
   componentDidMount() {
     const { currentUser, getBookingStart } = this.props;
-
     const { columnsPrefix } = this.state;
+    let newState;
     if (!currentUser.role.includes('admin')) {
       // FUNC AFTER BUG:
-      let newState = columnsPrefix.filter(
+      newState = columnsPrefix.filter(
         (el) =>
           el.title !== 'isComplete' &&
           el.title !== 'Getting Product' &&
           el.title !== 'Shipping Product' &&
           el.title !== 'Received Product' &&
-          el.title !== 'Detail Payment'
+          el.title !== 'Detail Payment Card' &&
+          el.title !== 'Detail About Card' &&
+          el.title !== 'HAWB(Way Bill)'
       );
-      this.setState({
-        columnsPrefix: newState,
-      });
+    } else {
+      newState = columnsPrefix.filter((el) => el.title !== 'HAWB(Way Bill)');
     }
+    this.setState({
+      columnsPrefix: newState,
+    });
     getBookingStart();
   }
-
-  render() {
-    const {
-      columnsPrefix,
-      status,
-      filedSearchName,
-      bookingsChoose,
-    } = this.state;
-    const { historyBooking, isLoading, currentUser } = this.props;
-    const dataFilterStatus = historyBooking.filter((cartItem) => {
-      if (status && filedSearchName)
-        return (
-          cartItem[status] === true &&
-          cartItem.name.toLowerCase().includes(filedSearchName.toLowerCase())
-        );
-      else if (!status && !filedSearchName) return cartItem;
-      else if (status) return cartItem[status] === true;
-      else if (filedSearchName)
-        return cartItem.name
-          .toLowerCase()
-          .includes(filedSearchName.toLowerCase());
+  filterDataByStatus = () => {
+    const { status } = this.state;
+    const { historyBooking } = this.props;
+    return historyBooking.filter((cartItem) => {
+      if (status) return cartItem[status] === true;
+      else if (!status) return cartItem;
       return cartItem;
     });
+  };
+  render() {
+    const { columnsPrefix, bookingsChoose } = this.state;
+    const { isLoading, currentUser } = this.props;
 
     return (
       <Layout style={{ padding: '0 2.4rem 2.4rem' }}>
@@ -100,10 +92,11 @@ class BookingContent extends React.Component {
         >
           {currentUser.role.includes('admin') ? (
             <>
-              <Input
+              <Input.Search
                 size="large"
-                placeholder="Search Booking By Waybill"
-                onChange={this.handleChangeSearchUser}
+                enterButton
+                placeholder="Search Booking By Name"
+                onSearch={this.handleSearchWaybill}
                 style={{ marginBottom: '2rem' }}
               />
               <ExportCSV csvData={bookingsChoose} fileName="booking-data" />
@@ -130,7 +123,7 @@ class BookingContent extends React.Component {
                 },
               }}
               scroll={{ x: 2000 }}
-              dataSource={dataFilterStatus}
+              dataSource={this.filterDataByStatus()}
               columns={columnsPrefix}
               rowKey="key"
             />
@@ -148,8 +141,10 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getBookingStart: () => dispatch(getBookingStart()),
+  getBookingStart: (data) => dispatch(getBookingStart(data)),
   updateCompleteStart: (key) => dispatch(updateCompleteStart(key)),
+  getBookingWayBillStart: (waybill) =>
+    dispatch(getBookingWayBillStart(waybill)),
 });
 
 /* TYPES */

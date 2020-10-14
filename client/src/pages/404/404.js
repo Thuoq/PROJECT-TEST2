@@ -1,14 +1,20 @@
 import React from 'react';
 import { Result, Button } from 'antd';
 
-const Page404 = (props) => (
-  // console.log(props)
-  // debugger;
+const Page404 = () => (
   <Result
     status="404"
     title="404"
     subTitle="Sorry, Page Not Found."
-    extra={<Button type="primary">Back Home</Button>}
+    extra={
+      <Button
+        type="link"
+        href="/"
+        style={{ backgroundColor: '#d4b106', borderColor: '#d4b106' }}
+      >
+        Back Home
+      </Button>
+    }
   />
 );
 

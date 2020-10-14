@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormUpdatePhone from './FormUpdatePhone';
 import { connect } from 'react-redux';
-import { Form, Input, Button, Popconfirm, InputNumber, Modal } from 'antd';
-import { red } from '@ant-design/colors';
+import { Form, Input, Button, InputNumber, Modal } from 'antd';
+
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
+import ModelChangePassword from './ModelChangePassword';
 
 class FormUser extends React.Component {
   state = { visible: false };
@@ -35,7 +36,6 @@ class FormUser extends React.Component {
           labelCol={{
             span: 4,
           }}
-          onFinish={(values) => console.log(values)}
           wrapperCol={{
             span: 14,
           }}
@@ -66,21 +66,7 @@ class FormUser extends React.Component {
               Update Phone Number
             </Button>
             &nbsp; &nbsp;
-            <Popconfirm
-              title="Are you sure change your password?"
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button
-                type="primary"
-                style={{
-                  backgroundColor: `${red[5]}`,
-                  borderColor: `${red[5]}`,
-                }}
-              >
-                Change Password
-              </Button>
-            </Popconfirm>
+            <ModelChangePassword />
           </Form.Item>
         </Form>
         <Modal

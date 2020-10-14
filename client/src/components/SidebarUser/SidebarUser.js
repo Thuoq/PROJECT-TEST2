@@ -20,7 +20,7 @@ const SideBarUser = ({ currentUser }) => (
         <Link to="/user">Your Information</Link>
       </Menu.Item>
       <Menu.Item key="2" icon={<AccountBookOutlined />}>
-        <Link to="/user/booking"> Booking</Link>
+        <Link to="/user/booking"> Booking </Link>
       </Menu.Item>
       {currentUser.role.includes('admin') ? (
         <Menu>
@@ -28,7 +28,10 @@ const SideBarUser = ({ currentUser }) => (
             <Link to="/user/upload"> Upload Booking</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<ShopOutlined />}>
-            <Link to="/user/shop"> Manage Shop</Link>
+            <Link to="/user/shop?limit=100"> Manage Shop</Link>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<AccountBookOutlined />}>
+            <Link to="/user/booking-import"> Booking Import</Link>
           </Menu.Item>
         </Menu>
       ) : null}

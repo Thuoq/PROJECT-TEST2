@@ -46,6 +46,18 @@ export const updateUserFailure = () => ({
   type: USER_ACTIONS_TYPES.UPDATE_USER_FAILURE,
 });
 
+export const userChangePassWordStart = (objPassword) => ({
+  type: USER_ACTIONS_TYPES.CHANGE_PASSWORD_START,
+  payload: objPassword,
+});
+export const userChangePassWordSuccess = (user) => ({
+  type: USER_ACTIONS_TYPES.CHANGE_PASSWORD_SUCCESS,
+  payload: user,
+});
+
+export const userChangePasswordFailure = () => ({
+  type: USER_ACTIONS_TYPES.CHANGE_PASSWORD_FAILURE,
+});
 export const authExpired = () => {
   localStorage.removeItem('login');
   return {

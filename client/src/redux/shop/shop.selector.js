@@ -9,7 +9,7 @@ export const selectCollections = createSelector([selectShop], (shop) =>
 export const selectProductDetail = (idProductParams) =>
   createSelector([selectCollections], (collections) => {
     if (!collections) return null;
-    console.log(collections);
+
     const collectionsExist = collections.find((el) => {
       return el._id === idProductParams;
     });

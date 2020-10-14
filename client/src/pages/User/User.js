@@ -6,9 +6,11 @@ import {
   SideBarUser,
   BookingContent,
   InformationUser,
-  ImportExcel,
-  Directory,
+  ImportView,
+  BookingImport,
 } from '../../components/index';
+
+import { DirectoryContainer } from '../../containers/index';
 
 const UserPage = ({ match }) => (
   <Layout style={{ minHeight: '60vh', marginTop: '-3.6rem' }}>
@@ -16,8 +18,13 @@ const UserPage = ({ match }) => (
     <Switch>
       <Route exact path={`${match.url}`} component={InformationUser} />
       <Route exact path={`${match.url}/booking`} component={BookingContent} />
-      <Route exact path={`${match.url}/upload`} component={ImportExcel} />
-      <Route exact path={`${match.url}/shop`} component={Directory} />
+      <Route exact path={`${match.url}/upload`} component={ImportView} />
+      <Route exact path={`${match.url}/shop`} component={DirectoryContainer} />
+      <Route
+        exact
+        path={`${match.url}/booking-import`}
+        component={BookingImport}
+      />
     </Switch>
   </Layout>
 );

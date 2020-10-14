@@ -5,7 +5,6 @@ const bookingSchema = new mongoose.Schema({
     idUser: {
         type: mongoose.Schema.ObjectId,
         ref: 'users',
-       
     },
     cart: [
         { 
@@ -31,6 +30,9 @@ const bookingSchema = new mongoose.Schema({
             quantity: Number 
         }
     ],
+    HAWB: {
+        type: String,
+    },
     name: {
         type: String,
     },
@@ -50,8 +52,12 @@ const bookingSchema = new mongoose.Schema({
        
     },
     
+},{  
+    toJSON: {virtuals: true},
+    toObject: {virtuals:true} 
 })
 bookingSchema.pre(/^find/, function(next) {
+   
     this.populate('cart._id').populate({path: 'idUser',select: ['phoneNumber' , 'name']})
     
     next();

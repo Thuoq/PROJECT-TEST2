@@ -1,20 +1,20 @@
 import React from 'react';
 import moment from 'moment';
 import ModelPrint from './ModelPrint';
-import ModelCard from './ModelCard';
+import ModelDetail from './ModelDetail';
 import { Popconfirm, Button, message, Tag } from 'antd';
+import ModelEditCard from './ModelEditCard';
 
 // import Pdf from 'react-to-pdf';
 
 const preFix = (classConstructor) => [
   {
-    title: 'IdOrder',
-    dataIndex: '_id',
+    title: 'HAWB(Way Bill)',
+    dataIndex: 'hawb',
     width: 250,
-
     render(_, row) {
       return {
-        children: <Tag color="magenta">{row._id}</Tag>,
+        children: <Tag color="magenta">{row.hawb}</Tag>,
         props: {
           rowSpan: row.rowSpan,
         },
@@ -104,7 +104,7 @@ const preFix = (classConstructor) => [
       ),
   },
   {
-    title: 'ORDER_QUANTITY',
+    title: 'Quantity',
     dataIndex: 'quantity',
     ellipsis: true,
     width: 150,
@@ -128,7 +128,7 @@ const preFix = (classConstructor) => [
     width: 150,
     render(_, row) {
       return {
-        children: <Tag color="magenta">{row.quantity.toFixed(2)}$</Tag>,
+        children: <Tag color="magenta">{row.totalMoney.toFixed(2)}$</Tag>,
         props: {
           rowSpan: row.rowSpan,
         },
@@ -141,7 +141,7 @@ const preFix = (classConstructor) => [
     key: 'isGettingProduct',
     ellipsis: true,
     width: 150,
-    fixed: 'right',
+
     render: (text, record) => {
       let status = 'isGettingProduct';
       return (
@@ -172,7 +172,7 @@ const preFix = (classConstructor) => [
     key: 'delete',
     ellipsis: true,
     width: 150,
-    fixed: 'right',
+
     render: (text, record) => {
       let status = 'isShippingProduct';
       return (
@@ -203,7 +203,7 @@ const preFix = (classConstructor) => [
     key: 'delete',
     ellipsis: true,
     width: 150,
-    fixed: 'right',
+
     render: (text, record) => {
       let status = 'isReceivedProduct';
       return (
@@ -249,10 +249,21 @@ const preFix = (classConstructor) => [
     dataIndex: 'numberPaymentCard',
     key: 'table',
     ellipsis: true,
+    width: 200,
+    fixed: 'right',
+    render: (text, record) => {
+      return <ModelDetail productDetail={record} />;
+    },
+  },
+  {
+    title: 'Detail About Card',
+    dataIndex: 'numberPaymentCard',
+    key: 'table',
+    ellipsis: true,
     width: 180,
     fixed: 'right',
     render: (text, record) => {
-      return <ModelCard productDetail={record} />;
+      return <ModelEditCard record={record} />;
     },
   },
 ];

@@ -70,6 +70,7 @@ const SignIn = ({ signInStart }) => {
           placeholder="E-mail"
         />
       </Form.Item>
+
       <Form.Item
         name="password"
         rules={[
@@ -99,6 +100,11 @@ const SignIn = ({ signInStart }) => {
         >
           Log in
         </Button>
+      </Form.Item>
+      <Form.Item>
+        <a style={{ textAlign: 'center' }} href="#c">
+          Forgot password
+        </a>
       </Form.Item>
     </Form>
   );

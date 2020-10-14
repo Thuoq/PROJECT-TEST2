@@ -1,23 +1,21 @@
 const Product = require('../models/product.model');
 const Booking = require('../models/booking.model');
 const moment = require('moment')
-
+const {convertDataExcelToArray} = require('../helpers/handleFileExcel')
 const randomInteger = require('../constants/RandomsInteger');
 const catchAsync = require('../utils/catchAsync');
-const  XLSX = require('xlsx');
+
 exports.handleCreateProductExcel = catchAsync(async (req,res,next ) => {
-    
-    var workbook = XLSX.readFile(`${process.cwd()}/uploads/` + req.file.filename);
-    var sheet_name_list = workbook.SheetNames;
-    var data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+    const data = convertDataExcelToArray(req)
     await data.forEach(async el => {
-        const {nameVN , nameEN, quantity, weight,totalWeight,totalMoney,address,phoneNumber,name} = el;
+         const {nameVN , nameEN,HAWB, quantity, weight,totalWeight,totalMoney,address,phoneNumber,name} = el;
         const productExist = await Product.findOne({
                 nameVN,
          }) 
+         
         let product;
         if(!productExist) {
-            const priceUSD = totalMoney.toFixed(2);
+            const priceUSD = (totalMoney/quantity).toFixed(2);
             const combineProduct  = {
                 nameEN,
                 nameVN,
@@ -39,6 +37,7 @@ exports.handleCreateProductExcel = catchAsync(async (req,res,next ) => {
         const combineCart = {
             cart : newCart,
             name,
+            HAWB : HAWB.toString(),
             phoneNumber,
             address,
             totalMoney,

@@ -1,15 +1,51 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import BOOKING_ACTION_TYPES from './booking-types';
-import { getBookingSuccess, getBookingFailure } from './booking-action';
+import {
+  getBookingSuccess,
+  getBookingFailure,
+  updateCompleteFailure,
+  getBookingWayBillFailure,
+  getBookingWayBillSuccess,
+  updateContentBookingSuccess,
+  updateContentBookingFailure,
+} from './booking-action';
 import AxiosInstance from '../../helpers/interceptor';
 import { handleData } from './booking-utils';
-import { URL, BOOKING_API } from '../../constants/api';
-import { messageError } from '../../helpers/error.message';
+import {
+  URL,
+  BOOKING_API,
+  ADMIN_API,
+  UPLOAD_MANY_COMPLETE_API,
+  UPLOAD_A_COMPLETE_API,
+} from '../../constants/api';
+import { messageError, messageSuccess } from '../../helpers/message';
 import { getToken } from '../../helpers/auth';
+import patchBookingContentOrProductContent from '../../helpers/BookingProduct';
+
+export function getBookingForWaybill(waybill) {
+  let hwb = waybill ? `hwb=${waybill}` : '';
+  const token = `Bearer ${getToken()}`;
+  return AxiosInstance(`${URL}${ADMIN_API}${BOOKING_API}?${hwb}`, {
+    method: 'get',
+    headers: {
+      Authorization: token,
+    },
+  });
+}
+export function fetchBookingImportToServer() {
+  const token = `Bearer ${getToken()}`;
+  return AxiosInstance(`${URL}${ADMIN_API}${BOOKING_API}`, {
+    method: 'get',
+    headers: {
+      Authorization: token,
+    },
+  });
+}
+
 export function patchBookingMultipleCompleteToServer(data) {
   const token = `Bearer ${getToken()}`;
-  return AxiosInstance(`${URL}${BOOKING_API}/update-complete-many`, {
+  return AxiosInstance(`${URL}${ADMIN_API}${UPLOAD_MANY_COMPLETE_API}`, {
     method: 'patch',
     headers: {
       Authorization: token,
@@ -18,9 +54,10 @@ export function patchBookingMultipleCompleteToServer(data) {
   });
 }
 
-export function fetchBookingToServer() {
+export function fetchBookingToServer(data) {
+  let query = data ? `?name=${data}` : '';
   const token = `Bearer ${getToken()}`;
-  return AxiosInstance(`${URL}${BOOKING_API}`, {
+  return AxiosInstance(`${URL}${BOOKING_API}${query}`, {
     method: 'get',
     headers: {
       Authorization: token,
@@ -29,7 +66,7 @@ export function fetchBookingToServer() {
 }
 export function patchBookingToServer(data) {
   const token = `Bearer ${getToken()}`;
-  return AxiosInstance(`${URL}${BOOKING_API}`, {
+  return AxiosInstance(`${URL}${ADMIN_API}${UPLOAD_A_COMPLETE_API}`, {
     method: 'patch',
     headers: {
       Authorization: token,
@@ -38,13 +75,13 @@ export function patchBookingToServer(data) {
   });
 }
 
-export function* getBooking() {
+export function* getBooking({ payload }) {
   try {
     const {
       data: {
         data: { booking },
       },
-    } = yield call(fetchBookingToServer);
+    } = yield call(fetchBookingToServer, payload);
 
     const data = yield call(handleData, booking);
 
@@ -54,27 +91,72 @@ export function* getBooking() {
     yield put(getBookingFailure());
   }
 }
-export function* updateMultipleComplete({ payload }) {
-  const {
-    data: {
-      data: { booking },
-    },
-  } = yield call(patchBookingMultipleCompleteToServer, payload);
 
-  const data = yield call(handleData, booking);
-  yield put(getBookingSuccess(data));
+export function* updateMultipleComplete({ payload }) {
+  try {
+    const {
+      data: {
+        data: { booking },
+      },
+    } = yield call(patchBookingMultipleCompleteToServer, payload);
+
+    const data = yield call(handleData, booking);
+    yield put(getBookingSuccess(data));
+  } catch (err) {
+    messageError(err);
+    yield put(updateCompleteFailure());
+  }
 }
 
 export function* updateComplete({ payload }) {
-  const {
-    data: {
-      data: { booking },
-    },
-  } = yield call(patchBookingToServer, payload);
+  try {
+    const {
+      data: {
+        data: { booking },
+      },
+    } = yield call(patchBookingToServer, payload);
 
-  const data = yield call(handleData, booking);
-  yield put(getBookingSuccess(data));
+    const data = yield call(handleData, booking);
+    yield put(getBookingSuccess(data));
+  } catch (err) {
+    messageError(err);
+    yield put(updateCompleteFailure());
+  }
 }
+export function* getBookingWayBill({ payload }) {
+  try {
+    const {
+      data: { booking },
+    } = yield call(getBookingForWaybill, payload);
+    const data = yield call(handleData, booking);
+    yield put(getBookingWayBillSuccess(data));
+  } catch (err) {
+    messageError(err);
+    yield put(getBookingWayBillFailure());
+  }
+}
+export function* updateContent({ payload }) {
+  try {
+    yield call(patchBookingContentOrProductContent, payload);
+    yield put(updateContentBookingSuccess());
+    messageSuccess();
+  } catch (err) {
+    messageError(err);
+    yield put(updateContentBookingFailure());
+  }
+}
+
+export function* onUpdateContent() {
+  yield takeLatest(BOOKING_ACTION_TYPES.UPDATE_CONTENT_B_START, updateContent);
+}
+
+export function* onGetBookingWayBill() {
+  yield takeLatest(
+    BOOKING_ACTION_TYPES.GET_BOOKING_WAY_BILL_START,
+    getBookingWayBill
+  );
+}
+
 export function* onUpdateMultipleComplete() {
   yield takeLatest(
     BOOKING_ACTION_TYPES.UPDATE_COMPLETE_MULTIPLE_START,
@@ -94,5 +176,7 @@ export function* bookingSagas() {
     call(onGetBookingStart),
     call(onUpdateComplete),
     call(onUpdateMultipleComplete),
+    call(onGetBookingWayBill),
+    call(onUpdateContent),
   ]);
 }

@@ -10,17 +10,28 @@ const bookingReducer = (state = INITIAL_STATE, action) => {
     case BOOKING_ACTION_TYPES.GET_BOOKING_START:
     case BOOKING_ACTION_TYPES.UPDATE_COMPLETE_START:
     case BOOKING_ACTION_TYPES.UPDATE_COMPLETE_MULTIPLE_START:
+    case BOOKING_ACTION_TYPES.GET_BOOKING_WAY_BILL_START:
+    case BOOKING_ACTION_TYPES.UPDATE_CONTENT_B_START:
       return {
         ...state,
         isLoading: true,
       };
     case BOOKING_ACTION_TYPES.GET_BOOKING_SUCCESS:
+    case BOOKING_ACTION_TYPES.GET_BOOKING_WAY_BILL_SUCCESS:
       return {
         ...state,
         historyBook: action.payload,
         isLoading: false,
       };
+    case BOOKING_ACTION_TYPES.UPDATE_CONTENT_B_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case BOOKING_ACTION_TYPES.UPDATE_CONTENT_B_FAILURE:
+    case BOOKING_ACTION_TYPES.GET_BOOKING_WAY_BILL_FAILURE:
     case BOOKING_ACTION_TYPES.GET_BOOKING_FAILURE:
+    case BOOKING_ACTION_TYPES.UPDATE_COMPLETE_FAILURE:
       return {
         ...state,
         isLoading: true,

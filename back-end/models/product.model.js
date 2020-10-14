@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     
     
-    nameEN: String,
+    nameEN: {
+        type: String,
+        trim: true
+    },     
     nameVN: String,
     weight: Number,
     origin: String,

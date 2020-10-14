@@ -1,7 +1,7 @@
 import { takeLatest, all, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import AxiosInstance from '../../helpers/interceptor';
-import { messageError } from '../../helpers/error.message';
+import { messageError } from '../../helpers/message';
 // import {message} from 'antd'
 import { setToken, getToken, removeToken } from '../../helpers/auth';
 import USER_ACTIONS_TYPES from './user.types';
@@ -11,13 +11,25 @@ import {
   signUpFailure,
   signInFailure,
   updateUserFailure,
+  userChangePasswordFailure,
 } from './user.action';
 
-import { URL, USER_API } from '../../constants/api';
+import { URL, USER_API, USER_UPDATE_PASSWORD } from '../../constants/api';
+import { message } from 'antd';
 
 export function fetchUserToServer(data, type) {
   return AxiosInstance(`${URL}${USER_API}/${type}`, {
     method: 'post',
+    data,
+  });
+}
+export function fetchChangePassword(data) {
+  const token = `Bearer ${getToken()}`;
+  return AxiosInstance(`${URL}${USER_API}${USER_UPDATE_PASSWORD}`, {
+    method: 'patch',
+    headers: {
+      Authorization: token,
+    },
     data,
   });
 }
@@ -101,7 +113,29 @@ export function* updatePhoneNumber({ payload }) {
 function* userExpired() {
   yield put(push('/signInSignUp'));
 }
+function* userChangePassword({ payload }) {
+  try {
+    const {
+      data: {
+        data: { user },
+        token,
+      },
+    } = yield call(fetchChangePassword, payload);
+    yield put(setCurrentUser(user));
+    setToken(token);
+    message.success('Change password Success fully');
+  } catch (err) {
+    messageError(err);
+    yield put(userChangePasswordFailure());
+  }
+}
 
+export function* onUserChangePassword() {
+  yield takeLatest(
+    USER_ACTIONS_TYPES.CHANGE_PASSWORD_START,
+    userChangePassword
+  );
+}
 export function* onUserExpired() {
   yield takeLatest(USER_ACTIONS_TYPES.AUTH_EXPIRED_TYPES, userExpired);
 }
@@ -136,5 +170,6 @@ export function* userSagas() {
     call(onUpdateAddress),
     call(onUpdatePhone),
     call(onUserExpired),
+    call(onUserChangePassword),
   ]);
 }

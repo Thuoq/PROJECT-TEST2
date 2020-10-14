@@ -7,7 +7,8 @@ const UserController = require('../controllers/user.controller');
  
 router.post('/register', Auth.register);
 router.post('/forgotPassword', Auth.forgotPassword);
-router.post('/resetPassword', Auth.resetPassword);
+router.patch('/resetPassword/:token', Auth.resetPassword);
+router.patch('/updateMyPassword',Auth.protect, Auth.updatePassword);
 router.post('/signIn', Auth.signIn);
 router.get('/profile', Auth.protect, UserController.getProfileUser);
 router.patch('/address', Auth.protect, UserController.updateAddressUser);

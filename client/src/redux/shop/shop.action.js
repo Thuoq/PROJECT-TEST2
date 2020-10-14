@@ -17,3 +17,16 @@ export const getCollectionSuccess = (data) => ({
 export const getCollectionFailure = () => ({
   type: SHOP_ACTION_TYPES.GET_COLLECTIONS_FAILURE,
 });
+
+export const updateContentProductStart = (data) => ({
+  type: SHOP_ACTION_TYPES.UPDATE_CONTENT_P_START,
+  payload: data,
+});
+
+export const updateContentProductSuccess = () => ({
+  type: SHOP_ACTION_TYPES.UPDATE_CONTENT_P_SUCCESS,
+});
+
+export const updateContentProductFailure = () => ({
+  type: SHOP_ACTION_TYPES.UPDATE_CONTENT_P_FAILURE,
+});
