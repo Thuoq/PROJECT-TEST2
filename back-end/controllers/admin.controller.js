@@ -1,9 +1,11 @@
+
 const Booking = require('../models/booking.model');
 const catchAsync = require('../utils/catchAsync');
 const Product = require('../models/product.model');
 const APIFeatures = require('../utils/apiFeatures');
-const { convertDataExcelToArray } = require('../helpers/handleFileExcel');
- 
+
+
+
 
 exports.getBookingWaybill = catchAsync( async (req,res,next) => {
     let booking ;
@@ -32,35 +34,12 @@ exports.getProductAdmin = catchAsync( async (req,res,next) => {
     })
 })
 
-exports.postProductArray = catchAsync( async (req,res,next) => {
-    const data = convertDataExcelToArray(req);
-    
-    await data.forEach(async el => {
-      const {nameVN , nameEN, weight,origin,productURL,photoURL,priceUSD,priceVN} = el;
-       const productExist = await Product.findOne({
-               nameVN,
-        }) 
-       let product;
-       if(!productExist) {
-           const combineProduct  = {
-               nameEN,
-               nameVN,
-               weight,
-               origin,
-               priceUSD,
-               priceVN,
-               productURL,
-               photoURL
-           }
-           product = await Product.create(combineProduct);
-       }else {
-           product = Object.assign({},productExist)
-       }
-   })
+
+exports.postProductArray = (req,res,next) => {
     res.status(200).json({
         status: "success"
     })
-})
+}
 
 exports.patchProductContent  = catchAsync(async (req,res,next) => {
      await Product.findByIdAndUpdate(req.body._id,req.body,{

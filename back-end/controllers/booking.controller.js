@@ -48,14 +48,8 @@ exports.updateComplete = catchAsync(async (req,res,next) => {
     await Booking.updateOne({"_id":id, "cart.key":key},{$set: placeholder},{
         new: true
     })
-    
-    let booking = await Booking.find()
     res.status(200).json({
         status: 'success',
-        length : booking.length, 
-        data: {
-            booking,
-        }
     })
 })
 
@@ -93,14 +87,11 @@ exports.updateCompleteMany = catchAsync(async (req,res,next) => {
         })
     })
     
-    let booking = await Booking.find()
+    
     
     res.status(200).json({
         status: 'success',
-        length : booking.length, 
-        data: {
-            booking,
-        }
+    
     })
     
 })

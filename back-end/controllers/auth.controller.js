@@ -124,7 +124,7 @@ exports.forgotPassword = catchAsync( async (req,res,next) => {
     await user.save({validateBeforeSave: false});
     //${req.protocol}://${req.get('host')}/api/v1/user/resetPassword/${resetToken}`
     // 3) Send it to user's email
-    const resetURL = `${"http://localhost:3000/resetPassword"}/${resetToken}`
+    const resetURL = `${"http://localhost:3000/resetPassword"}/?token=${resetToken}`
     const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to ${resetURL}\n If your didn't forget your password please ignore this email`;
     
     const text = await createTextEmail(user.email , message)
@@ -147,7 +147,6 @@ exports.forgotPassword = catchAsync( async (req,res,next) => {
 
 exports.resetPassword = catchAsync(async (req,res,next) => {
     // 1) Get  user base on the token 
-
     const hashToken = crypto.createHash('sha256')
                             .update(req.params.token)
                             .digest('hex')
@@ -159,7 +158,7 @@ exports.resetPassword = catchAsync(async (req,res,next) => {
         return next( new AppError("Token is invalid or has expired",400))
     }
     user.password = req.body.password;
-    user.passwordConfirm = req.body.passwordConfirm;
+    user.confirmPassword = req.body.passwordConfirm;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();

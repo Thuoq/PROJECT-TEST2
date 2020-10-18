@@ -1,16 +1,14 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
-
+import queryString from 'query-string';
 import { Form, Input, Button, Divider } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
-//import { connect } from 'react-redux';
-//import { signInStart } from '../../redux/user/user.action';
 
-const ResetPassword = ({ signInStart }) => {
+const ResetPassword = ({ location, resetPasswordStart }) => {
   const [form] = Form.useForm();
-
+  const parsed = queryString.parse(location.search);
   const onFinish = (values) => {
-    // signInStart(values);
+    const emails = Object.assign({}, values, { token: parsed.token });
+    resetPasswordStart(emails);
     form.resetFields();
   };
 
@@ -64,7 +62,7 @@ const ResetPassword = ({ signInStart }) => {
         </Form.Item>
 
         <Form.Item
-          name="confirmPassword"
+          name="passwordConfirm"
           dependencies={['password']}
           hasFeedback
           rules={[
@@ -109,9 +107,4 @@ const ResetPassword = ({ signInStart }) => {
     </div>
   );
 };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   signInStart: (emailAndPassword) => dispatch(signInStart(emailAndPassword)),
-// });
-//connect(null, mapDispatchToProps)(SignIn);
 export default ResetPassword;

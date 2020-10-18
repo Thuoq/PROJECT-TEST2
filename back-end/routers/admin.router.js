@@ -10,7 +10,7 @@ const {getBookingWaybill
         ,postProductArray
         ,patchProductContent
         ,patchBookingContent} = require('../controllers/admin.controller')
-
+const {handleProductExcelArray } = require('../middlewares/product.middlewares')
 const {isAdmin} = require('../validations/admin.validation');
 const router = express.Router();
 
@@ -27,8 +27,9 @@ router
                 ,handleUploadDataExcel)
 router.route('/upload-product') 
         .post(upload.single('file')
-            ,postProductArray
-            )
+        ,handleProductExcelArray
+        ,postProductArray
+)
  
 
 router.route("/booking")

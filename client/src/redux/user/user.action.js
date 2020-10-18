@@ -55,6 +55,31 @@ export const userChangePassWordSuccess = (user) => ({
   payload: user,
 });
 
+export const forgotPasswordStart = (email) => ({
+  type: USER_ACTIONS_TYPES.FORGOT_PASSWORD_START,
+  payload: email,
+});
+
+export const forgotPasswordSuccess = () => ({
+  type: USER_ACTIONS_TYPES.FORGOT_PASSWORD_SUCCESS,
+});
+export const forgotPasswordFailure = () => ({
+  type: USER_ACTIONS_TYPES.FORGOT_PASSWORD_FAILURE,
+});
+
+export const resetPasswordStart = (passwordObj) => ({
+  type: USER_ACTIONS_TYPES.RESET_PASSWORD_START,
+  payload: passwordObj,
+});
+
+export const resetPasswordFailure = () => ({
+  type: USER_ACTIONS_TYPES.RESET_PASSWORD_FAILURE,
+});
+
+export const resetPasswordSuccess = (user) => ({
+  type: USER_ACTIONS_TYPES.RESET_PASSWORD_SUCCESS,
+  payload: user,
+});
 export const userChangePasswordFailure = () => ({
   type: USER_ACTIONS_TYPES.CHANGE_PASSWORD_FAILURE,
 });

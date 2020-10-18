@@ -7,16 +7,22 @@ import { getToken } from '../../helpers/auth';
 const ImportExcel = ({ endPoint }) => {
   const props = {
     name: 'file',
+    accept: '.xlsx, .xls',
     action: `${URL}${ADMIN_API}${endPoint}`,
     headers: {
       authorization: `Bearer ${getToken()}`,
     },
     onChange(info) {
       if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
+        message.success(
+          `${info.file.name} upload ${info.file.response.message}`
+        );
       } else if (info.file.status === 'error') {
+        console.log(info.file);
         message.error(
-          `${info.file.name} file upload failed. OR AUTH EXPIRED U Try Login Again`
+          `${info.file.name} ${
+            info.file.response ? info.file.response.message : 'err'
+          }  file upload failed. OR AUTH EXPIRED U Try Login Again`
         );
       }
     },

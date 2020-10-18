@@ -30,6 +30,10 @@ export const updateCompleteStart = (key) => ({
   payload: key,
 });
 
+export const updateCompleteSuccess = () => ({
+  type: BOOKING_ACTION_TYPES.UPDATE_COMPLETE_SUCCESS,
+});
+
 export const updateCompleteMultipleUser = (arrayFiled) => ({
   type: BOOKING_ACTION_TYPES.UPDATE_COMPLETE_MULTIPLE_START,
   payload: arrayFiled,

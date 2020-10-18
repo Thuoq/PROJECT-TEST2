@@ -24,6 +24,7 @@ const bookingReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
       };
     case BOOKING_ACTION_TYPES.UPDATE_CONTENT_B_SUCCESS:
+    case BOOKING_ACTION_TYPES.UPDATE_COMPLETE_SUCCESS:
       return {
         ...state,
         isLoading: false,

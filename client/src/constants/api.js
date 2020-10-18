@@ -4,7 +4,8 @@ export const USER_UPDATE_PASSWORD = '/updateMyPassword';
 export const USER_API = '/user';
 export const ADMIN_API = '/admin';
 export const LOGIN_API = '/login';
-
+export const FORGOT_PASSWORD_API = '/forgotPassword';
+export const RESET_PASSWORD_API = '/resetPassword';
 export const BOOKING_API = '/booking';
 
 export const SHOP_API = '/product';

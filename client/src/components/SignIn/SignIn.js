@@ -102,7 +102,7 @@ const SignIn = ({ signInStart }) => {
         </Button>
       </Form.Item>
       <Form.Item>
-        <a style={{ textAlign: 'center' }} href="#c">
+        <a style={{ textAlign: 'center' }} href="/forgotPassword">
           Forgot password
         </a>
       </Form.Item>

@@ -2,7 +2,7 @@ import { takeLatest, all, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import AxiosInstance from '../../helpers/interceptor';
 import { messageError } from '../../helpers/message';
-// import {message} from 'antd'
+
 import { setToken, getToken, removeToken } from '../../helpers/auth';
 import USER_ACTIONS_TYPES from './user.types';
 import {
@@ -12,11 +12,33 @@ import {
   signInFailure,
   updateUserFailure,
   userChangePasswordFailure,
+  forgotPasswordFailure,
+  resetPasswordFailure,
+  forgotPasswordSuccess,
+  resetPasswordSuccess,
 } from './user.action';
 
-import { URL, USER_API, USER_UPDATE_PASSWORD } from '../../constants/api';
+import {
+  URL,
+  USER_API,
+  USER_UPDATE_PASSWORD,
+  FORGOT_PASSWORD_API,
+  RESET_PASSWORD_API,
+} from '../../constants/api';
 import { message } from 'antd';
-
+import Axios from 'axios';
+export function fetchResetPassword(token, data) {
+  return AxiosInstance(`${URL}${USER_API}${RESET_PASSWORD_API}/${token}`, {
+    method: 'patch',
+    data,
+  });
+}
+export function fetchForgotPassWord(data) {
+  return Axios(`${URL}${USER_API}${FORGOT_PASSWORD_API}`, {
+    method: 'post',
+    data,
+  });
+}
 export function fetchUserToServer(data, type) {
   return AxiosInstance(`${URL}${USER_API}/${type}`, {
     method: 'post',
@@ -130,12 +152,46 @@ function* userChangePassword({ payload }) {
   }
 }
 
+function* resetPassword({ payload }) {
+  try {
+    const {
+      data: {
+        data: { user },
+        token,
+      },
+    } = yield call(fetchResetPassword, payload.token, payload);
+    setToken(token);
+    yield put(resetPasswordSuccess(user));
+  } catch (err) {
+    messageError(err);
+    yield put(resetPasswordFailure());
+  }
+}
+
+function* forgotPassword({ payload }) {
+  try {
+    const data = yield call(fetchForgotPassWord, payload);
+    message.success(data.data.message);
+    yield put(forgotPasswordSuccess());
+  } catch (err) {
+    messageError(err);
+    yield put(forgotPasswordFailure());
+  }
+}
+
 export function* onUserChangePassword() {
   yield takeLatest(
     USER_ACTIONS_TYPES.CHANGE_PASSWORD_START,
     userChangePassword
   );
 }
+export function* onUserResetPassword() {
+  yield takeLatest(USER_ACTIONS_TYPES.RESET_PASSWORD_START, resetPassword);
+}
+export function* onUserForgotPassword() {
+  yield takeLatest(USER_ACTIONS_TYPES.FORGOT_PASSWORD_START, forgotPassword);
+}
+
 export function* onUserExpired() {
   yield takeLatest(USER_ACTIONS_TYPES.AUTH_EXPIRED_TYPES, userExpired);
 }
@@ -171,5 +227,7 @@ export function* userSagas() {
     call(onUpdatePhone),
     call(onUserExpired),
     call(onUserChangePassword),
+    call(onUserForgotPassword),
+    call(onUserResetPassword),
   ]);
 }

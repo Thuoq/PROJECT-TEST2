@@ -9,6 +9,7 @@ import {
   getBookingWayBillSuccess,
   updateContentBookingSuccess,
   updateContentBookingFailure,
+  updateCompleteSuccess,
 } from './booking-action';
 import AxiosInstance from '../../helpers/interceptor';
 import { handleData } from './booking-utils';
@@ -22,6 +23,7 @@ import {
 import { messageError, messageSuccess } from '../../helpers/message';
 import { getToken } from '../../helpers/auth';
 import patchBookingContentOrProductContent from '../../helpers/BookingProduct';
+import { message } from 'antd';
 
 export function getBookingForWaybill(waybill) {
   let hwb = waybill ? `hwb=${waybill}` : '';
@@ -94,14 +96,9 @@ export function* getBooking({ payload }) {
 
 export function* updateMultipleComplete({ payload }) {
   try {
-    const {
-      data: {
-        data: { booking },
-      },
-    } = yield call(patchBookingMultipleCompleteToServer, payload);
-
-    const data = yield call(handleData, booking);
-    yield put(getBookingSuccess(data));
+    yield call(patchBookingMultipleCompleteToServer, payload);
+    message.success('Update Successfully');
+    yield put(updateCompleteSuccess());
   } catch (err) {
     messageError(err);
     yield put(updateCompleteFailure());
@@ -110,14 +107,9 @@ export function* updateMultipleComplete({ payload }) {
 
 export function* updateComplete({ payload }) {
   try {
-    const {
-      data: {
-        data: { booking },
-      },
-    } = yield call(patchBookingToServer, payload);
-
-    const data = yield call(handleData, booking);
-    yield put(getBookingSuccess(data));
+    yield call(patchBookingToServer, payload);
+    message.success('Update Successfully');
+    yield put(updateCompleteSuccess());
   } catch (err) {
     messageError(err);
     yield put(updateCompleteFailure());

@@ -1,11 +1,6 @@
 import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import {
-  Spinner,
-  ErrorBoundary,
-  ForgotPassword,
-  ResetPassword,
-} from '../components/index';
+import { Spinner, ErrorBoundary } from '../components/index';
 
 import PublicRoute from './public.routes';
 import PrivateRoutes from './private.routes';
@@ -17,6 +12,10 @@ import {
   UserPage,
   Page404,
 } from '../pages/index';
+import {
+  ForgotPassWordContainer,
+  ResetPassWordContainer,
+} from '../containers/index';
 
 const Routes = ({ currentUser }) => (
   <ErrorBoundary>
@@ -25,12 +24,25 @@ const Routes = ({ currentUser }) => (
         <PublicRoute exact path="/" component={HomePage} />
         <PublicRoute path="/shop" component={ShopPage} />
         <PublicRoute exact path="/checkout" component={CheckOutPage} />
-        <PublicRoute exact path="/forgotPassword" component={ForgotPassword} />
-        <PublicRoute exact path="/resetPassword" component={ResetPassword} />
+        <PublicRoute
+          exact
+          path="/forgotPassword"
+          component={ForgotPassWordContainer}
+        />
+        <PublicRoute
+          exact
+          path="/resetPassword"
+          render={(props) =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <ResetPassWordContainer {...props} />
+            )
+          }
+        />
         <PublicRoute
           exact
           path="/signInSignUp"
-          // component={SignInSignUpPage}
           render={(props) =>
             !currentUser ? (
               <SignInSignUpPage {...props} />

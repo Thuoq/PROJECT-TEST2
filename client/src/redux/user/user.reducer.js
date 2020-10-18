@@ -16,11 +16,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
       };
 
     case USER_ACTIONS_TYPES.CHANGE_PASSWORD_START:
+    case USER_ACTIONS_TYPES.RESET_PASSWORD_START:
+    case USER_ACTIONS_TYPES.FORGOT_PASSWORD_START:
       return {
         ...state,
         isUpdating: true,
       };
     case USER_ACTIONS_TYPES.SET_CURRENT_USER:
+    case USER_ACTIONS_TYPES.RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
@@ -33,8 +36,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: null,
       };
-
     case USER_ACTIONS_TYPES.CHANGE_PASSWORD_FAILURE:
+    case USER_ACTIONS_TYPES.FORGOT_PASSWORD_SUCCESS:
+    case USER_ACTIONS_TYPES.RESET_PASSWORD_FAILURE:
+    case USER_ACTIONS_TYPES.FORGOT_PASSWORD_FAILURE:
       return {
         ...state,
         isUpdating: false,

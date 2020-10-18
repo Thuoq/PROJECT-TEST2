@@ -13,7 +13,8 @@ const bookingSchema = new mongoose.Schema({
                 ref: 'product',
             },
             key: {
-                type: Number
+                type: Number,
+                required: [true, 'Booking need a Key']
             },
             isGettingProduct : {
                 type : Boolean,
@@ -27,7 +28,10 @@ const bookingSchema = new mongoose.Schema({
                 type : Boolean,
                 default: false,
             },
-            quantity: Number 
+            quantity: {
+                type: Number,
+                required: [true, 'Booking need a Quantity']
+            } 
         }
     ],
     HAWB: {
@@ -49,7 +53,6 @@ const bookingSchema = new mongoose.Schema({
     totalMoney : Number,
     createAt: {
         type: String,
-       
     },
     
 },{  
