@@ -18,7 +18,6 @@ const ImportExcel = ({ endPoint }) => {
           `${info.file.name} upload ${info.file.response.message}`
         );
       } else if (info.file.status === 'error') {
-        console.log(info.file);
         message.error(
           `${info.file.name} ${
             info.file.response ? info.file.response.message : 'err'

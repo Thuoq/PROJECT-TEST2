@@ -9,9 +9,6 @@ exports.sessionUser = (req, res) => {
     },
   });
 };
-exports.getProfileUser = catchAsync(async (req, res, next) => {
-  console.log(req);
-});
 
 exports.updateAddressUser = catchAsync(async (req, res, next) => {
   req.body.name = req.body.address;

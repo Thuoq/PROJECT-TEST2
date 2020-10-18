@@ -10,7 +10,7 @@ router.post('/forgotPassword', Auth.forgotPassword);
 router.patch('/resetPassword/:token', Auth.resetPassword);
 router.patch('/updateMyPassword',Auth.protect, Auth.updatePassword);
 router.post('/signIn', Auth.signIn);
-router.get('/profile', Auth.protect, UserController.getProfileUser);
+
 router.patch('/address', Auth.protect, UserController.updateAddressUser);
 router.patch('/phone', Auth.protect, UserController.updatePhoneUser);
 
