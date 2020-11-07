@@ -11,7 +11,10 @@ const Footer = () => (
           <div className="footer-left">
             <div className="footer-logo">
               <Link to="/">
-                <img src="https://i.postimg.cc/cH8BcTSc/logo.png" alt="" />
+                <img
+                  src="https://i.postimg.cc/ryxDpMPQ/footer-logo.png"
+                  alt="LOGO FOOTER"
+                />
               </Link>
             </div>
             <ul>
@@ -62,7 +65,7 @@ const Footer = () => (
                 <a href="/">Shopping Cart</a>
               </li>
               <li>
-                <a href="/">Shop</a>
+                <a href="/shop">Shop</a>
               </li>
             </ul>
           </div>

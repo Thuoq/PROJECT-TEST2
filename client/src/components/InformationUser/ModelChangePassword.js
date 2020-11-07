@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Input } from 'antd';
+import PropTypes from 'prop-types';
 import { red } from '@ant-design/colors';
 import { LockOutlined } from '@ant-design/icons';
 import { formItemLayout } from '../../configs/FormLayout';
@@ -110,5 +111,7 @@ const mapDispatchToProps = (dispatch) => ({
   userChangePassWordStart: (objPassword) =>
     dispatch(userChangePassWordStart(objPassword)),
 });
-
+ModelChangePassword.propTypes = {
+  userChangePassWordStart: PropTypes.func.isRequired,
+};
 export default connect(null, mapDispatchToProps)(ModelChangePassword);

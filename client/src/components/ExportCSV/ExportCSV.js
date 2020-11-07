@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { Button, message } from 'antd';
@@ -27,5 +28,8 @@ const ExportCSV = ({ csvData, fileName }) => {
     </Button>
   );
 };
-
+ExportCSV.propTypes = {
+  csvData: PropTypes.array.isRequired,
+  fileName: PropTypes.string.isRequired,
+};
 export default ExportCSV;

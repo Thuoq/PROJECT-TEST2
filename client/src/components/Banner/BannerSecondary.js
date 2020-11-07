@@ -22,7 +22,7 @@ const Banner = () => (
     >
       <Col sm={24} md={8} lg={8}>
         <div className="single-banner">
-          <img src="https://i.postimg.cc/gkVNKX1Q/image1.jpg" alt="" />
+          <img src="https://i.postimg.cc/gkVNKX1Q/image1.jpg" alt="BANNER-1" />
           <div className="inner-text">
             <h4>Clothings</h4>
           </div>
@@ -30,7 +30,7 @@ const Banner = () => (
       </Col>
       <Col sm={24} md={8} lg={8}>
         <div className="single-banner">
-          <img src="https://i.postimg.cc/P5qY8CHm/image2.jpg" alt="" />
+          <img src="https://i.postimg.cc/P5qY8CHm/image2.jpg" alt="BANNER-2" />
           <div className="inner-text">
             <h4>Housewares</h4>
           </div>
@@ -38,7 +38,7 @@ const Banner = () => (
       </Col>
       <Col sm={24} md={8} lg={8}>
         <div className="single-banner">
-          <img src="https://i.postimg.cc/zB9YTb43/image4.jpg" alt="" />
+          <img src="https://i.postimg.cc/zB9YTb43/image4.jpg" alt="BANNER-3" />
           <div className="inner-text">
             <h4>Books</h4>
           </div>

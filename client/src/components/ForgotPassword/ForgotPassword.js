@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input, Button, Divider } from 'antd';
 import './ForgotPassword.scss';
 const ForgotPassword = ({ forgotPasswordStart }) => {
@@ -69,6 +70,9 @@ const ForgotPassword = ({ forgotPasswordStart }) => {
       </Form>
     </div>
   );
+};
+ForgotPassword.propTypes = {
+  forgotPasswordStart: PropTypes.func.isRequired,
 };
 
 export default ForgotPassword;

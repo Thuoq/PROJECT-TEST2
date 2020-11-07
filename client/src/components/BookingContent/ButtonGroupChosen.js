@@ -29,18 +29,12 @@ const ButtonGroupChosen = ({ bookingsChoose, updateCompleteMultipleUser }) => {
               okText="Yes"
               cancelText="No"
               onCancel={() => message.error('U click on No')}
-              onConfirm={
-                () =>
-                  updateFetchComplete(
-                    updateCompleteMultipleUser,
-                    bookingsChoose,
-                    status
-                  )
-                // handleComplete({
-                //   key: record.key,
-                //   id: record._id,
-                //   status,
-                // })
+              onConfirm={() =>
+                updateFetchComplete(
+                  updateCompleteMultipleUser,
+                  bookingsChoose,
+                  status
+                )
               }
             >
               <Button type="primary">
@@ -58,18 +52,12 @@ const ButtonGroupChosen = ({ bookingsChoose, updateCompleteMultipleUser }) => {
               okText="Yes"
               cancelText="No"
               onCancel={() => message.error('U click on No')}
-              onConfirm={
-                () =>
-                  updateFetchComplete(
-                    updateCompleteMultipleUser,
-                    bookingsChoose,
-                    status
-                  )
-                // handleComplete({
-                //   key: record.key,
-                //   id: record._id,
-                //   status,
-                // })
+              onConfirm={() =>
+                updateFetchComplete(
+                  updateCompleteMultipleUser,
+                  bookingsChoose,
+                  status
+                )
               }
             >
               <Button type="primary">

@@ -20,7 +20,7 @@ const FormEditCard = ({ record, updateContentBookingStart }) => {
         name: record.name,
         address: record.address,
         quantity: record.quantity,
-        totalMoney: record.totalMoney,
+        totalMoney: record.totalMoney.toFixed(2),
       }}
       name="nest-messages"
       onFinish={onFinish}
@@ -64,7 +64,7 @@ const FormEditCard = ({ record, updateContentBookingStart }) => {
             type: 'number',
             min: 0,
             max: 3000,
-            message: 'Number not > 200',
+            message: 'Number not > 3000',
           },
         ]}
         hasFeedback

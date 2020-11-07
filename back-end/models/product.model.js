@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
     priceVN: {
         type: Number,
         trim: true,
-        required : [ true, 'Product need a Price VN']
+        required : [ true, 'Product need a Price VN'],
     },
     priceUSD:{
         type: Number, 

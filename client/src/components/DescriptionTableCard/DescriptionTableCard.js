@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './DescriptionTableCard.scss';
 const DescriptionTableCard = ({ productDetail }) => (
   <div className="specification-table">
@@ -30,5 +32,12 @@ const DescriptionTableCard = ({ productDetail }) => (
     </div>
   </div>
 );
-
+DescriptionTableCard.propTypes = {
+  productDetail: PropTypes.shape({
+    nameEN: PropTypes.string.isRequired,
+    origin: PropTypes.string.isRequired,
+    priceUSD: PropTypes.number.isRequired,
+    priceVN: PropTypes.number.isRequired,
+  }),
+};
 export default DescriptionTableCard;

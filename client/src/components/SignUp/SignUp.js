@@ -69,6 +69,11 @@ const SignUp = ({ signUpStart }) => {
             required: true,
             message: 'Please input your E-mail!',
           },
+          {
+            message: 'Max 20 characters and min 9 characters',
+            min: 9,
+            max: 20,
+          },
         ]}
       >
         <Input
@@ -126,8 +131,17 @@ const SignUp = ({ signUpStart }) => {
         rules={[
           {
             required: true,
-            message: 'Please input your nickname!',
+            message: 'Please input your nickname',
             whitespace: true,
+          },
+          {
+            type: 'string',
+            message: 'Name is not Number',
+          },
+          {
+            message: 'Max 15 characters and min 9 characters',
+            min: 9,
+            max: 15,
           },
         ]}
       >
@@ -142,7 +156,12 @@ const SignUp = ({ signUpStart }) => {
         rules={[
           {
             required: true,
-            message: 'Please provide your Address !',
+            message: 'Please provide your Address ! ',
+          },
+          {
+            message: ' Max characters 15',
+            min: 9,
+            max: 15,
           },
         ]}
       >

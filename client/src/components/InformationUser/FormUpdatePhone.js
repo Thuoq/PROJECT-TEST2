@@ -51,7 +51,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FormUpdatePhone.propsType = {
-  updatePhoneNumberStart: PropTypes.func,
+  updatePhoneNumberStart: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(FormUpdatePhone);

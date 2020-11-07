@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import queryString from 'query-string';
+import PropTypes from 'prop-types';
 import { Layout, Table, Input } from 'antd';
 import COLUMNS from '../../configs/Directory/Directory';
 const { Content } = Layout;
@@ -64,5 +65,18 @@ const Directory = ({
     </Layout>
   );
 };
-
+Directory.propTypes = {
+  getCollectionStart: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  collections: PropTypes.array.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  }),
+};
 export default Directory;

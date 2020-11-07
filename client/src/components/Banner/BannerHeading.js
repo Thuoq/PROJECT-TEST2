@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes, { func, string } from 'prop-types';
 import { Col, Row, Button } from 'antd';
 import './BannerHeading.scss';
 import { withRouter } from 'react-router-dom';
@@ -32,5 +32,14 @@ const BannerHeading = ({ match, history }) => (
     </Row>
   </section>
 );
+
+BannerHeading.propTypes = {
+  match: PropTypes.shape({
+    url: string.isRequired,
+  }),
+  history: PropTypes.shape({
+    push: func.isRequired,
+  }),
+};
 
 export default withRouter(BannerHeading);
