@@ -3,9 +3,45 @@ const Booking = require('../models/booking.model');
 const catchAsync = require('../utils/catchAsync');
 const Product = require('../models/product.model');
 const APIFeatures = require('../utils/apiFeatures');
+const User = require('../models/user.model')
 
 
+exports.getAllUsers = catchAsync(async(req,res,next) => {
+    // REGX
+    const users = await User.find({_id: {$ne:req.user.id}})
+    res.status(200).json({
+         status: "success",
+         users,
+    })
+})
+exports.getOneUser= catchAsync(async(req,res,next) => {
+    const {
+        id
+    } = req.params
 
+    const user = await User.findById(id)
+    res.status(200).json({
+        status: "success",
+        user,
+    })
+})
+exports.editUser = catchAsync(async(req,res,next) => {
+    const {id} = req.params
+    const user = await User.findByIdAndUpdate(id,req.body, {
+        new: true
+    })
+    res.status(200).json({
+        status: 'success',
+        user
+    })
+})
+exports.deleteUser = catchAsync(async (req, res, next) => {
+    const {id} = req.params
+    await User.findByIdAndDelete(id)
+    res.status(200).json({
+        status: 'success',
+    })
+})
 
 exports.getBookingWaybill = catchAsync( async (req,res,next) => {
     let booking ;

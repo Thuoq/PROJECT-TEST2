@@ -24,3 +24,5 @@ export { default as ImportView } from './ImportView/ImportView';
 export { default as BookingImport } from './BookingContent/BookingImport';
 export { default as ForgotPassword } from './ForgotPassword/ForgotPassword';
 export { default as ResetPassword } from './ResetPassword/ResetPassword';
+
+export { default as ManageUsers } from './ManageUsers/ManageUsers';

@@ -8,6 +8,7 @@ import {
   InformationUser,
   ImportView,
   BookingImport,
+  ManageUsers,
 } from '../../components/index';
 
 import { DirectoryContainer } from '../../containers/index';
@@ -25,6 +26,7 @@ const UserPage = ({ match }) => (
         path={`${match.url}/booking-import`}
         component={BookingImport}
       />
+      <Route exact path={`${match.url}/manage-user`} component={ManageUsers} />
     </Switch>
   </Layout>
 );

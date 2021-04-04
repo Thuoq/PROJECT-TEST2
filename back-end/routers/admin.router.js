@@ -9,7 +9,11 @@ const {getBookingWaybill
         ,getProductAdmin
         ,postProductArray
         ,patchProductContent
-        ,patchBookingContent} = require('../controllers/admin.controller')
+        ,patchBookingContent
+,getAllUsers,
+getOneUser,
+editUser,
+deleteUser} = require('../controllers/admin.controller')
 const {handleProductExcelArray } = require('../middlewares/product.middlewares')
 const {isAdmin} = require('../validations/admin.validation');
 const router = express.Router();
@@ -44,6 +48,11 @@ router
 router
     .route('/upload-complete-many')
     .patch(updateCompleteMany)
+router.route('/users').get(getAllUsers)
+router.route('/users/:id')
+                .get(getOneUser)
+                .patch(editUser)
+                .delete(deleteUser)
 
 
 module.exports = router;

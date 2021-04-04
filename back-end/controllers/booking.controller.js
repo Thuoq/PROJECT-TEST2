@@ -43,11 +43,14 @@ exports.updateComplete = catchAsync(async (req,res,next) => {
     
     const {key,id,status} = req.body;
     // Change placeholder make true 
+    // console.log(status)
     var placeholder = {};
+    
     placeholder[`cart.$.${status}`] = !req.body[status];
-    await Booking.updateOne({"_id":id, "cart.key":key},{$set: placeholder},{
+     await Booking.updateOne({"_id":id, "cart.key":key},{$set: placeholder},{
         new: true
     })
+    
     res.status(200).json({
         status: 'success',
     })

@@ -41,6 +41,10 @@ const productSchema = new mongoose.Schema({
         default : 'https://i.postimg.cc/Gm3qNSGQ/photo-1583743814966-8936f5b7be1a.jpg'
     },
     productURL: String,
+    stored: {
+        type:Number,
+        default: 0
+    }
     
 })
 

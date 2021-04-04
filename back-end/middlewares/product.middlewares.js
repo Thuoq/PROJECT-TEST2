@@ -5,7 +5,9 @@ const catchAsync = require("../utils/catchAsync");
 const Product = require("../models/product.model");
 
 exports.handleProductExcelArray =  catchAsync(async (req,res,next) => {
+    console.log('hello')
     const data = convertDataExcelToArray(req);
+
     const path = `${process.cwd()}/uploads/` + req.file.filename;
     await fs.unlink(path,(err) => {
         if(err) {
@@ -18,6 +20,7 @@ exports.handleProductExcelArray =  catchAsync(async (req,res,next) => {
             nameEN : el.nameEN
         })
         if(!productExist) {
+
             return  Product.create(el)
         } 
        

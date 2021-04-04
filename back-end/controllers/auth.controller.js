@@ -50,14 +50,20 @@ exports.signIn =  catchAsync(async (req,res,next) => {
     // CHECK USER AND PASSWORD VALID
     const user = await User.findOne({ email }).select("+password");
 
-    const correct = await user.correctPassword (password, user.password);
-    
-    if(!user || !correct) {
+    if(!user ) {
         return  next( 
                 new AppError('Incorrect email or password',401
            )
         )
     }
+    const correct = await user.correctPassword(password, user.password);
+    if (!correct) {
+        return next(
+            new AppError('Incorrect email or password', 401)
+        )
+    }
+    
+    
     
     createSendToken(user,200,res);
 })

@@ -6,6 +6,7 @@ import {
   AccountBookOutlined,
   UploadOutlined,
   ShopOutlined,
+  UsergroupDeleteOutlined,
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -32,6 +33,9 @@ const SideBarUser = ({ currentUser }) => (
           </Menu.Item>
           <Menu.Item key="5" icon={<AccountBookOutlined />}>
             <Link to="/user/booking-import"> Booking Import</Link>
+          </Menu.Item>
+          <Menu.Item key="6" icon={<UsergroupDeleteOutlined />}>
+            <Link to="/user/manage-user">Manage Users</Link>
           </Menu.Item>
         </Menu>
       ) : null}
